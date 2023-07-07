@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Pzbase
+ * Plugin Name:       Pzdata
  * Description:       PeakZebra core tables and REST api. Activate this before installing/activating other
  *                    PZ plugins.
  * Requires at least: 6.1
@@ -9,9 +9,9 @@
  * Author:            Robert Richardson
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       pzbase
+ * Text Domain:       pzdata
  *
- * @package           pzbase
+ * @package           pzdata
  */
 
  
@@ -94,6 +94,23 @@ function pz_onActivate() {
     PRIMARY KEY  (slug)
   ) $charset;");
 
+$tablnam = $wpdb->prefix . "pz_project";
+
+dbDelta("CREATE TABLE $tablnam (
+  project_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  project_name varchar(80) NOT NULL DEFAULT '',
+  tenant_ID varchar(20) NOT NULL DEFAULT '',
+  project_status varchar(20) NOT NULL DEFAULT '',
+  project_lead bigint(20) NOT NULL DEFAULT 1,
+  team_members varchar(40) NOT NULL DEFAULT '',
+  project_description varchar(500) NOT NULL DEFAULT '',
+  kickoff_date varchar(12) NOT NULL DEFAULT '',
+  due_date varchar(12) NOT NULL DEFAULT '',
+  budget varchar(20) NOT NULL DEFAULT '',
+  created varchar(12) NOT NULL DEFAULT '',
+  PRIMARY KEY  (project_id)
+) $charset;");
+
 $tablnam = $wpdb->prefix . "pz_request_queue";
 
 dbDelta("CREATE TABLE $tablnam (
@@ -169,6 +186,10 @@ fillPersonTable();
 
   }
 
+/**
+ * Utility function for creating test data in person table
+ */
+
   function fillPersonTable() {
     global $wpdb;
     $item = array();
@@ -228,6 +249,10 @@ fillPersonTable();
    
   }
   
+  /**
+   * REST API for retrieving person list... 
+   */
+
   add_action('rest_api_init', 'set_up_person_rest_route');
   function set_up_person_rest_route() {
     register_rest_route('pz/v1', 'person', array(
@@ -249,4 +274,30 @@ fillPersonTable();
   
     return $results;
   }
+
+  /**
+   * REST API for retrieving project list... 
+   */
+
+   add_action('rest_api_init', 'set_up_project_rest_route');
+   function set_up_project_rest_route() {
+     register_rest_route('pz/v1', 'project', array(
+       'methods' => WP_REST_SERVER::READABLE,
+       'callback' => 'do_project'
+     ));
+   }
+   
+   function do_project($stuff) {
+     global $wpdb;
+     $limit = 120;
+     $offset = 0;
+   
+     $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_project ", ARRAY_A );
+     if( !isset($results[0])) {
+       $offset=0;
+       $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_project LIMIT $limit OFFSET $offset ", ARRAY_A );
+     };
+   
+     return $results;
+   }
   
