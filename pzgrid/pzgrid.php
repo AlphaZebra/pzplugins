@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name:       Parthenon
- * Description:       Example block scaffolded with Create Block tool.
+ * Plugin Name:       pzgrid
+ * Description:       Block that creates data grid for tables.
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Version:           0.1.0
- * Author:            The WordPress Contributors
+ * Author:            Robert Richardson
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       parthenon
+ * Text Domain:       pzgrid
  *
- * @package           create-block
+ * @package           pzgrid
  */
 
 /**
@@ -39,20 +39,3 @@ function pz_the_block($attributes) {
 	return ob_get_clean();
 }
 
-add_action('rest_api_init', 'set_up_rest_route');
-function set_up_rest_route() {
-	register_rest_route('pz/v1', 'cal', array(
-		'methods' => WP_REST_SERVER::READABLE,
-		'callback' => 'do_cal'
-	));
-}
-
-function do_cal($stuff) {
-	
-	$slots = array(
-		"1pm" => $stuff['date'],
-		"2pm" => "busy",
-		"3pm" => "open"
-	);
-	return $slots;
-}
