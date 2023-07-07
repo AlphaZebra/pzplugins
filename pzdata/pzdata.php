@@ -228,5 +228,25 @@ fillPersonTable();
    
   }
   
- 
+  add_action('rest_api_init', 'set_up_person_rest_route');
+  function set_up_person_rest_route() {
+    register_rest_route('pz/v1', 'person', array(
+      'methods' => WP_REST_SERVER::READABLE,
+      'callback' => 'do_person'
+    ));
+  }
+  
+  function do_person($stuff) {
+    global $wpdb;
+    $limit = 120;
+    $offset = 0;
+  
+    $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person ", ARRAY_A );
+    if( !isset($results[0])) {
+      $offset=0;
+      $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person LIMIT $limit OFFSET $offset ", ARRAY_A );
+    };
+  
+    return $results;
+  }
   
