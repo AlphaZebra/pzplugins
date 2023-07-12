@@ -96,8 +96,8 @@ function pz_onActivate() {
 
 $tablnam = $wpdb->prefix . "pz_project";
 
-dbDelta("CREATE TABLE $tablnam (
-  project_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+$delta_string = "CREATE TABLE $tablnam (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   project_name varchar(80) NOT NULL DEFAULT '',
   tenant_ID varchar(20) NOT NULL DEFAULT '',
   project_status varchar(20) NOT NULL DEFAULT '',
@@ -109,7 +109,9 @@ dbDelta("CREATE TABLE $tablnam (
   budget varchar(20) NOT NULL DEFAULT '',
   created varchar(12) NOT NULL DEFAULT '',
   PRIMARY KEY  (project_id)
-) $charset;");
+) $charset;";
+
+dbDelta($delta_string);
 
 $tablnam = $wpdb->prefix . "pz_request_queue";
 
@@ -285,6 +287,10 @@ fillPersonTable();
        'methods' => WP_REST_SERVER::READABLE,
        'callback' => 'do_project'
      ));
+     register_rest_route('pz/v1', 'putproj', array(
+       'methods' => 'POST',
+       'callback' => 'do_putproj'
+     ));
    }
    
    function do_project($stuff) {
@@ -301,3 +307,55 @@ fillPersonTable();
      return $results;
    }
   
+   function do_putproj($data) {
+    global $wpdb;
+    $item = array();
+    $item['id'] = $data['id'];
+    $item['project_name'] = $data['project_name'];
+    $item['tenant_ID'] = 'TEST';
+    $item['project_status'] = $data['project_status'];
+    $item['project_lead'] = 2;
+    $item['team_members'] = '';
+    $item['team_members'] = '';
+    $item['project_description'] = 'Be a good lad, then.';
+    $item['kickoff_date'] = $data['kickoff_date'];
+    $item['due_date'] = $data['due_date'];
+    $item['budget'] = $data['budget'];
+    $item['created'] = '';
+
+
+    
+      $wpdb->update( "{$wpdb->prefix}pz_project", $item, array('id' => $data['id']) );
+
+    return $data['project_name'];
+ 
+    
+   }
+
+   /**
+   * REST API for retrieving table structure... 
+   */
+
+  add_action('rest_api_init', 'set_up_structure_rest_route');
+  function set_up_structure_rest_route() {
+    register_rest_route('pz/v1', 'structure', array(
+      'methods' => WP_REST_SERVER::READABLE,
+      'callback' => 'do_structure'
+    ));
+  }
+  
+  function do_structure($stuff) {
+    global $wpdb;
+    $limit = 120;
+    $offset = 0;
+    // var_dump($_GET);
+    // exit;
+    $squery = "DESCRIBE " . $wpdb->prefix . $_GET['table'];
+    $results = $wpdb->get_results( $squery, ARRAY_A );
+    if( !isset($results[0])) {
+      $offset=0;
+      $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person LIMIT $limit OFFSET $offset ", ARRAY_A );
+    };
+  
+    return $results;
+  }
