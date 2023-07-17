@@ -57225,7 +57225,7 @@ const url = "http://suchthings.local/wp-json/pz/v1/person";
 let response = await fetch(url);
 let json = await response.text();
 let rows = JSON.parse(json);
-// console.log(rows);
+console.log(rows);
 
 // const rows = [
 // 	{ id: 1, col1: "Hello", col2: "World" },

@@ -1,8 +1,7 @@
 <?php
 /**
  * Plugin Name:       Pzdata
- * Description:       PeakZebra core tables and REST api. Activate this before installing/activating other
- *                    PZ plugins.
+ * Description:       Creates core tables for PeakZebra along with REST api.
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Version:           0.1.0
@@ -14,348 +13,238 @@
  * @package           pzdata
  */
 
- 
- if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
- register_activation_hook(
-	__FILE__,
-	'pz_onActivate'
-);
-
-function pz_onActivate() {
-  global $wpdb;
-  require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
-
- 
-
-  $tablnam = $wpdb->prefix . "pz_person";
-  $charset = $wpdb->get_charset_collate();
-  
-
-  dbDelta("CREATE TABLE wp_pz_person ( 
-    id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    tenant_ID varchar(20) NOT NULL DEFAULT '',
-    firstname varchar(20) NOT NULL DEFAULT '',
-    lastname varchar(30) NOT NULL DEFAULT '',
-    title varchar(30) NOT NULL DEFAULT '',
-    company varchar(60) NOT NULL DEFAULT '',
-    addr_line1 varchar(60) NOT NULL DEFAULT '',
-    addr_line2 varchar(60) NOT NULL DEFAULT '',
-    addr_city varchar(60) NOT NULL DEFAULT '',
-    addr_state varchar(2) NOT NULL DEFAULT '',
-    addr_zip varchar(12) NOT NULL DEFAULT '',
-    email varchar(60) NOT NULL DEFAULT '',
-    phone1 varchar(20) NOT NULL DEFAULT '',
-    phone1_type varchar(20) NOT NULL DEFAULT '', 
-    phone2 varchar(20) NOT NULL DEFAULT '',
-    phone2_type varchar(20) NOT NULL DEFAULT '',
-    username varchar(20) NOT NULL DEFAULT '',
-    has_notes int(4) NOT NULL DEFAULT 0,
-    pz_level varchar(12) NOT NULL DEFAULT '',
-    pz_status varchar(10) NOT NULL DEFAULT '', 
-    created varchar(12) NOT NULL DEFAULT '',
-      PRIMARY KEY  (id)
-  ) $charset;");
-
-  // TODO - add check on whether there were errors creating table... 
-
-  $tablnam = $wpdb->prefix . "pz_configuration";
-
-  // the configuration file holds unique key pairs that store app-specific configuration settings. 
-  dbDelta("CREATE TABLE $tablnam (
-    config_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    config_key varchar(255) NOT NULL DEFAULT '',
-    config_value varchar(255) NOT NULL DEFAULT '',
-    created varchar(12) NOT NULL DEFAULT '',
-    PRIMARY KEY  (config_id)
-  ) $charset;");
-
-  $tablnam = $wpdb->prefix . "pz_interaction";
-
-  // tracking for interactions with people. 
-  dbDelta("CREATE TABLE $tablnam (
-    int_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    id bigint(20) NOT NULL DEFAULT 1,
-    summary varchar(255) NOT NULL DEFAULT '',
-    details varchar(800) NOT NULL DEFAULT '',
-    created varchar(12) NOT NULL DEFAULT '',
-    PRIMARY KEY  (int_id)
-  ) $charset;");
-
-  $tablnam = $wpdb->prefix . "pz_request_type";
-
-  dbDelta("CREATE TABLE $tablnam (
-    slug varchar(20) NOT NULL DEFAULT '',
-    tenant_ID varchar(20) NOT NULL DEFAULT '',
-    category varchar(20) NOT NULL DEFAULT '',
-    display_name varchar(60) NOT NULL DEFAULT '',
-    request_description varchar(500) NOT NULL DEFAULT '',
-    created varchar(12) NOT NULL DEFAULT '',
-    PRIMARY KEY  (slug)
-  ) $charset;");
-
-$tablnam = $wpdb->prefix . "pz_project";
-
-$delta_string = "CREATE TABLE $tablnam (
-  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  project_name varchar(80) NOT NULL DEFAULT '',
-  tenant_ID varchar(20) NOT NULL DEFAULT '',
-  project_status varchar(20) NOT NULL DEFAULT '',
-  project_lead bigint(20) NOT NULL DEFAULT 1,
-  team_members varchar(40) NOT NULL DEFAULT '',
-  project_description varchar(500) NOT NULL DEFAULT '',
-  kickoff_date varchar(12) NOT NULL DEFAULT '',
-  due_date varchar(12) NOT NULL DEFAULT '',
-  budget varchar(20) NOT NULL DEFAULT '',
-  created varchar(12) NOT NULL DEFAULT '',
-  PRIMARY KEY  (project_id)
-) $charset;";
-
-dbDelta($delta_string);
-
-$tablnam = $wpdb->prefix . "pz_request_queue";
-
-dbDelta("CREATE TABLE $tablnam (
-  requestID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  tenant_ID varchar(20) NOT NULL DEFAULT '',
-  clientID bigint(20) unsigned NOT NULL,
-  category varchar(20) NOT NULL DEFAULT '',
-  slug varchar(20) NOT NULL DEFAULT '',
-  display_name varchar(60) NOT NULL DEFAULT '',
-  req_status varchar(20) NOT NULL DEFAULT '',
-  req_priority bigint(10) unsigned DEFAULT 100,
-  request_description varchar(500) NOT NULL DEFAULT '',
-  created varchar(12) NOT NULL DEFAULT '',
-  PRIMARY KEY  (requestID)
-) $charset;");
-
-$tablnam = $wpdb->prefix . "pz_calendar";
-
-dbDelta("CREATE TABLE $tablnam (
-  cal_event_ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  tenant_ID varchar(20) NOT NULL DEFAULT '',
-  clientID bigint(20) unsigned NOT NULL,
-  category varchar(20) NOT NULL DEFAULT '',
-  event_name varchar(60) NOT NULL DEFAULT '',
-  event_detail varchar(500) NOT NULL DEFAULT '',
-  created varchar(12) NOT NULL DEFAULT '',
-  PRIMARY KEY  (cal_event_id)
-) $charset;");
-
-$tablnam = $wpdb->prefix . "pz_cal_meeting_type";
-
-dbDelta("CREATE TABLE $tablnam (
-  cal_event_type_ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  tenant_ID varchar(20) NOT NULL DEFAULT '',
-  clientID bigint(20) unsigned NOT NULL,
-  meeting_name varchar(60) NOT NULL DEFAULT '',
-  meeting_description varchar(500) NOT NULL DEFAULT '',
-  created varchar(12) NOT NULL DEFAULT '',
-  PRIMARY KEY  (cal_event_type_id)
-) $charset;");
-
-$tablnam = $wpdb->prefix . "pz_cal_availability";
-
-dbDelta("CREATE TABLE $tablnam (
-  cal_avail_date_ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  tenant_ID varchar(20) NOT NULL DEFAULT '',
-  clientID bigint(20) unsigned NOT NULL DEFAULT 1,
-  cal_event_type_id bigint(20) unsigned NOT NULL DEFAULT 1,
-  cal_avail_slots varchar(100) NOT NULL DEFAULT '',
-  created varchar(12) NOT NULL DEFAULT '',
-  PRIMARY KEY  (cal_avail_date_ID)
-) $charset;");
-
-$tablnam = $wpdb->prefix . "pz_roadmap";
-
-dbDelta("CREATE TABLE $tablnam (
-  roadmap_ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  tenant_ID varchar(20) NOT NULL DEFAULT '',
-  clientID bigint(20) unsigned NOT NULL DEFAULT 1,
-  feature_name varchar(100) NOT NULL DEFAULT '',
-  objectives varchar(15) NOT NULL DEFAULT '',
-  key_result varchar(15) NOT NULL DEFAULT '',
-  effort varchar(15) NOT NULL DEFAULT '',
-  feature_status varchar(15) NOT NULL DEFAULT '',
-  team varchar(40) NOT NULL DEFAULT '',
-  release_quarter varchar(4) NOT NULL DEFAULT '',
-  feature_description varchar(400) NOT NULL DEFAULT '',
-  created varchar(12) NOT NULL DEFAULT '',
-  PRIMARY KEY  (roadmap_ID)
-) $charset;");
-
-fillPersonTable();
-
-  }
-
 /**
- * Utility function for creating test data in person table
+ * Registers the block using the metadata loaded from the `block.json` file.
+ * Behind the scenes, it registers also all assets so they can be enqueued
+ * through the block editor in the corresponding context.
+ *
+ * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 
-  function fillPersonTable() {
-    global $wpdb;
-    $item = array();
-  
-    $firstnames = array(
-      'Peter', 'Mary', 'Rosemary', 'Tal', 'Smoky', 'Penny', 'Luke', 'Hank', 'Patsy', 'Dolores'
-    );
-    $lastnames = array(
-      'Parsifal', 'Mondrian', 'Telluride', 'Johnson', 'Mackie', 'Jansen', 'Moriarty', 'Clydesman', 'Sheeran', 'Booker'
-    );
-    $tenants = array(
-      'AA1', 'AA2', 'BB', 'CC', 'DD3', 'LLL', 'HORS4', 'LKI', '779', 'PONY'
-    );
-    $titles = array (
-      'Director',
-      'Fun Captain',
-      'Sargeant at Arms',
-      'Horse Trader',
-      'President',
-      'Assistant Representative',
-      'Tawdry Sales Guy',
-      'Owner and Founder',
-      'Chief Marketing Officer',
-      'Chaplain'
-    );
-    $companies = array (
-      'Gargantua',
-      'Pelham Corporation',
-      'Badger Depot',
-      'Tartar and Sauce, LLC',
-      'The Rock Salon',
-      'Thrust Auto Body',
-      'CoughSecure Inc.',
-      'Regions Uncharted',
-      'Peel and Pit',
-      'Tortoise and Sons'
-    );
-  
-    
-  
-    $item['id'] = null;
-    $tablnam = $wpdb->prefix . "pz_person";
 
-    
-  
-    for ($x = 0; $x <= 10; $x++) {
-      $item['firstname'] = $firstnames[rand(0,9)];
-      $item['lastname'] = $lastnames[rand(0,9)];
-      $item['title'] = $titles[rand(0,9)];
-      $item['company'] = $companies[rand(0,9)];
-      if( $wpdb->insert( $tablnam, $item ) <= 0 ) {  
-          var_dump( $wpdb );
-          exit;
-      }
-      }
-  
-   
-  }
-  
-  /**
-   * REST API for retrieving person list... 
+ define('PZ_PLUGIN_DIR', plugin_dir_path(__FILE__));
+
+
+ // Includes
+
+ include( PZ_PLUGIN_DIR . 'includes/register-blocks.php');
+ include( PZ_PLUGIN_DIR . 'includes/pz-do-edit-block.php');
+ include( PZ_PLUGIN_DIR . 'includes/pz-interaction.php');
+
+
+ // Hooks
+
+
+ add_action('init', 'pzdata_register');
+
+
+
+function pz_person_block($attributes) {
+	global $wpdb;
+	global $pz_cur_person;
+
+	// wp_enqueue_script('aaa04', plugin_dir_url(__FILE__) . 'build/blocks/pz_person_edit/frontend.js', array('wp-element', 'wp-components'), null, true);
+	
+
+
+	// if flag is set, we should read in and prefill the current person record
+	$item = array(
+		'id' => null,
+		'firstname' => '',
+		'lastname' => '',
+		'title' => '',
+		'company' => '',
+		'email' => ''
+	);
+	
+	// The isEdit attribute is true if an existing record should be read in for editing in the form. 
+	// If true, the record with the id stored in the global $pz_cur_person is read in, even though
+	// it's theoretically loaded in the $pz_cur_person array -- just a safety precaution in case the 
+	// record has been changed elsewhere since the last time we read it in. 
+	$update = '';
+	if( $attributes['isEdit'] ) {
+		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE id = {$pz_cur_person['id']}", ARRAY_A );
+		$item = $results[0];
+		$update = "update";
+	} else if (isset($_GET['per'])) {
+		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE id = {$_GET['per']}", ARRAY_A );
+		$item = $results[0];
+		$update = "update";
+	}
+
+	// mustBeNew causes check to ensure person with same email isn't already enrolled. If email is a duplicate, 
+	// an error is shown and user must re-edit form. 
+	if( $attributes['mustBeNew']) {
+
+	}
+
+	ob_start();
+	?>
+	
+	<form action="<?php echo esc_url(admin_url('admin-post.php')) ?>" method="POST" class="form-style-1">
+		<input type="hidden" name="action" value="do-person-edit-block" required>
+		<input type="hidden" name="url" value="<?php echo $attributes['redirectURL'];  ?>" required>
+		<?php if( $update == "update" ) { ?>
+		<input type="hidden" name="id" value="<?php echo $_GET['per'];  ?>" required>
+		<?php } ?>
+			<h3>Your basic information</h3>
+			<!-- <label>ID</label>
+			<input type="text" name="id" class="field-divided" value="<?php /*echo $item['id']*/ ?>" placeholder="9" />
+			-->
+			<label>Name</label>
+			<input type="text" name="firstname" class="field-divided" value="<?php echo $item['firstname'] ?>" placeholder="First" />
+			<input type="text" name="lastname" class="field-divided" value="<?php echo $item['lastname'] ?>" placeholder="Last" />
+			<label>Title</label>
+			<input type="text" name="title" class="field-long" value="<?php echo $item['title'] ?>" placeholder="..." />
+			<label>Company</label>
+			<input type="text" name="company" class="field-long" value="<?php echo $item['company'] ?>" placeholder="Your Company Name" />
+			<label>Email</label>
+			<input type="text" name="email" class="field-long" value="<?php echo $item['email'] ?>" placeholder="you@yourcompany.com" />
+			<input type="submit" value="Save" />
+		</form>
+	<div class="pz-target-div"><pre><?php /* echo wp_json_encode($attributes);*/ ?></pre></div>
+	
+	<?php
+	return ob_get_clean();
+}
+
+$pz_cur_person = array(
+    'id' => null,
+    'firstname' => '',
+    'lastname' => ''
+  );
+
+
+  /** 
+   * Person table listing render function
    */
 
-  add_action('rest_api_init', 'set_up_person_rest_route');
-  function set_up_person_rest_route() {
-    register_rest_route('pz/v1', 'person', array(
-      'methods' => WP_REST_SERVER::READABLE,
-      'callback' => 'do_person'
-    ));
-  }
-  
-  function do_person($stuff) {
-    global $wpdb;
-    $limit = 120;
-    $offset = 0;
-  
-    $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person ", ARRAY_A );
-    if( !isset($results[0])) {
-      $offset=0;
-      $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person LIMIT $limit OFFSET $offset ", ARRAY_A );
-    };
-  
-    return $results;
-  }
+  function pz_person_list($attributes) {
+	global $wpdb;
+	global $pz_cur_person;
 
-  /**
-   * REST API for retrieving project list... 
-   */
+	wp_enqueue_script('aaa04', plugin_dir_url(__FILE__) . 'build/blocks/frontend.js', array('wp-element', 'wp-components'));
+	
+	// if flag is set, we should read in and prefill the current person record
+	$item = array(
+		'id' => null,
+		'firstname' => '',
+		'lastname' => ''
+	);
+	
+	$per = null;
+	if( isset($_GET['pzp'])) {
+		$page = $_GET['pzp'];
+	} else $page = 0;
+	if( isset($_GET['per'])) {
+		$per = $_GET['per'];
+	}
+	
+	
 
-   add_action('rest_api_init', 'set_up_project_rest_route');
-   function set_up_project_rest_route() {
-     register_rest_route('pz/v1', 'project', array(
-       'methods' => WP_REST_SERVER::READABLE,
-       'callback' => 'do_project'
-     ));
-     register_rest_route('pz/v1', 'putproj', array(
-       'methods' => 'POST',
-       'callback' => 'do_putproj'
-     ));
-   }
-   
-   function do_project($stuff) {
-     global $wpdb;
-     $limit = 120;
-     $offset = 0;
-   
-     $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_project ", ARRAY_A );
-     if( !isset($results[0])) {
-       $offset=0;
-       $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_project LIMIT $limit OFFSET $offset ", ARRAY_A );
-     };
-   
-     return $results;
-   }
-  
-   function do_putproj($data) {
-    global $wpdb;
-    $item = array();
-    $item['id'] = $data['id'];
-    $item['project_name'] = $data['project_name'];
-    $item['tenant_ID'] = 'TEST';
-    $item['project_status'] = $data['project_status'];
-    $item['project_lead'] = 2;
-    $item['team_members'] = '';
-    $item['team_members'] = '';
-    $item['project_description'] = 'Be a good lad, then.';
-    $item['kickoff_date'] = $data['kickoff_date'];
-    $item['due_date'] = $data['due_date'];
-    $item['budget'] = $data['budget'];
-    $item['created'] = '';
+	$limit = $attributes['numRows'];
+	$offset = $limit * $page;
+	
+
+	if($per != null) {
+		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE lastname LIKE '$per' LIMIT $limit OFFSET $offset ", ARRAY_A );
+	} else {
+		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person LIMIT $limit OFFSET $offset ", ARRAY_A );
+		if( !isset($results[0])) {
+			$offset=0;
+			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person LIMIT $limit OFFSET $offset ", ARRAY_A );
+		};
+	}
+	
+
+	
+
+	ob_start();
+	?>
+	<form action="<?php echo esc_url(admin_url('admin-post.php')) ?>" method="POST" class="form-style-1">
+		<input type="hidden" name="action" value="do-person-search" required>
+		<input type="text" name="search" style="text-align: right;" class="field-long" placeholder="Search..." >
+	</form>
+	<table class="pz-table-style" >
+		
+		<thead>
+			<th>Edit</th>
+			<th>Int.</th>
+			<th>ID</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Title</th>
+			<th>Company</th>
+			<th>Email</th>
+			<th>Phone</th>
+		</thead>
+
+	<?php
+
+	foreach($results as $result) {
+		$title = ($result['title'] == '') ? "-" : $result['title'];
+		echo '<tr><td><a href=' . $attributes['editURL'] . '?per=' .$result['id'] . '><image src=' . plugin_dir_url(__FILE__) . 'includes\pencil.png width="40%"></a></td><td>';
+		echo '<a href=' . '/interactions-all' .'/?per=' .$result['id'] . '><image src=' . plugin_dir_url(__FILE__) . 'includes\note.png width="80%"></a></td><td>';
+		echo $result['id'] . '</td><td>';
+		echo $result['firstname'] . '</td><td>';
+		echo $result['lastname'] . '</td><td>';
+		echo $title . '</td><td>';
+		echo $result['company'] . '</td><td>';
+		echo $result['email'] . '</td><td>';
+		echo $result['phone1'] . '</td></tr>';
+		
+
+	}
+	?>
+
+	<tr>
+		<td><a href="?pzp=<?php echo $page-1; ?>"><img src="<?php echo plugin_dir_url(__FILE__) ?>includes/left-arrow.png" width="80%"></a></td>
+		<td></td>
+		<td><a href="?pzp=<?php echo $page+1; ?>"><img src="<?php echo plugin_dir_url(__FILE__) ?>includes/right-arrow.png" width="40%"></a></td>
+	</tr>
+	</table>
+	<?php 
+
+	return ob_get_clean();
+}
+
+function pz_add_person() {
+	ob_start();
+	?>
+	<form class="form-style-1" action="/add-a-person">
+		<input type="submit" value="Add Person" >
+</form>
+
+	<?php
+	return ob_get_clean();
+}
 
 
-    
-      $wpdb->update( "{$wpdb->prefix}pz_project", $item, array('id' => $data['id']) );
+// add_action('rest_api_init', 'set_up_person_rest_route');
+// function set_up_person_rest_route() {
+// 	register_rest_route('pz/v1', 'person', array(
+// 		'methods' => WP_REST_SERVER::READABLE,
+// 		'callback' => 'do_person'
+// 	));
+// }
 
-    return $data['project_name'];
- 
-    
-   }
+// function do_person($stuff) {
+// 	global $wpdb;
+// 	$limit = 120;
+// 	$offset = 0;
 
-   /**
-   * REST API for retrieving table structure... 
-   */
+// 	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person ", ARRAY_A );
+// 	if( !isset($results[0])) {
+// 		$offset=0;
+// 		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person LIMIT $limit OFFSET $offset ", ARRAY_A );
+// 	};
 
-  add_action('rest_api_init', 'set_up_structure_rest_route');
-  function set_up_structure_rest_route() {
-    register_rest_route('pz/v1', 'structure', array(
-      'methods' => WP_REST_SERVER::READABLE,
-      'callback' => 'do_structure'
-    ));
-  }
-  
-  function do_structure($stuff) {
-    global $wpdb;
-    $limit = 120;
-    $offset = 0;
-    // var_dump($_GET);
-    // exit;
-    $squery = "DESCRIBE " . $wpdb->prefix . $_GET['table'];
-    $results = $wpdb->get_results( $squery, ARRAY_A );
-    if( !isset($results[0])) {
-      $offset=0;
-      $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person LIMIT $limit OFFSET $offset ", ARRAY_A );
-    };
-  
-    return $results;
-  }
+// 	return $results;
+// }
+
+
+function pz_access_control () {
+	if( !is_user_logged_in()) {
+		// auth_redirect(); return to this -- Local seems to have a problem with logins right now... 
+	}
+}

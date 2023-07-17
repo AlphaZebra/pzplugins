@@ -63981,7 +63981,9 @@ function FullFeaturedCrudGrid() {
     width: 180,
     editable: true
   }, {
-    field: "status",
+    field: "project_status",
+    type: "singleSelect",
+    valueOptions: ["Pending", "In Progress", "In Review", "Done"],
     headerName: "Status",
     headerAlign: "left",
     editable: true
@@ -64035,9 +64037,12 @@ function FullFeaturedCrudGrid() {
       })];
     }
   }];
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    height: "400",
+    width: "100%"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_11__["default"], {
     sx: {
-      height: 500,
+      height: 300,
       width: "100%",
       "& .actions": {
         color: "text.secondary"
@@ -64046,7 +64051,7 @@ function FullFeaturedCrudGrid() {
         color: "text.primary"
       }
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "More shit to check!"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_12__.DataGridPro, {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_12__.DataGridPro, {
     rows: rows,
     columns: columns,
     editMode: "row",

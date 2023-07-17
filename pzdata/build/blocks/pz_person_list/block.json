@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "pz/pz-person-list",
+  "version": "0.1.0",
+  "title": "PZ Person List",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Lists Person records.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "pzdata",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "field": {
+      "type": "string"
+    },
+    "numRows": {
+      "type": "string",
+      "default": "10"
+    },
+    "editURL": {
+      "type": "string"
+    }
+  }
+}

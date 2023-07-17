@@ -116,7 +116,9 @@ function FullFeaturedCrudGrid() {
     { field: "id", headerName: "ID", width: 20 },
     { field: "project_name", headerName: "Name", width: 180, editable: true },
     {
-      field: "status",
+      field: "project_status",
+      type: "singleSelect",
+      valueOptions: ["Pending", "In Progress", "In Review", "Done"],
       headerName: "Status",
       headerAlign: "left",
       editable: true,
@@ -183,10 +185,10 @@ function FullFeaturedCrudGrid() {
   ];
 
   return (
-    <div>
+    <div height="400" width="100%">
       <Box
         sx={{
-          height: 500,
+          height: 300,
           width: "100%",
           "& .actions": {
             color: "text.secondary",
@@ -196,7 +198,6 @@ function FullFeaturedCrudGrid() {
           },
         }}
       >
-        <p>More shit to check!</p>
         <DataGridPro
           rows={rows}
           columns={columns}
