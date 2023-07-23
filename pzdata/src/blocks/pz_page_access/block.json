@@ -18,7 +18,7 @@
 		"field": {
 			"type": "string"
 		},
-		"isEdit": {
+		"isAdmin": {
 			"type": "boolean",
 			"default": false
 		},

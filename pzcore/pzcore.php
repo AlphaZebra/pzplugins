@@ -15,6 +15,7 @@
  *
  */
 
+ require_once( 'includes/core-config.php');
  
  if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
@@ -74,26 +75,29 @@ function pz_onActivate() {
   ) $charset;";
 
 handle_def_record($item);
-
-
-
-
 dbDelta($item['field_string']);
+//handle_form_render();
+
+
+
+
 $table_name = $wpdb->prefix . "pz_configuration";
 
 // configuration table
-$item = array();
-$item['id'] = null;
+
+
 $item['table_name'] = 'pz_configuration';
 $item['field_string'] = "CREATE TABLE $table_name (
-  config_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   config_key varchar(255) NOT NULL DEFAULT '',
   config_value varchar(255) NOT NULL DEFAULT '',
   created varchar(12) NOT NULL DEFAULT '',
-  PRIMARY KEY  (config_id)
+  PRIMARY KEY  (config_key)
 ) $charset;";
 
 handle_def_record($item);
+dbDelta($item['field_string']);
+
+// handle_render_callback();
 
 
 
@@ -114,6 +118,8 @@ $item['field_string'] = "CREATE TABLE $table_name (
 ) $charset;";
 
 handle_def_record($item);
+dbDelta($item['field_string']);
+
 
 
 // request_type
@@ -128,11 +134,15 @@ $item['field_string'] = "CREATE TABLE $table_name (
   category varchar(20) NOT NULL DEFAULT '',
   display_name varchar(60) NOT NULL DEFAULT '',
   request_description varchar(500) NOT NULL DEFAULT '',
+  request_level varchar(10) NOT NULL DEFAULT 'one',
+  post_url varchar(255) NOT NULL DEFAULT 'admin-post.php',
   created varchar(12) NOT NULL DEFAULT '',
   PRIMARY KEY  (slug)
 ) $charset;";
 
 handle_def_record($item);
+dbDelta($item['field_string']);
+
 
 
 // project
@@ -157,6 +167,8 @@ $item['field_string'] = "CREATE TABLE $table_name (
 ) $charset;";
 
 handle_def_record($item);
+dbDelta($item['field_string']);
+
 
 
 // request_queue
@@ -168,18 +180,21 @@ $item['table_name'] = 'pz_request_type';
 $item['field_string'] = "CREATE TABLE $table_name (
   requestID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   tenant_ID varchar(20) NOT NULL DEFAULT '',
-  clientID bigint(20) unsigned NOT NULL,
+  username varchar(60) NOT NULL DEFAULT '',
   category varchar(20) NOT NULL DEFAULT '',
   slug varchar(20) NOT NULL DEFAULT '',
   display_name varchar(60) NOT NULL DEFAULT '',
   req_status varchar(20) NOT NULL DEFAULT '',
   req_priority bigint(10) unsigned DEFAULT 100,
   request_description varchar(500) NOT NULL DEFAULT '',
+  request_detail varchar(1500) NOT NULL DEFAULT '',
   created varchar(12) NOT NULL DEFAULT '',
   PRIMARY KEY  (requestID)
 ) $charset;";
 
 handle_def_record($item);
+dbDelta($item['field_string']);
+
 
 
 // calendar
@@ -200,6 +215,8 @@ $item['field_string'] = "CREATE TABLE $table_name (
 ) $charset;";
 
 handle_def_record($item);
+dbDelta($item['field_string']);
+
 
 
 // cal_meeting_type
@@ -219,6 +236,8 @@ $item['field_string'] = "CREATE TABLE $table_name (
 ) $charset;";
 
 handle_def_record($item);
+dbDelta($item['field_string']);
+
 
 
 // cal_availability
@@ -238,6 +257,8 @@ $item['field_string'] = "CREATE TABLE $table_name (
 ) $charset;";
 
 handle_def_record($item);
+dbDelta($item['field_string']);
+
 
 
 // cal_roadmap
@@ -263,166 +284,30 @@ $item['field_string'] = "CREATE TABLE $table_name (
 ) $charset;";
 
 handle_def_record($item);
+dbDelta($item['field_string']);
+
+
+// task
+$table_name = $wpdb->prefix . "pz_task";
+
+$item = array();
+$item['id'] = null;
+$item['table_name'] = 'pz_task';
+$item['field_string'] = "CREATE TABLE $table_name (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  tenant_ID varchar(20) NOT NULL DEFAULT '',
+  project_id bigint(20) unsigned NOT NULL DEFAULT 1,
+  task_name varchar(200) NOT NULL DEFAULT '',
+  task_assignee bigint(20) unsigned NOT NULL DEFAULT 1,
+  created varchar(12) NOT NULL DEFAULT '',
+  PRIMARY KEY  (id)
+) $charset;";
+
+handle_def_record($item);
+dbDelta($item['field_string']);
 
 
 
-  // $tablnam = $wpdb->prefix . "pz_person";
-  
-
-  // dbDelta("CREATE TABLE wp_pz_person ( 
-  //   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  //   tenant_ID varchar(20) NOT NULL DEFAULT '',
-  //   firstname varchar(20) NOT NULL DEFAULT '',
-  //   lastname varchar(30) NOT NULL DEFAULT '',
-  //   title varchar(30) NOT NULL DEFAULT '',
-  //   company varchar(60) NOT NULL DEFAULT '',
-  //   addr_line1 varchar(60) NOT NULL DEFAULT '',
-  //   addr_line2 varchar(60) NOT NULL DEFAULT '',
-  //   addr_city varchar(60) NOT NULL DEFAULT '',
-  //   addr_state varchar(2) NOT NULL DEFAULT '',
-  //   addr_zip varchar(12) NOT NULL DEFAULT '',
-  //   email varchar(60) NOT NULL DEFAULT '',
-  //   phone1 varchar(20) NOT NULL DEFAULT '',
-  //   phone1_type varchar(20) NOT NULL DEFAULT '', 
-  //   phone2 varchar(20) NOT NULL DEFAULT '',
-  //   phone2_type varchar(20) NOT NULL DEFAULT '',
-  //   username varchar(20) NOT NULL DEFAULT '',
-  //   has_notes int(4) NOT NULL DEFAULT 0,
-  //   last_contact varchar(12) NOT NULL DEFAULT '',
-  //   pz_level varchar(12) NOT NULL DEFAULT '',
-  //   pz_status varchar(10) NOT NULL DEFAULT '', 
-  //   created varchar(12) NOT NULL DEFAULT '',
-  //     PRIMARY KEY  (id)
-  // ) $charset;");
-
-  // TODO - add check on whether there were errors creating table... 
-
-  // $tablnam = $wpdb->prefix . "pz_configuration";
-
-  // // the configuration file holds unique key pairs that store app-specific configuration settings. 
-  // dbDelta("CREATE TABLE $tablnam (
-  //   config_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  //   config_key varchar(255) NOT NULL DEFAULT '',
-  //   config_value varchar(255) NOT NULL DEFAULT '',
-  //   created varchar(12) NOT NULL DEFAULT '',
-  //   PRIMARY KEY  (config_id)
-  // ) $charset;");
-
-  // $tablnam = $wpdb->prefix . "pz_interaction";
-
-  // // tracking for interactions with people. 
-  // dbDelta("CREATE TABLE $tablnam (
-  //   int_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  //   id bigint(20) NOT NULL DEFAULT 1,
-  //   summary varchar(255) NOT NULL DEFAULT '',
-  //   details varchar(800) NOT NULL DEFAULT '',
-  //   created varchar(12) NOT NULL DEFAULT '',
-  //   PRIMARY KEY  (int_id)
-  // ) $charset;");
-
-  // $tablnam = $wpdb->prefix . "pz_request_type";
-
-  // dbDelta("CREATE TABLE $tablnam (
-  //   slug varchar(20) NOT NULL DEFAULT '',
-  //   tenant_ID varchar(20) NOT NULL DEFAULT '',
-  //   category varchar(20) NOT NULL DEFAULT '',
-  //   display_name varchar(60) NOT NULL DEFAULT '',
-  //   request_description varchar(500) NOT NULL DEFAULT '',
-  //   created varchar(12) NOT NULL DEFAULT '',
-  //   PRIMARY KEY  (slug)
-  // ) $charset;");
-
-// $tablnam = $wpdb->prefix . "pz_project";
-
-// $delta_string = "CREATE TABLE $tablnam (
-//   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-//   project_name varchar(80) NOT NULL DEFAULT '',
-//   tenant_ID varchar(20) NOT NULL DEFAULT '',
-//   project_status varchar(20) NOT NULL DEFAULT '',
-//   project_lead bigint(20) NOT NULL DEFAULT 1,
-//   team_members varchar(40) NOT NULL DEFAULT '',
-//   project_description varchar(500) NOT NULL DEFAULT '',
-//   kickoff_date varchar(12) NOT NULL DEFAULT '',
-//   due_date varchar(12) NOT NULL DEFAULT '',
-//   budget varchar(20) NOT NULL DEFAULT '',
-//   created varchar(12) NOT NULL DEFAULT '',
-//   PRIMARY KEY  (project_id)
-// ) $charset;";
-
-// dbDelta($delta_string);
-
-// $tablnam = $wpdb->prefix . "pz_request_queue";
-
-// dbDelta("CREATE TABLE $tablnam (
-//   requestID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-//   tenant_ID varchar(20) NOT NULL DEFAULT '',
-//   clientID bigint(20) unsigned NOT NULL,
-//   category varchar(20) NOT NULL DEFAULT '',
-//   slug varchar(20) NOT NULL DEFAULT '',
-//   display_name varchar(60) NOT NULL DEFAULT '',
-//   req_status varchar(20) NOT NULL DEFAULT '',
-//   req_priority bigint(10) unsigned DEFAULT 100,
-//   request_description varchar(500) NOT NULL DEFAULT '',
-//   created varchar(12) NOT NULL DEFAULT '',
-//   PRIMARY KEY  (requestID)
-// ) $charset;");
-
-// $tablnam = $wpdb->prefix . "pz_calendar";
-
-// dbDelta("CREATE TABLE $tablnam (
-//   cal_event_ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-//   tenant_ID varchar(20) NOT NULL DEFAULT '',
-//   clientID bigint(20) unsigned NOT NULL,
-//   category varchar(20) NOT NULL DEFAULT '',
-//   event_name varchar(60) NOT NULL DEFAULT '',
-//   event_detail varchar(500) NOT NULL DEFAULT '',
-//   created varchar(12) NOT NULL DEFAULT '',
-//   PRIMARY KEY  (cal_event_id)
-// ) $charset;");
-
-// $tablnam = $wpdb->prefix . "pz_cal_meeting_type";
-
-// dbDelta("CREATE TABLE $tablnam (
-//   cal_event_type_ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-//   tenant_ID varchar(20) NOT NULL DEFAULT '',
-//   clientID bigint(20) unsigned NOT NULL,
-//   meeting_name varchar(60) NOT NULL DEFAULT '',
-//   meeting_description varchar(500) NOT NULL DEFAULT '',
-//   created varchar(12) NOT NULL DEFAULT '',
-//   PRIMARY KEY  (cal_event_type_id)
-// ) $charset;");
-
-// $tablnam = $wpdb->prefix . "pz_cal_availability";
-
-// dbDelta("CREATE TABLE $tablnam (
-//   cal_avail_date_ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-//   tenant_ID varchar(20) NOT NULL DEFAULT '',
-//   clientID bigint(20) unsigned NOT NULL DEFAULT 1,
-//   cal_event_type_id bigint(20) unsigned NOT NULL DEFAULT 1,
-//   cal_avail_slots varchar(100) NOT NULL DEFAULT '',
-//   created varchar(12) NOT NULL DEFAULT '',
-//   PRIMARY KEY  (cal_avail_date_ID)
-// ) $charset;");
-
-// $tablnam = $wpdb->prefix . "pz_roadmap";
-
-// dbDelta("CREATE TABLE $tablnam (
-//   roadmap_ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-//   tenant_ID varchar(20) NOT NULL DEFAULT '',
-//   clientID bigint(20) unsigned NOT NULL DEFAULT 1,
-//   feature_name varchar(100) NOT NULL DEFAULT '',
-//   objectives varchar(15) NOT NULL DEFAULT '',
-//   key_result varchar(15) NOT NULL DEFAULT '',
-//   effort varchar(15) NOT NULL DEFAULT '',
-//   feature_status varchar(15) NOT NULL DEFAULT '',
-//   team varchar(40) NOT NULL DEFAULT '',
-//   release_quarter varchar(4) NOT NULL DEFAULT '',
-//   feature_description varchar(400) NOT NULL DEFAULT '',
-//   created varchar(12) NOT NULL DEFAULT '',
-//   PRIMARY KEY  (roadmap_ID)
-// ) $charset;");
-
-// createPZTables();
 
 fillPersonTable();
 
@@ -634,3 +519,56 @@ function createPZTables() {
     }
     return true;
   }
+
+
+  function handle_render_callback() {
+    // open file
+    if( !is_dir('C:\Users\Rugge\Local Sites\suchthings\app\public\wp-content\plugins\pzcore\includes')) {
+      mkdir('C:\Users\Rugge\Local Sites\suchthings\app\public\wp-content\plugins\pzcore\includes');
+    }
+    $myfile = fopen('C:\Users\Rugge\Local Sites\suchthings\app\public\wp-content\plugins\pzcore\includes\personform.php', 'w');
+    if($myfile == false) die("fuck me in the eyeballs");
+    $contents = handle_form_render();
+    //write contents
+    fwrite($myfile, $contents);
+    //close file
+    fclose($myfile);
+  }
+
+
+  function handle_form_render() {
+    global $wpdb;
+    // get the definition for each field for each table, then create a file 
+    // that writes the html for a form with an input for each field
+
+    $results = $wpdb->get_results( "DESCRIBE {$wpdb->prefix}pz_person ", ARRAY_A );
+    ob_start();
+    echo( "<?php\n")
+    ?> 
+    
+  function pz_person_form( $attributes ) {
+  ob_start();
+	?>
+	
+	<form action="<?php echo esc_url(admin_url('admin-post.php')) ?>" method="POST" class="form-style-1">
+		<input type="hidden" name="action" value="do-person-edit-block" required>
+	
+    <?php 
+    foreach($results as $result) {
+      if($result['Field'] != 'id' && $result['Field'] != 'tenant_ID') {
+        // create field
+        $fieldstuff = "<input type='text' name=" . $result['Field'] . ">" ;
+        echo($fieldstuff . "<br>\n");
+      }
+    }
+    echo("</form>\n");
+    echo("<?php\n");
+    echo( "return ob_get_clean();");
+    echo( "}");
+    
+
+    return ob_get_clean();
+
+
+  }
+

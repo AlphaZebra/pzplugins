@@ -10,6 +10,11 @@ function pzdata_register() {
         [ 'name' => 'pz_interaction' ],
         [ 'name' => 'pz_inter_list' ],
         [ 'name' => 'pz_page_access' ],
+        [ 'name' => 'pz_task_list' ],
+        [ 'name' => 'pz_request_type' ],
+        [ 'name' => 'pz_request_type_form' ],
+        [ 'name' => 'pz_request_detail_form' ],
+        [ 'name' => 'pz_queue' ],
         [ 'name' => 'pz_add_person' ]
         // [ 'name' => 'pz_shortblock' ]
     ];
@@ -35,6 +40,21 @@ function pzdata_register() {
         }
         else if( $block['name'] == 'pz_page_access') {
             $render_prop = array( 'render_callback' => 'pz_access_control');
+        }
+        else if( $block['name'] == 'pz_task_list') {
+            $render_prop = array( 'render_callback' => 'pz_task_list');
+        }
+        else if( $block['name'] == 'pz_request_type') {
+            $render_prop = array( 'render_callback' => 'pz_request_type');
+        }
+        else if( $block['name'] == 'pz_request_type_form') {
+            $render_prop = array( 'render_callback' => 'pz_request_type_form');
+        }
+        else if( $block['name'] == 'pz_request_detail_form') {
+            $render_prop = array( 'render_callback' => 'pz_request_detail_form');
+        }
+        else if( $block['name'] == 'pz_queue') {
+            $render_prop = array( 'render_callback' => 'pz_queue');
         }
         else {
             $render_prop = array([]);

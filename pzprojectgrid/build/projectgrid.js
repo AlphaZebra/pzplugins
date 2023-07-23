@@ -63971,6 +63971,14 @@ function FullFeaturedCrudGrid() {
       setRows(rows.filter(row => row.id !== id));
     }
   };
+  function handleEvent(params,
+  // GridRowParams
+  event,
+  // MuiEvent<React.MouseEvent<HTMLElement>>
+  details // GridCallbackDetails
+  ) {
+    window.location.href = "?prj=" + params.id + "#pz_tasks";
+  }
   const columns = [{
     field: "id",
     headerName: "ID",
@@ -63978,25 +63986,21 @@ function FullFeaturedCrudGrid() {
   }, {
     field: "project_name",
     headerName: "Name",
-    width: 180,
-    editable: true
+    width: 180
   }, {
     field: "project_status",
     type: "singleSelect",
     valueOptions: ["Pending", "In Progress", "In Review", "Done"],
     headerName: "Status",
-    headerAlign: "left",
-    editable: true
+    headerAlign: "left"
   }, {
     field: "kickoff_date",
     headerName: "Kickoff date",
-    width: 180,
-    editable: true
+    width: 180
   }, {
     field: "due_date",
     headerName: "Due date",
-    width: 180,
-    editable: true
+    width: 180
   }, {
     field: "actions",
     type: "actions",
@@ -64059,6 +64063,7 @@ function FullFeaturedCrudGrid() {
     onRowModesModelChange: handleRowModesModelChange,
     onRowEditStop: handleRowEditStop,
     processRowUpdate: processRowUpdate,
+    onRowClick: handleEvent,
     slots: {
       toolbar: EditToolbar
     },
@@ -64069,9 +64074,6 @@ function FullFeaturedCrudGrid() {
       }
     }
   })));
-}
-function MyTest() {
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Hey, check this shit");
 }
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } }, 1);

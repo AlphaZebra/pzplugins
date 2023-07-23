@@ -30,6 +30,9 @@
  include( PZ_PLUGIN_DIR . 'includes/register-blocks.php');
  include( PZ_PLUGIN_DIR . 'includes/pz-do-edit-block.php');
  include( PZ_PLUGIN_DIR . 'includes/pz-interaction.php');
+ include( PZ_PLUGIN_DIR . 'includes/pz-task.php');
+ include( PZ_PLUGIN_DIR . 'includes/pz-request_type.php');
+ include( PZ_PLUGIN_DIR . 'includes/pz-queue.php');
 
 
  // Hooks
@@ -245,6 +248,8 @@ function pz_add_person() {
 
 function pz_access_control () {
 	if( !is_user_logged_in()) {
+		return( "<h4>You gotta be logged in...</h4>");
+		exit;
 		// auth_redirect(); return to this -- Local seems to have a problem with logins right now... 
 	}
 }

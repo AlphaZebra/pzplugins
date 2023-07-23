@@ -112,28 +112,33 @@ function FullFeaturedCrudGrid() {
     }
   };
 
+  function handleEvent(
+    params, // GridRowParams
+    event, // MuiEvent<React.MouseEvent<HTMLElement>>
+    details // GridCallbackDetails
+  ) {
+    window.location.href = "?prj=" + params.id + "#pz_tasks";
+  }
+
   const columns = [
     { field: "id", headerName: "ID", width: 20 },
-    { field: "project_name", headerName: "Name", width: 180, editable: true },
+    { field: "project_name", headerName: "Name", width: 180 },
     {
       field: "project_status",
       type: "singleSelect",
       valueOptions: ["Pending", "In Progress", "In Review", "Done"],
       headerName: "Status",
       headerAlign: "left",
-      editable: true,
     },
     {
       field: "kickoff_date",
       headerName: "Kickoff date",
       width: 180,
-      editable: true,
     },
     {
       field: "due_date",
       headerName: "Due date",
       width: 180,
-      editable: true,
     },
 
     {
@@ -206,6 +211,7 @@ function FullFeaturedCrudGrid() {
           onRowModesModelChange={handleRowModesModelChange}
           onRowEditStop={handleRowEditStop}
           processRowUpdate={processRowUpdate}
+          onRowClick={handleEvent}
           slots={{
             toolbar: EditToolbar,
           }}
@@ -216,8 +222,4 @@ function FullFeaturedCrudGrid() {
       </Box>
     </div>
   );
-}
-
-function MyTest() {
-  return <p>Hey, check this shit</p>;
 }

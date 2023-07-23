@@ -1,7 +1,5 @@
 import { TextControl } from "@wordpress/components";
 
-alert("Hi from frontend.js");
-
 const xdiv = document.querySelector(".pz-target-div");
 const atts = JSON.parse(document.querySelector("pre").innerHTML);
 

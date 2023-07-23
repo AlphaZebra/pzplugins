@@ -39,8 +39,24 @@ import "./editor.scss";
  */
 export default function Edit({ attributes, setAttributes }) {
 	return (
-		<div>
-			<p>Only logged-in users will access this page... </p>
+		<div {...useBlockProps()}>
+			<InspectorControls>
+				<PanelBody title="Admin Access">
+					<CheckboxControl
+						label="Restrict to admin access?"
+						checked={attributes.isAdmin}
+						onChange={(value) => setAttributes({ isAdmin: value })}
+					/>
+				</PanelBody>
+				<PanelBody title="Redirect">
+					<TextControl
+						label="URL for redirect if edit selected"
+						value={attributes.editURL}
+						onChange={(value) => setAttributes({ editURL: value })}
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<img src="../wp-content/plugins/pzdata/includes/assets/request-queue.png" />
 		</div>
 	);
 }
