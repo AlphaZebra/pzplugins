@@ -572,3 +572,30 @@ function createPZTables() {
 
   }
 
+/**
+   * REST API for validating a primary key value is unique prior to form submission... 
+   */
+
+   add_action('rest_api_init', 'set_up_validation_rest_route');
+   function set_up_validation_rest_route() {
+     register_rest_route('pz/v1', 'unique', array(
+       'methods' => WP_REST_SERVER::READABLE,
+       'callback' => 'do_unique'
+     ));
+   }
+   
+   function do_unique($stuff) {
+     global $wpdb;
+     $limit = 120;
+     $offset = 0;
+     // var_dump($_GET);
+     // exit;
+     $tablnam = $wpdb->prefix . $_GET['table'];
+     $keyval = $_GET['value'];
+     $results = $wpdb->get_results( "SELECT * FROM $tablnam WHERE slug = '$keyval' ", ARRAY_A );
+     if( isset($results[0])) {
+       return( false );
+     };
+   
+     return true;
+   }
