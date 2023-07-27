@@ -74,6 +74,7 @@ function FullFeaturedCrudGrid() {
   const handleSaveClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     alert("Now we save!!!");
+    console.log(rows);
   };
 
   const handleDeleteClick = (id) => () => {
@@ -122,10 +123,11 @@ function FullFeaturedCrudGrid() {
 
   const columns = [
     { field: "id", headerName: "ID", width: 20 },
-    { field: "project_name", headerName: "Name", width: 180 },
+    { field: "project_name", headerName: "Name", editable: true, width: 180 },
     {
       field: "project_status",
       type: "singleSelect",
+      editable: true,
       valueOptions: ["Pending", "In Progress", "In Review", "Done"],
       headerName: "Status",
       headerAlign: "left",
@@ -133,11 +135,15 @@ function FullFeaturedCrudGrid() {
     {
       field: "kickoff_date",
       headerName: "Kickoff date",
+      type: "dateTime",
+      valueGetter: ({ value }) => value && new Date(value),
+      editable: true,
       width: 180,
     },
     {
       field: "due_date",
       headerName: "Due date",
+      editable: true,
       width: 180,
     },
 

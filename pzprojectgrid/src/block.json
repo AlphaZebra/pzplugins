@@ -17,6 +17,9 @@
   "attributes": {
     "myheader": {
       "type": "string"
+    },
+    "addURL": {
+      "type": "string"
     }
   }
 }

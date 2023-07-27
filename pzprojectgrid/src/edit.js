@@ -56,11 +56,11 @@ export default function Edit(props) {
           />
         </PanelBody>
 
-        <PanelBody title="Text">
+        <PanelBody title="When Adding">
           <TextControl
-            label="Field prompt"
-            value={attributes.prompt}
-            onChange={(value) => setAttributes({ prompt: value })}
+            label="URL for Project Add form"
+            value={attributes.addURL}
+            onChange={(value) => setAttributes({ addURL: value })}
           />
         </PanelBody>
       </InspectorControls>

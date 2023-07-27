@@ -57275,6 +57275,7 @@ function MyComponent() {
       width: "100%"
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid__WEBPACK_IMPORTED_MODULE_2__.DataGrid, {
+    rowReordering: true,
     rows: rows,
     columns: columns,
     rowHeight: 33,

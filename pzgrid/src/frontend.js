@@ -49,6 +49,7 @@ function MyComponent() {
     <div>
       <div style={{ height: 800, width: "100%" }}>
         <DataGrid
+          rowReordering
           rows={rows}
           columns={columns}
           rowHeight={33}

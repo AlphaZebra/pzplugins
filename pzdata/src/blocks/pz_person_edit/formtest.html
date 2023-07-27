@@ -91,11 +91,8 @@
 				color: red;
 			}
 		</style>
-		hi there my friend
+
 		<form action="" class="form-style-1">
-			<h3>Your basic information</h3>
-			<label>ID</label>
-			<input type="number" class="field-divided" placeholder="9" />
 			<label>Name</label>
 			<input type="text" class="field-divided" placeholder="First" />
 			<input type="text" class="field-divided" placeholder="Last" />
@@ -104,7 +101,49 @@
 			<label>Company</label>
 			<input type="text" class="field-long" placeholder="Your Company Name" />
 			<label>Email</label>
-			<input type="text" class="field-long" placeholder="you@yourcompany.com" />
+			<input
+				type="email"
+				class="field-long"
+				placeholder="you@yourcompany.com"
+			/>
+			<label>Phone</label>
+			<input type="text" class="field-long" />
+			<p>Which application template is closest to what you need?</p>
+			<table>
+				<tr>
+					<td>
+						<input type="radio" id="project" name="template" value="project" />
+						<label for="project">Project Management</label><br />
+					</td>
+					<td>
+						<p>image goes here?</p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="radio" id="crm" name="template" value="crm" />
+						<label for="crm">Litely CRM</label><br />
+					</td>
+					<td>
+						<p>image goes here?</p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input
+							type="radio"
+							id="javascript"
+							name="template"
+							value="JavaScript"
+						/>
+						<label for="javascript">JavaScript</label>
+					</td>
+					<td>
+						<p>image goes here?</p>
+					</td>
+				</tr>
+			</table>
+
 			<input type="submit" value="Save" />
 		</form>
 	</body>
