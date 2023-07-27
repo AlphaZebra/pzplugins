@@ -528,7 +528,7 @@ function createPZTables() {
     }
     $myfile = fopen('C:\Users\Rugge\Local Sites\suchthings\app\public\wp-content\plugins\pzcore\includes\personform.php', 'w');
     if($myfile == false) die("fuck me in the eyeballs");
-    $contents = handle_form_render();
+    // $contents = handle_form_render();
     //write contents
     fwrite($myfile, $contents);
     //close file
