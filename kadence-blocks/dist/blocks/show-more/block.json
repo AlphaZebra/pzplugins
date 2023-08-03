@@ -125,5 +125,8 @@
       "type": "boolean",
       "default": false
     }
+  },
+  "supports": {
+    "kbMetadata": true
   }
 }

@@ -34,6 +34,7 @@ function pz_project_grid_block($attributes) {
 	$user_info = wp_get_current_user();
 
 
+
 	ob_start();
 	?>
 	<div class="pz-projectgrid-div"><pre><?php echo wp_json_encode($attributes); ?></pre></div>

@@ -486,13 +486,13 @@
             "",
             ""
           ],
-          "sizetype": "px",
+          "sizeType": "px",
           "lineHeight": [
             "",
             "",
             ""
           ],
-          "linetype": "",
+          "lineType": "",
           "letterSpacing": [
             "",
             "",
@@ -569,7 +569,9 @@
     "ktanimatepreview": true,
     "ktdynamic": true,
     "html": false,
-    "reusable": false
+    "reusable": false,
+    "kbMetadata": true,
+    "kbContentLabel": "text"
   },
   "usesContext": [
     "postId",

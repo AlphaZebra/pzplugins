@@ -19,12 +19,14 @@ import {
 //   return randomArrayItem(roles);
 // };
 
-const url = "http://suchthings.local/wp-json/pz/v1/project";
-let response = await fetch(url);
-let json = await response.text();
+// const url = "http://suchthings.local/wp-json/pz/v1/project";
+// let response = await fetch(url);
+// let json = await response.text();
+let json =
+  '[  {    "id": "1",    "task": "Gather two of each animal, insect, and protozoa",    "other": "other1"  },  {    "id": "2",    "task": "Engage more capable animals in boatbuilding process",    "other": "other2"  }]';
 let initialRows = JSON.parse(json);
 
-const xdiv = document.querySelector(".pz-projectgrid-div");
+const xdiv = document.querySelector(".pzdiv");
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -32,12 +34,11 @@ function EditToolbar(props) {
   const handleClick = () => {
     const id = 0;
 
-    alert("Let's go to another page, shall we?");
-    // setRows((oldRows) => [...oldRows, { id, name: "", age: "", isNew: true }]);
-    // setRowModesModel((oldModel) => ({
-    //   ...oldModel,
-    //   [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
-    // }));
+    setRows((oldRows) => [...oldRows, { id, task: "", isNew: true }]);
+    setRowModesModel((oldModel) => ({
+      ...oldModel,
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "task" },
+    }));
   };
 
   return (
@@ -47,6 +48,17 @@ function EditToolbar(props) {
       </Button>
     </GridToolbarContainer>
   );
+}
+
+function updateRowPosition(initialIndex, newIndex, rows) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const rowsClone = [...rows];
+      const row = rowsClone.splice(initialIndex, 1)[0];
+      rowsClone.splice(newIndex, 0, row);
+      resolve(rowsClone);
+    }, Math.random() * 500 + 100); // approximate network latency
+  });
 }
 
 ReactDOM.render(<FullFeaturedCrudGrid />, xdiv);
@@ -81,22 +93,8 @@ function FullFeaturedCrudGrid() {
 
   const processRowUpdate = (newRow) => {
     const updatedRow = { ...newRow, isNew: false };
-    // write record back to database table using REST api
 
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-
-    fetch("http://suchthings.local/wp-json/pz/v1/putproj", {
-      method: "POST",
-
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: "78912" }),
-    })
-      .then((response) => response.json())
-      .then((response) => console.log(JSON.stringify(response)));
-    alert(JSON.stringify(response));
 
     return updatedRow;
   };
@@ -112,20 +110,32 @@ function FullFeaturedCrudGrid() {
     }
   };
 
+  // const [loading, setLoading] = React.useState(initialLoadingState);
+
+  // React.useEffect(() => {
+  //   setRows(data.rows);
+  // }, [data]);
+
+  // React.useEffect(() => {
+  //   setLoading(initialLoadingState);
+  // }, [initialLoadingState]);
+
+  const handleRowOrderChange = async (params) => {
+    // setLoading(true);
+    const newRows = await updateRowPosition(
+      params.oldIndex,
+      params.targetIndex,
+      rows
+    );
+
+    setRows(newRows);
+    console.log(rows);
+    // setLoading(false);
+  };
+
   const columns = [
     { field: "id", headerName: "ID", width: 20 },
-    { field: "project_name", headerName: "Name", width: 180, editable: true },
-    {
-      field: "status",
-      headerName: "Status",
-      headerAlign: "left",
-      editable: true,
-    },
-    {
-      field: "kickoff_date",
-      headerName: "Kickoff date",
-      width: 180,
-    },
+    { field: "task", headerName: "Task", width: 180, editable: true },
 
     {
       field: "actions",
@@ -189,11 +199,12 @@ function FullFeaturedCrudGrid() {
           },
         }}
       >
-        <p>More shit to check!</p>
         <DataGridPro
           rows={rows}
           columns={columns}
           editMode="row"
+          rowReordering
+          onRowOrderChange={handleRowOrderChange}
           rowModesModel={rowModesModel}
           onRowModesModelChange={handleRowModesModelChange}
           onRowEditStop={handleRowEditStop}
@@ -208,8 +219,4 @@ function FullFeaturedCrudGrid() {
       </Box>
     </div>
   );
-}
-
-function MyTest() {
-  return <p>Hey, check this shit</p>;
 }

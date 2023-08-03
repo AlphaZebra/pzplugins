@@ -5,7 +5,6 @@
   "version": "0.1.0",
   "title": "PZ Project Grid",
   "category": "widgets",
-  "icon": "smiley",
   "description": "Example block scaffolded with Create Block tool.",
   "supports": {
     "html": false
@@ -19,6 +18,9 @@
       "type": "string"
     },
     "addURL": {
+      "type": "string"
+    },
+    "backgroundColor": {
       "type": "string"
     }
   }

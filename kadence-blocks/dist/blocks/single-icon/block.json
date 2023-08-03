@@ -154,7 +154,8 @@
   "supports": {
     "ktdynamic": true,
     "html": false,
-    "reusable": false
+    "reusable": false,
+    "kbMetadata": true
   },
   "usesContext": [
     "postId",

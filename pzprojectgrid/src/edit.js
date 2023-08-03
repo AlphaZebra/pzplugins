@@ -12,9 +12,18 @@ import { __ } from "@wordpress/i18n";
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useState } from "@wordpress/element";
-import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
+import {
+  useBlockProps,
+  InspectorControls,
+  useSetting,
+} from "@wordpress/block-editor";
 import { __experimentalBoxControl as BoxControl } from "@wordpress/components";
-import { PanelBody, TextControl, CheckboxControl } from "@wordpress/components";
+import {
+  PanelBody,
+  TextControl,
+  CheckboxControl,
+  ColorPalette,
+} from "@wordpress/components";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -33,6 +42,7 @@ import { PanelBody, TextControl, CheckboxControl } from "@wordpress/components";
  */
 export default function Edit(props) {
   const { attributes, setAttributes } = props;
+  const { backgroundColor } = attributes;
   const [values, setValues] = useState({
     top: "50px",
     left: "10%",
@@ -53,6 +63,12 @@ export default function Edit(props) {
             label="Edit Current Person?"
             checked={attributes.isEdit}
             onChange={(value) => setAttributes({ isEdit: value })}
+          />
+          <p>Input background</p>
+          <ColorPalette
+            value={backgroundColor}
+            colors={useSetting("color.palette")}
+            onChange={(value) => setAttributes({ backgroundColor: value })}
           />
         </PanelBody>
 

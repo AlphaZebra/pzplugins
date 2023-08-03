@@ -4,8 +4,7 @@
   "name": "pz/pz-add-person",
   "version": "0.1.0",
   "title": "PZ Add Person Button",
-  "category": "widgets",
-  "icon": "smiley",
+  "category": "peak-zebra",
   "description": "Example block scaffolded with Create Block tool.",
   "supports": {
     "html": false

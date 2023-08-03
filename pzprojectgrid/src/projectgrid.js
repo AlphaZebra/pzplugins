@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
+
 import {
   GridRowModes,
   DataGridPro,
@@ -14,21 +15,19 @@ import {
   GridRowEditStopReasons,
 } from "@mui/x-data-grid-pro";
 
-// const roles = ["Market", "Finance", "Development"];
-// const randomRole = () => {
-//   return randomArrayItem(roles);
-// };
-
 const url = "http://suchthings.local/wp-json/pz/v1/project";
 let response = await fetch(url);
 let json = await response.text();
 let initialRows = JSON.parse(json);
 
 const xdiv = document.querySelector(".pz-projectgrid-div");
+const attributes = JSON.parse(xdiv.innerText);
+console.log(attributes);
 
 async function do_save(row) {
   const url = "http://suchthings.local/wp-json/pz/v1/putproj/";
   alert(row.project_name);
+  row.id = null;
   let response = await fetch(url, {
     method: "POST",
     headers: { Accept: "application/json", "Content-Type": "application/json" },
@@ -44,12 +43,12 @@ function EditToolbar(props) {
   const handleClick = () => {
     const id = 0;
 
-    window.location.href = "./project/";
-    // setRows((oldRows) => [...oldRows, { id, name: "", age: "", isNew: true }]);
-    // setRowModesModel((oldModel) => ({
-    //   ...oldModel,
-    //   [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
-    // }));
+    //  window.location.href = "./project/";
+    setRows((oldRows) => [...oldRows, { id, name: "", age: "", isNew: true }]);
+    setRowModesModel((oldModel) => ({
+      ...oldModel,
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
+    }));
   };
 
   return (
@@ -63,9 +62,16 @@ function EditToolbar(props) {
 
 ReactDOM.render(<FullFeaturedCrudGrid />, xdiv);
 
+/**
+ *
+ * Here's the component donut
+ */
+
 function FullFeaturedCrudGrid() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
+
+  // recover attributes passed along from render function
 
   const handleEditClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
@@ -73,8 +79,8 @@ function FullFeaturedCrudGrid() {
 
   const handleSaveClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-    alert("Now we save!!!");
-    console.log(rows);
+    alert("Now we save!!!" + id);
+    do_save(id);
   };
 
   const handleDeleteClick = (id) => () => {
@@ -194,6 +200,12 @@ function FullFeaturedCrudGrid() {
       },
     },
   ];
+
+  /**
+   * The making of the actual donuts commences here...
+   * will need to add back
+   * background: attributes.backgroundColor,
+   */
 
   return (
     <div height="400" width="100%">

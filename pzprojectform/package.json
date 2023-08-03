@@ -10,7 +10,7 @@
     "lint:js": "wp-scripts lint-js",
     "packages-update": "wp-scripts packages-update",
     "plugin-zip": "wp-scripts plugin-zip",
-    "start": "wp-scripts start"
+    "start": "wp-scripts start src/index.js src/pzprojectform.js"
   },
   "author": "",
   "license": "ISC",

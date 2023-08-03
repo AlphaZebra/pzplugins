@@ -39,8 +39,8 @@ import { useState } from "@wordpress/element";
  */
 export default function Edit({ attributes, setAttributes }) {
   return (
-    <div>
-      <p>ADD PERSON BUTTON</p>
+    <div {...useBlockProps()}>
+      <img src="../wp-content/plugins/pzdata/includes/assets/add-person-button.png" />
     </div>
   );
 }

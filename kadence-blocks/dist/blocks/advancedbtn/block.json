@@ -331,7 +331,8 @@
     }
   },
   "supports": {
-    "anchor": true
+    "anchor": true,
+    "kbMetadata": true
   },
   "usesContext": [
     "postId",

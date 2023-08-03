@@ -63848,14 +63848,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/Box/Box.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/Button.js");
-/* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
 /* harmony import */ var _mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/icons-material/Edit */ "./node_modules/@mui/icons-material/Edit.js");
 /* harmony import */ var _mui_icons_material_DeleteOutlined__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/DeleteOutlined */ "./node_modules/@mui/icons-material/DeleteOutlined.js");
 /* harmony import */ var _mui_icons_material_Save__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/icons-material/Save */ "./node_modules/@mui/icons-material/Save.js");
 /* harmony import */ var _mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/icons-material/Close */ "./node_modules/@mui/icons-material/Close.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/containers/GridToolbarContainer.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/models/gridEditRowModel.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/models/gridEditRowModel.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/containers/GridToolbarContainer.js");
 /* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/models/params/gridRowParams.js");
 /* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/cell/GridActionsCellItem.js");
 /* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid-pro/DataGridPro/DataGridPro.js");
@@ -63869,20 +63869,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-// const roles = ["Market", "Finance", "Development"];
-// const randomRole = () => {
-//   return randomArrayItem(roles);
-// };
-
 const url = "http://suchthings.local/wp-json/pz/v1/project";
 let response = await fetch(url);
 let json = await response.text();
 let initialRows = JSON.parse(json);
 const xdiv = document.querySelector(".pz-projectgrid-div");
+const attributes = JSON.parse(xdiv.innerText);
+console.log(attributes);
 async function do_save(row) {
   const url = "http://suchthings.local/wp-json/pz/v1/putproj/";
   alert(row.project_name);
+  row.id = null;
   let response = await fetch(url, {
     method: "POST",
     headers: {
@@ -63901,29 +63898,46 @@ function EditToolbar(props) {
   } = props;
   const handleClick = () => {
     const id = 0;
-    window.location.href = "./project/";
-    // setRows((oldRows) => [...oldRows, { id, name: "", age: "", isNew: true }]);
-    // setRowModesModel((oldModel) => ({
-    //   ...oldModel,
-    //   [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
-    // }));
-  };
 
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_1__.GridToolbarContainer, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    //  window.location.href = "./project/";
+    setRows(oldRows => [...oldRows, {
+      id,
+      name: "",
+      age: "",
+      isNew: true
+    }]);
+    setRowModesModel(oldModel => ({
+      ...oldModel,
+      [id]: {
+        mode: _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_1__.GridRowModes.Edit,
+        fieldToFocus: "name"
+      }
+    }));
+  };
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_2__.GridToolbarContainer, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
     color: "primary",
-    startIcon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_3__["default"], null),
+    startIcon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_4__["default"], null),
     onClick: handleClick
   }, "Add new project"));
 }
 ReactDOM.render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(FullFeaturedCrudGrid, null), xdiv);
+
+/**
+ *
+ * Here's the component donut
+ */
+
 function FullFeaturedCrudGrid() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
+
+  // recover attributes passed along from render function
+
   const handleEditClick = id => () => {
     setRowModesModel({
       ...rowModesModel,
       [id]: {
-        mode: _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_4__.GridRowModes.Edit
+        mode: _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_1__.GridRowModes.Edit
       }
     });
   };
@@ -63931,11 +63945,11 @@ function FullFeaturedCrudGrid() {
     setRowModesModel({
       ...rowModesModel,
       [id]: {
-        mode: _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_4__.GridRowModes.View
+        mode: _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_1__.GridRowModes.View
       }
     });
-    alert("Now we save!!!");
-    console.log(rows);
+    alert("Now we save!!!" + id);
+    do_save(id);
   };
   const handleDeleteClick = id => () => {
     setRows(rows.filter(row => row.id !== id));
@@ -63963,7 +63977,7 @@ function FullFeaturedCrudGrid() {
     setRowModesModel({
       ...rowModesModel,
       [id]: {
-        mode: _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_4__.GridRowModes.View,
+        mode: _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_1__.GridRowModes.View,
         ignoreModifications: true
       }
     });
@@ -64019,7 +64033,7 @@ function FullFeaturedCrudGrid() {
     getActions: ({
       id
     }) => {
-      const isInEditMode = rowModesModel[id]?.mode === _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_4__.GridRowModes.Edit;
+      const isInEditMode = rowModesModel[id]?.mode === _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_1__.GridRowModes.Edit;
       if (isInEditMode) {
         return [(0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_6__.GridActionsCellItem, {
           icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Save__WEBPACK_IMPORTED_MODULE_7__["default"], null),
@@ -64050,6 +64064,13 @@ function FullFeaturedCrudGrid() {
       })];
     }
   }];
+
+  /**
+   * The making of the actual donuts commences here...
+   * will need to add back
+   * background: attributes.backgroundColor,
+   */
+
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     height: "400",
     width: "100%"

@@ -8,7 +8,10 @@
     "postId",
     "queryId",
     "allowResize",
-    "imageCrop"
+    "imageCrop",
+    "kadence/dynamicSource",
+    "kadence/repeaterRowData",
+    "kadence/repeaterRow"
   ],
   "description": "Image block with greater controls and advanced features",
   "keywords": [
@@ -453,6 +456,7 @@
     "ktanimate": true,
     "ktanimateadd": true,
     "ktanimatepreview": true,
-    "ktdynamic": true
+    "ktdynamic": true,
+    "kbMetadata": true
   }
 }
