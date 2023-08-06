@@ -63879,7 +63879,6 @@ console.log(attributes);
 async function do_save(row) {
   const url = "http://suchthings.local/wp-json/pz/v1/putproj/";
   alert(row.project_name);
-  row.id = null;
   let response = await fetch(url, {
     method: "POST",
     headers: {

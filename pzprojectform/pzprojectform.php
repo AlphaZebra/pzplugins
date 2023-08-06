@@ -36,16 +36,75 @@ add_action('admin_post_nopriv_do-project-edit-block', 'do_project_edit_block');
 // PZ_SECTION 2
 
 function pz_project_form_block($attributes) {
-
-  // PZ_SECTION 3
-
-	wp_enqueue_script('pzprojform', plugin_dir_url(__FILE__) . 'build/pzprojectform.js', array('wp-element', 'wp-components'), null, true);
-	// $user_info = wp_get_current_user();
-	// ob_start();
-
-  // PZ_SECTION 4
+  global $wpdb;
   
-  return( '<div class="pzdiv">Jello Dar</div>' );
+	// wp_enqueue_script('pzprojform', plugin_dir_url(__FILE__) . 'build/pzprojectform.js', array('wp-element', 'wp-components'), null, true);
+	// $user_info = wp_get_current_user();
+
+  // we'll get a url parameter telling us which project id to edit. If 0, we're creating a new project.
+  $row = array();
+  if( isset($_GET['prj'])) {
+    if( $_GET['prj'] != '0') {
+      // query for the record
+      $rows = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_project WHERE id = {$_GET['prj']} ", ARRAY_A );
+      $row = $rows[0];
+    }
+  } 
+
+  // set up $item array either with empty values or with values from existing record we're editing
+  $item = array();
+  $item['id'] = isset($row['id']) ? $row['id'] : null;
+  $item['project_name'] = isset($row['project_name']) ? $row['project_name'] : '';
+  $item['project_status'] = isset($row['project_status']) ? $row['project_status'] : 'pending';
+   
+	ob_start();
+?>
+
+
+<form action="<?php echo esc_url(admin_url('admin-post.php')) ?>" method="POST" class="form-style-1">
+  <input type="hidden" name="action" value="do-project-edit-block" required>
+  <input type="hidden" name="id" id="id" value="<?php echo $item['id'] ?>" required>
+
+  <label>Project name</label>
+  <input type="text" id="project_name" name="project_name" value="<?php echo $item['project_name']  ?>" class="field-long" placeholder="Do the things..." />
+  <label for="project_status">Status</label>
+
+  <select name="project_status" id="project_status" >
+    <option value="pending" <?php echo $item['project_status'] == 'pending' ? 'selected' : '' ?>>Pending</option>
+    <option value="inprogress" <?php echo $item['project_status'] == 'inprocess' ? 'selected' : '' ?>>In Process</option>
+    <option value="inreview" <?php echo $item['project_status'] == 'inreview' ? 'selected' : '' ?> >Review</option>
+    <option value="done" <?php echo $item['project_status'] == 'done' ? 'selected' : '' ?>>Done</option>
+  </select>
+
+
+  <label>Project lead</label>
+  <input type="text" id="project_lead" name="project_lead" class="field-long" placeholder="Leader's name..." />
+
+  <label>Project description</label>
+  <textarea id="project_description" name="project_description" cols="100" rows="10" >
+    <?php 
+    if ( isset($item['project_description'])) {
+      echo $item['project_description'];
+    }
+    ?> 
+  </textarea>
+  <p></p>
+
+  <label>Kickoff date</label>
+  <input type="date" id="kickoff_date" name="kickoff_date" />
+  <label>Due date</label>
+  <input type="date" id="due_date" name="due_date" />
+  <p></p>
+  <input type="submit" value="Save" />
+  <button href=javascript:history.go(-1); >Cancel</button>
+</form>
+
+
+<?php
+
+
+  // return( '<div class="pzdiv">Jello Dar</div>' );
+  return( ob_get_clean());
 	 
 }
 
@@ -60,21 +119,23 @@ function do_project_edit_block () {
   $item['project_status'] = sanitize_text_field($_POST['project_status']);
   $item['project_lead'] = sanitize_text_field($_POST['project_lead']);
   $item['team_members'] = '';
-  $item['project_description'] = '';
+  $item['project_description'] = sanitize_text_field($_POST['project_description']);
   $item['kickoff_date'] = sanitize_text_field($_POST['kickoff_date']);
   $item['due_date'] = sanitize_text_field($_POST['due_date']);
-  $item['budget'] = sanitize_text_field($_POST['budget']);
+  $item['budget'] = '';
   $item['tenant_ID'] = '';
   $item['created']= $created;
 
-  // var_dump($item);
-  // exit;
 
   $tablnam = $wpdb->prefix . "pz_project";
   // if we're updating, we'll use a different SQL command
-  if( isset( $_POST['update'] ) )  {
+  if(  $_POST['id'] > 0  )  {
       $item['id'] = $_POST['id'];
-      $wpdb->update( $tablnam, $item, array('id' => $item['id']) );
+      
+      if ($wpdb->update( $tablnam, $item, array('id' => $item['id']) ) < 0) {
+        var_dump($wpdb);
+        exit;
+      }
       $pz_id = $item['id'];
 
   } else {
@@ -82,7 +143,7 @@ function do_project_edit_block () {
           var_dump( $wpdb );
           exit;
       }
-  
+
       $pz_id = $wpdb->insert_id;  // this is the id number of the record we just inserted
   }
 

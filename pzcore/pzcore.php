@@ -157,13 +157,14 @@ $item['field_string'] = "CREATE TABLE $table_name (
   tenant_ID varchar(20) NOT NULL DEFAULT '',
   project_status varchar(20) NOT NULL DEFAULT '',
   project_lead bigint(20) NOT NULL DEFAULT 1,
+  project_lead_name varchar(120) NOT NULL DEFAULT '',
   team_members varchar(40) NOT NULL DEFAULT '',
   project_description varchar(500) NOT NULL DEFAULT '',
   kickoff_date varchar(12) NOT NULL DEFAULT '',
   due_date varchar(12) NOT NULL DEFAULT '',
   budget varchar(20) NOT NULL DEFAULT '',
   created varchar(12) NOT NULL DEFAULT '',
-  PRIMARY KEY  (project_id)
+  PRIMARY KEY  (id)
 ) $charset;";
 
 handle_def_record($item);
@@ -452,7 +453,11 @@ function createPZTables() {
    function do_putproj($data) {
     global $wpdb;
     $item = array();
-    $item['id'] = $data['id'];
+    if( $data[id] == 0 ) {
+      $item['id'] = null;
+    } else {
+      $item['id'] = $data['id'];
+    }
     $item['project_name'] = $data['project_name'];
     $item['tenant_ID'] = 'TEST';
     $item['project_status'] = $data['project_status'];
@@ -465,6 +470,8 @@ function createPZTables() {
     $item['budget'] = $data['budget'];
     $item['created'] = '';
 
+    var_dump($item);
+    exit;
 
     
       $wpdb->update( "{$wpdb->prefix}pz_project", $item, array('id' => $data['id']) );

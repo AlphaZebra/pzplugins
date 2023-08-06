@@ -50,6 +50,10 @@ export default function Edit(props) {
     bottom: "50px",
   });
 
+  const imageURL =
+    window.location.origin +
+    "/wp-content/plugins/pzprojectgrid/includes/assets/project-list.png";
+
   return (
     <div {...useBlockProps()}>
       <InspectorControls>
@@ -72,19 +76,25 @@ export default function Edit(props) {
           />
         </PanelBody>
 
-        <PanelBody title="When Adding">
+        <PanelBody title="When Adding/Editing">
           <TextControl
             label="URL for Project Add form"
             value={attributes.addURL}
             onChange={(value) => setAttributes({ addURL: value })}
           />
+          <TextControl
+            label="URL for Project Edit form"
+            value={attributes.editURL}
+            onChange={(value) => setAttributes({ editURL: value })}
+          />
+          <TextControl
+            label="URL for Task Lists"
+            value={attributes.taskListURL}
+            onChange={(value) => setAttributes({ taskListURL: value })}
+          />
         </PanelBody>
       </InspectorControls>
-      <TextControl
-        label="Enter some data"
-        value={attributes.myheader}
-        onChange={(newValue) => setAttributes({ myheader: newValue })}
-      />
+      <img src={imageURL}></img>
     </div>
   );
 }

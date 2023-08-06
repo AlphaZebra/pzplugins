@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "title": "PZ Project Grid",
   "category": "widgets",
-  "description": "Example block scaffolded with Create Block tool.",
+  "description": "Show a list of all projects.",
   "supports": {
     "html": false
   },
@@ -18,6 +18,12 @@
       "type": "string"
     },
     "addURL": {
+      "type": "string"
+    },
+    "editURL": {
+      "type": "string"
+    },
+    "taskListURL": {
       "type": "string"
     },
     "backgroundColor": {
