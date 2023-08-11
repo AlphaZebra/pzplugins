@@ -49,7 +49,10 @@ const attributes = JSON.parse(xdiv.innerText);
 
 // Get the tasks linked to that project
 let taskurl = "";
-if (attributes.prj) {
+if (attributes.prj == "") {
+  taskurl =
+    "http://suchthings.local/wp-json/pz/v1/task/?prj=99999" + attributes.prj;
+} else if (attributes.prj) {
   taskurl = "http://suchthings.local/wp-json/pz/v1/task/?prj=" + attributes.prj;
 } else if (attributes.appName) {
   taskurl =
@@ -153,7 +156,7 @@ function RenderDelete({ value }) {
 
 function EditToolbar() {
   const handleClick = () => {
-    const url = attributes.editURL + "?prj=0";
+    const url = attributes.addURL + "?prj=" + attributes.prj;
 
     //   const id = randomId();
     //   setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);

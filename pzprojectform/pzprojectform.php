@@ -57,6 +57,9 @@ function pz_project_form_block($attributes) {
   $item['project_name'] = isset($row['project_name']) ? $row['project_name'] : '';
   $item['project_status'] = isset($row['project_status']) ? $row['project_status'] : 'pending';
   $item['tasks'] = isset($row['tasks']) ? $row['tasks'] : '';
+  $item['project_lead'] = isset($row['project_lead']) ? $row['project_lead'] : '';
+  $item['project_lead_name'] = isset($row['project_lead_name']) ? $row['project_lead_name'] : '';
+  $item['project_description'] = isset($row['project_description']) ? $row['project_description'] : '';
   $item['kickoff_date'] = isset($row['kickoff_date']) ? $row['kickoff_date'] : '';
   $item['due_date'] = isset($row['due_date']) ? $row['due_date'] : '';
    
@@ -82,7 +85,7 @@ function pz_project_form_block($attributes) {
 
 
   <label>Project lead</label>
-  <input type="text" id="project_lead" name="project_lead" class="field-long" placeholder="Team leader..." />
+  <input type="text" id="project_lead_name" name="project_lead_name" value="<?php echo $item['project_lead_name']  ?>" class="field-long" placeholder="Team leader..." />
 
   <label>Project description</label>
   <textarea id="project_description" name="project_description" cols="100" rows="10" >
@@ -100,7 +103,7 @@ function pz_project_form_block($attributes) {
   <input type="date" id="due_date" name="due_date" value="<?php echo $item['due_date']  ?>"/>
   <p></p>
   <input type="submit" value="Save" />
-  <button href=javascript:history.go(-1); >Cancel</button>
+  <input type="button" onClick="window.history.go(-1);" value="Cancel" />
 </form>
 
 
@@ -122,6 +125,7 @@ function do_project_edit_block () {
   $item['project_name'] = sanitize_text_field($_POST['project_name']);
   $item['project_status'] = sanitize_text_field($_POST['project_status']);
   $item['project_lead'] = sanitize_text_field($_POST['project_lead']);
+  $item['project_lead_name'] = sanitize_text_field($_POST['project_lead_name']);
   $item['team_members'] = '';
   $item['project_description'] = sanitize_text_field($_POST['project_description']);
   $item['tasks'] = sanitize_text_field($_POST['tasks']);

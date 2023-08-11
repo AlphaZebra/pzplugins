@@ -27,12 +27,13 @@ function pz_task_form($attributes) {
 		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_task WHERE id = {$_GET['t']}", ARRAY_A );
 
 		$item = $results[0];
-		// var_dump($item);
-		// exit;
 	} else {
 		
 	}
 
+	if( isset($_GET['prj'])) {
+		$item['project_id'] = $_GET['prj'];
+	}
 
 	ob_start();
 	?>
