@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "pz/pzgridprojectgrid",
+  "name": "pz/pzprojectgrid",
   "version": "0.1.0",
   "title": "PZ Project Grid",
   "category": "widgets",

@@ -11,9 +11,6 @@ import Badge from "@mui/material/Badge";
 import Chip from "@mui/material/Chip";
 import Avatar from "@mui/material/Avatar";
 import { LicenseInfo } from "@mui/x-license-pro";
-LicenseInfo.setLicenseKey(
-  "94af6ed0a88af0eb477e40d45142c51eTz03MjUyMCxFPTE3MjMzMzc0OTYwMDAsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI="
-);
 
 import {
   GridRowModes,
@@ -26,14 +23,42 @@ import {
   GridToolbarDensitySelector,
 } from "@mui/x-data-grid-pro";
 
-const url = "http://suchthings.local/wp-json/pz/v1/project";
-let response = await fetch(url);
+// window.onload = function () {
+//   if (window.jQuery) {
+//     // jQuery is loaded
+//     alert("Yeah!");
+//   } else {
+//     // jQuery is not loaded
+//     alert("Doesn't Work");
+//   }
+// };
+// // Get the specific project record
+// const url = "http://suchthings.local/wp-json/pz/v1/project";
+// let response = await fetch(url);
+// let json = await response.text();
+// let projectRows = JSON.parse(json);
+
+LicenseInfo.setLicenseKey(
+  "94af6ed0a88af0eb477e40d45142c51eTz03MjUyMCxFPTE3MjMzMzc0OTYwMDAsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI="
+);
+
+// Retrieve block attributes
+const xdiv = document.querySelector(".pz-taskgrid-div");
+const attributes = JSON.parse(xdiv.innerText);
+// console.log(attributes);
+
+// Get the tasks linked to that project
+let taskurl = "";
+if (attributes.prj) {
+  taskurl = "http://suchthings.local/wp-json/pz/v1/task/?prj=" + attributes.prj;
+} else if (attributes.appName) {
+  taskurl =
+    "http://suchthings.local/wp-json/pz/v1/task/?app=" + attributes.appName;
+}
+
+let response = await fetch(taskurl);
 let json = await response.text();
 let initialRows = JSON.parse(json);
-
-const xdiv = document.querySelector(".pz-projectgrid-div");
-const attributes = JSON.parse(xdiv.innerText);
-console.log(attributes);
 
 function handleDeleteClick() {
   window.location.href = "./edit-project/";
@@ -65,46 +90,43 @@ function RenderStatus(props) {
   }
 }
 
-function getLeadName({ row }) {
-  return row.project_lead_name;
-}
-
-function RenderLeadName(props) {
-  const { value } = props;
-  const names = value.split(" ");
-  console.log(names);
-  const fname = String(names[0]);
-  const lname = String(names[1]);
-  //const initial = lname.substring(0, 1);
-  console.log(lname);
-  let initial = "?";
-  if (names.length > 1) {
-    initial = lname.charAt(0);
-  } else if (names.length == 1) {
-    fname.charAt(0);
-  } else initial = "?"; // else if no name, the default "?" will serve as the initial
-  // const initial = names[1] ? names[1].charAt(0) : names[0].charAt(0); // get last initial, or else first initial
-  // const initial = "X";
-  return (
-    <Chip
-      color="primary"
-      variant="outlined"
-      avatar={<Avatar>{initial}</Avatar>}
-      label={value}
-    />
-  );
-}
+// function RenderLeadName(props) {
+//   const { value } = props;
+//   const names = value.split(" ");
+//   console.log(names);
+//   const fname = String(names[0]);
+//   const lname = String(names[1]);
+//   //const initial = lname.substring(0, 1);
+//   console.log(lname);
+//   let initial = "?";
+//   if (names.length > 1) {
+//     initial = lname.charAt(0);
+//   } else if (names.length == 1) {
+//     fname.charAt(0);
+//   } else initial = "?"; // else if no name, the default "?" will serve as the initial
+//   // const initial = names[1] ? names[1].charAt(0) : names[0].charAt(0); // get last initial, or else first initial
+//   // const initial = "X";
+//   return (
+//     <Chip
+//       color="primary"
+//       variant="outlined"
+//       avatar={<Avatar>{initial}</Avatar>}
+//       label={value}
+//     />
+//   );
+// }
 
 function RenderEdit({ value }) {
-  const url = "./edit-project/?prj=" + value;
+  const url = "/task-info/?t=" + value;
   return (
     <a href={url}>
       <EditIcon />
     </a>
   );
 }
+
 function RenderTaskList({ value }) {
-  const url = attributes.taskListURL + "?prj=" + value;
+  const url = attributes.taskListURL + "?t=" + value;
   return (
     <a href={url}>
       <Badge badgeContent={4}>
@@ -131,7 +153,7 @@ function RenderDelete({ value }) {
 
 function EditToolbar() {
   const handleClick = () => {
-    const url = attributes.addURL + "?prj=0";
+    const url = attributes.editURL + "?prj=0";
 
     //   const id = randomId();
     //   setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
@@ -145,7 +167,7 @@ function EditToolbar() {
   return (
     <GridToolbarContainer>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add project
+        Add task
       </Button>
       <GridToolbarColumnsButton />
       <GridToolbarFilterButton />
@@ -155,9 +177,9 @@ function EditToolbar() {
 }
 
 const columns = [
-  { field: "project_name", headerName: "Project", width: 350 },
+  { field: "task_name", headerName: "Tasks", width: 350 },
   {
-    field: "project_status",
+    field: "task_status",
     type: "singleSelect",
     valueOptions: ["Pending", "In Process", "In Review", "Done"],
     headerName: "Status",
@@ -179,23 +201,14 @@ const columns = [
     width: 100,
   },
   {
-    field: "project_lead",
-    headerName: "Project Lead",
-    valueGetter: getLeadName,
-    renderCell: RenderLeadName,
+    field: "task_assignee",
+    headerName: "Assigned to",
     width: 180,
   },
   {
     field: "id",
     headerName: " ",
     renderCell: RenderEdit,
-    width: 30,
-  },
-  {
-    field: "taskaction",
-    headerName: "  ",
-    valueGetter: ({ id }) => id,
-    renderCell: RenderTaskList,
     width: 30,
   },
   {
@@ -208,14 +221,14 @@ const columns = [
   },
 ];
 
-ReactDOM.render(<ProjectGrid />, xdiv);
+ReactDOM.render(<TaskGrid />, xdiv);
 
 /**
  *
  * Here's the component donut
  */
 
-function ProjectGrid() {
+function TaskGrid() {
   return (
     <div height="400" width="100%">
       <Box

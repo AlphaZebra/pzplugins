@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Pzcore
- * Description:       PeakZebra core tables and REST api. Activate this before installing/activating other
+ * Description:       PeakZebra core tables and includes for REST api. Activate this before installing/activating other
  *                    PZ plugins.
  * Requires at least: 6.1
  * Requires PHP:      7.0
@@ -16,6 +16,7 @@
  */
 
  require_once( 'includes/core-config.php');
+ require_once( 'includes/task-rest.php');
  
  if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
@@ -163,6 +164,7 @@ $item['field_string'] = "CREATE TABLE $table_name (
   kickoff_date varchar(12) NOT NULL DEFAULT '',
   due_date varchar(12) NOT NULL DEFAULT '',
   budget varchar(20) NOT NULL DEFAULT '',
+  tasks mediumtext NOT NULL DEFAULT '', 
   created varchar(12) NOT NULL DEFAULT '',
   PRIMARY KEY  (id)
 ) $charset;";
@@ -296,10 +298,13 @@ $item['id'] = null;
 $item['table_name'] = 'pz_task';
 $item['field_string'] = "CREATE TABLE $table_name (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  tenant_ID varchar(20) NOT NULL DEFAULT '',
+  tenant_id varchar(20) NOT NULL DEFAULT '',
+  app_id varchar(20) NOT NULL DEFAULT '',
   project_id bigint(20) unsigned NOT NULL DEFAULT 1,
   task_name varchar(200) NOT NULL DEFAULT '',
-  task_assignee bigint(20) unsigned NOT NULL DEFAULT 1,
+  kickoff_date varchar(12) NOT NULL DEFAULT '',
+  due_date varchar(12) NOT NULL DEFAULT '',
+  task_assignee varchar(180) NOT NULL DEFAULT 'unassigned',
   created varchar(12) NOT NULL DEFAULT '',
   PRIMARY KEY  (id)
 ) $charset;";
@@ -411,6 +416,10 @@ function createPZTables() {
     $limit = 120;
     $offset = 0;
   
+    if( isset($_GET['per'])) {
+      $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE id = {$_GET['per']} ", ARRAY_A );
+      return $results;
+    }
     $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE firstname = 'Mary' ", ARRAY_A );
     if( !isset($results[0])) {
       $offset=0;
@@ -534,7 +543,7 @@ function createPZTables() {
       mkdir('C:\Users\Rugge\Local Sites\suchthings\app\public\wp-content\plugins\pzcore\includes');
     }
     $myfile = fopen('C:\Users\Rugge\Local Sites\suchthings\app\public\wp-content\plugins\pzcore\includes\personform.php', 'w');
-    if($myfile == false) die("fuck me in the eyeballs");
+    if($myfile == false) die("dead");
     // $contents = handle_form_render();
     //write contents
     fwrite($myfile, $contents);

@@ -1,32 +1,28 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 2,
-  "name": "pz/pzprojectgrid",
+  "apiVersion": 3,
+  "name": "pz/pz-task-form",
   "version": "0.1.0",
-  "title": "PZ Project Grid",
+  "title": "PZ Task Form",
   "category": "widgets",
-  "description": "Show a list of all projects.",
+  "icon": "smiley",
+  "description": "Display and edit of single task within a project.",
   "supports": {
     "html": false
   },
-  "textdomain": "pzprojectgrid",
+  "textdomain": "pzdata",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",
   "attributes": {
-    "myheader": {
+    "field": {
       "type": "string"
     },
-    "addURL": {
-      "type": "string"
+    "isEdit": {
+      "type": "boolean",
+      "default": false
     },
-    "editURL": {
-      "type": "string"
-    },
-    "taskListURL": {
-      "type": "string"
-    },
-    "backgroundColor": {
+    "prompt": {
       "type": "string"
     }
   }

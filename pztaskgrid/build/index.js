@@ -59,9 +59,7 @@ function Edit(props) {
     attributes,
     setAttributes
   } = props;
-  const {
-    backgroundColor
-  } = attributes;
+  // const { backgroundColor } = attributes;
   const [values, setValues] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({
     top: "50px",
     left: "10%",
@@ -83,12 +81,6 @@ function Edit(props) {
     onChange: value => setAttributes({
       isEdit: value
     })
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Input background"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPalette, {
-    value: backgroundColor,
-    colors: (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useSetting)("color.palette"),
-    onChange: value => setAttributes({
-      backgroundColor: value
-    })
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: "When Adding/Editing"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
@@ -108,6 +100,12 @@ function Edit(props) {
     value: attributes.taskListURL,
     onChange: value => setAttributes({
       taskListURL: value
+    })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+    label: "Advanced internal app name",
+    value: attributes.appName,
+    onChange: value => setAttributes({
+      appName: value
     })
   }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: imageURL
@@ -137,14 +135,6 @@ __webpack_require__.r(__webpack_exports__);
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * All files containing `style` keyword are bundled together. The code used
- * gets applied both to the front of your site and to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 
 
 /**
@@ -294,7 +284,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"pz/pzprojectgrid","version":"0.1.0","title":"PZ Project Grid","category":"widgets","description":"Show a list of all projects.","supports":{"html":false},"textdomain":"pzprojectgrid","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"myheader":{"type":"string"},"addURL":{"type":"string"},"editURL":{"type":"string"},"taskListURL":{"type":"string"},"backgroundColor":{"type":"string"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"pz/pztaskgrid","icon":"smiley","version":"0.1.0","title":"PZ Task Grid","category":"widgets","description":"Show a list of all tasks, by default associated with a project.","supports":{"html":false},"textdomain":"pztaskgrid","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"myheader":{"type":"string"},"addURL":{"type":"string"},"editURL":{"type":"string"},"taskListURL":{"type":"string"},"prj":{"type":"string","default":"1"},"appName":{"type":"string"},"backgroundColor":{"type":"string"}}}');
 
 /***/ })
 
@@ -453,7 +443,7 @@ module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkpztaskgrid"] = self["webpackChunkpztaskgrid"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunkpzptaskgrid"] = self["webpackChunkpzptaskgrid"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	})();

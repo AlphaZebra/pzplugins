@@ -11,6 +11,7 @@ function pzdata_register() {
         [ 'name' => 'pz_inter_list' ],
         [ 'name' => 'pz_page_access' ],
         [ 'name' => 'pz_task_list' ],
+        [ 'name' => 'pz_task_form' ],
         [ 'name' => 'pz_request_type' ],
         [ 'name' => 'pz_request_type_form' ],
         [ 'name' => 'pz_request_detail_form' ],
@@ -43,6 +44,9 @@ function pzdata_register() {
         }
         else if( $block['name'] == 'pz_task_list') {
             $render_prop = array( 'render_callback' => 'pz_task_list');
+        }
+        else if( $block['name'] == 'pz_task_form') {
+            $render_prop = array( 'render_callback' => 'pz_task_form');
         }
         else if( $block['name'] == 'pz_request_type') {
             $render_prop = array( 'render_callback' => 'pz_request_type');

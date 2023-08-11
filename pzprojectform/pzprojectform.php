@@ -56,6 +56,9 @@ function pz_project_form_block($attributes) {
   $item['id'] = isset($row['id']) ? $row['id'] : null;
   $item['project_name'] = isset($row['project_name']) ? $row['project_name'] : '';
   $item['project_status'] = isset($row['project_status']) ? $row['project_status'] : 'pending';
+  $item['tasks'] = isset($row['tasks']) ? $row['tasks'] : '';
+  $item['kickoff_date'] = isset($row['kickoff_date']) ? $row['kickoff_date'] : '';
+  $item['due_date'] = isset($row['due_date']) ? $row['due_date'] : '';
    
 	ob_start();
 ?>
@@ -64,6 +67,7 @@ function pz_project_form_block($attributes) {
 <form action="<?php echo esc_url(admin_url('admin-post.php')) ?>" method="POST" class="form-style-1">
   <input type="hidden" name="action" value="do-project-edit-block" required>
   <input type="hidden" name="id" id="id" value="<?php echo $item['id'] ?>" required>
+  <input type="hidden" name="tasks" id="tasks" value="<?php echo $item['tasks'] ?>" required>
 
   <label>Project name</label>
   <input type="text" id="project_name" name="project_name" value="<?php echo $item['project_name']  ?>" class="field-long" placeholder="Do the things..." />
@@ -78,7 +82,7 @@ function pz_project_form_block($attributes) {
 
 
   <label>Project lead</label>
-  <input type="text" id="project_lead" name="project_lead" class="field-long" placeholder="Leader's name..." />
+  <input type="text" id="project_lead" name="project_lead" class="field-long" placeholder="Team leader..." />
 
   <label>Project description</label>
   <textarea id="project_description" name="project_description" cols="100" rows="10" >
@@ -91,9 +95,9 @@ function pz_project_form_block($attributes) {
   <p></p>
 
   <label>Kickoff date</label>
-  <input type="date" id="kickoff_date" name="kickoff_date" />
+  <input type="date" id="kickoff_date" name="kickoff_date" value="<?php echo $item['kickoff_date']  ?>"/>
   <label>Due date</label>
-  <input type="date" id="due_date" name="due_date" />
+  <input type="date" id="due_date" name="due_date" value="<?php echo $item['due_date']  ?>"/>
   <p></p>
   <input type="submit" value="Save" />
   <button href=javascript:history.go(-1); >Cancel</button>
@@ -120,6 +124,7 @@ function do_project_edit_block () {
   $item['project_lead'] = sanitize_text_field($_POST['project_lead']);
   $item['team_members'] = '';
   $item['project_description'] = sanitize_text_field($_POST['project_description']);
+  $item['tasks'] = sanitize_text_field($_POST['tasks']);
   $item['kickoff_date'] = sanitize_text_field($_POST['kickoff_date']);
   $item['due_date'] = sanitize_text_field($_POST['due_date']);
   $item['budget'] = '';

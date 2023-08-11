@@ -76,8 +76,3 @@ function pz_get_config( $key ) {
 
 }
 
-// test
-//  $someval = "Just a heads up";
-// pz_set_config('test', 'the value of the test key');
-
-// $setting = pz_get_config('test');

@@ -1,15 +1,16 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "pz/pzprojectgrid",
+  "name": "pz/pztaskgrid",
+  "icon": "smiley",
   "version": "0.1.0",
-  "title": "PZ Project Grid",
+  "title": "PZ Task Grid",
   "category": "widgets",
-  "description": "Show a list of all projects.",
+  "description": "Show a list of all tasks, by default associated with a project.",
   "supports": {
     "html": false
   },
-  "textdomain": "pzprojectgrid",
+  "textdomain": "pztaskgrid",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",
@@ -24,6 +25,13 @@
       "type": "string"
     },
     "taskListURL": {
+      "type": "string"
+    },
+    "prj": {
+      "type": "string",
+      "default": "1"
+    },
+    "appName": {
       "type": "string"
     },
     "backgroundColor": {
