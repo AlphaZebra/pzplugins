@@ -1,4 +1,6 @@
 // import * as React from "react";
+// import React, { useState } from "react";
+import { useState } from "@wordpress/element";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
@@ -14,6 +16,8 @@ import { LicenseInfo } from "@mui/x-license-pro";
 LicenseInfo.setLicenseKey(
   "94af6ed0a88af0eb477e40d45142c51eTz03MjUyMCxFPTE3MjMzMzc0OTYwMDAsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI="
 );
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
 
 import {
   GridRowModes,
@@ -33,10 +37,40 @@ let initialRows = JSON.parse(json);
 
 const xdiv = document.querySelector(".pz-projectgrid-div");
 const attributes = JSON.parse(xdiv.innerText);
-console.log(attributes);
 
 function handleDeleteClick() {
   window.location.href = "./edit-project/";
+}
+
+function RenderProjectName({ row, value }) {
+  const [anchorEl, setAnchorEl] = useState();
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
+  function handlePopover(event) {
+    setAnchorEl(event.currentTarget);
+  }
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <Typography onClick={handlePopover}>{value}</Typography>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+      >
+        <Typography sx={{ p: 2 }}>{row.project_description}</Typography>
+      </Popover>
+    </div>
+  );
 }
 
 function RenderStatus(props) {
@@ -72,11 +106,9 @@ function getLeadName({ row }) {
 function RenderLeadName(props) {
   const { value } = props;
   const names = value.split(" ");
-  console.log(names);
   const fname = String(names[0]);
   const lname = String(names[1]);
   //const initial = lname.substring(0, 1);
-  console.log(lname);
   let initial = "?";
   if (names.length > 1) {
     initial = lname.charAt(0);
@@ -155,7 +187,12 @@ function EditToolbar() {
 }
 
 const columns = [
-  { field: "project_name", headerName: "Project", width: 350 },
+  {
+    field: "project_name",
+    headerName: "Project",
+    width: 350,
+    renderCell: RenderProjectName,
+  },
   {
     field: "project_status",
     type: "singleSelect",
