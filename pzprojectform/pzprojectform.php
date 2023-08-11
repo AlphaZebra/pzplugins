@@ -56,7 +56,7 @@ function pz_project_form_block($attributes) {
   $item['id'] = isset($row['id']) ? $row['id'] : null;
   $item['project_name'] = isset($row['project_name']) ? $row['project_name'] : '';
   $item['project_status'] = isset($row['project_status']) ? $row['project_status'] : 'pending';
-  $item['tasks'] = isset($row['tasks']) ? $row['tasks'] : '';
+  $item['tasks'] = isset($row['tasks']) ? $row['tasks'] : 0;
   $item['project_lead'] = isset($row['project_lead']) ? $row['project_lead'] : '';
   $item['project_lead_name'] = isset($row['project_lead_name']) ? $row['project_lead_name'] : '';
   $item['project_description'] = isset($row['project_description']) ? $row['project_description'] : '';

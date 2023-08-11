@@ -135,11 +135,12 @@ function RenderEdit({ value }) {
     </a>
   );
 }
-function RenderTaskList({ value }) {
+function RenderTaskList({ value, row }) {
   const url = attributes.taskListURL + "?prj=" + value;
+  const taskcount = row.tasks ? row.tasks : 0;
   return (
     <a href={url}>
-      <Badge badgeContent={4}>
+      <Badge badgeContent={taskcount}>
         <FormatListBulletedIcon />
       </Badge>
     </a>

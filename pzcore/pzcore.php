@@ -164,7 +164,7 @@ $item['field_string'] = "CREATE TABLE $table_name (
   kickoff_date varchar(12) NOT NULL DEFAULT '',
   due_date varchar(12) NOT NULL DEFAULT '',
   budget varchar(20) NOT NULL DEFAULT '',
-  tasks mediumtext NOT NULL DEFAULT '', 
+  tasks smallint(5) unsigned NOT NULL DEFAULT 0, 
   created varchar(12) NOT NULL DEFAULT '',
   PRIMARY KEY  (id)
 ) $charset;";

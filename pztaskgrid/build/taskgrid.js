@@ -64202,6 +64202,11 @@ if (attributes.prj == "") {
 let response = await fetch(taskurl);
 let json = await response.text();
 let initialRows = JSON.parse(json);
+
+//update project table's count of tasks for this project
+let counturl = "http://suchthings.local/wp-json/pz/v1/count/?prj=" + attributes.prj + "&count=" + initialRows.length;
+console.log(counturl);
+response = await fetch(counturl);
 function handleDeleteClick() {
   window.location.href = "./edit-project/";
 }

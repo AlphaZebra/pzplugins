@@ -64612,13 +64612,15 @@ function RenderEdit({
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_6__["default"], null));
 }
 function RenderTaskList({
-  value
+  value,
+  row
 }) {
   const url = attributes.taskListURL + "?prj=" + value;
+  const taskcount = row.tasks ? row.tasks : 0;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: url
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Badge__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    badgeContent: 4
+    badgeContent: taskcount
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_FormatListBulleted__WEBPACK_IMPORTED_MODULE_8__["default"], null)));
 }
 function RenderDelete({
