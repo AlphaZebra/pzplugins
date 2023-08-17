@@ -38,9 +38,31 @@ import { useState } from "@wordpress/element";
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
+  const imageURL =
+    window.location.origin +
+    "/wp-content/plugins/pzdata/includes/assets/add-person-button.png";
+
   return (
     <div {...useBlockProps()}>
-      <img src="../wp-content/plugins/pzdata/includes/assets/add-person-button.png" />
+      <InspectorControls>
+        <PanelBody title="When Adding/Editing">
+          <TextControl
+            label="URL for Add form"
+            value={attributes.addURL}
+            onChange={(value) => setAttributes({ addURL: value })}
+          />
+        </PanelBody>
+      </InspectorControls>
+      <table>
+        <tr>
+          <td>
+            <img src={imageURL}></img>
+          </td>
+          <td>
+            <h4>PZ Add Person Button</h4>
+          </td>
+        </tr>
+      </table>
     </div>
   );
 }

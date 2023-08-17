@@ -22,7 +22,19 @@
       "type": "boolean",
       "default": false
     },
+    "viewCategory": {
+      "type": "boolean",
+      "default": false
+    },
+    "catFilter": {
+      "type": "string",
+      "default": ""
+    },
     "editURL": {
+      "type": "string",
+      "default": "/"
+    },
+    "redirectURL": {
       "type": "string",
       "default": "/"
     },

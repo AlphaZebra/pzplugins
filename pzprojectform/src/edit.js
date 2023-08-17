@@ -39,6 +39,9 @@ export default function Edit(props) {
     right: "10%",
     bottom: "50px",
   });
+  const imageURL =
+    window.location.origin +
+    "/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
 
   return (
     <div {...useBlockProps()}>
@@ -64,11 +67,16 @@ export default function Edit(props) {
           />
         </PanelBody>
       </InspectorControls>
-      <TextControl
-        label="Enter some data"
-        value={attributes.myheader}
-        onChange={(newValue) => setAttributes({ myheader: newValue })}
-      />
+      <table>
+        <tr>
+          <td>
+            <img src={imageURL}></img>
+          </td>
+          <td>
+            <h4>PZ Project Form</h4>
+          </td>
+        </tr>
+      </table>
     </div>
   );
 }

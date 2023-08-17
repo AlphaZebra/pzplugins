@@ -17,6 +17,15 @@
   "attributes": {
     "myheader": {
       "type": "string"
+    },
+    "addURL": {
+      "type": "string"
+    },
+    "editURL": {
+      "type": "string"
+    },
+    "tag": {
+      "type": "string"
     }
   }
 }

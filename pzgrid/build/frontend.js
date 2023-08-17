@@ -57217,22 +57217,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
 const xdiv = document.querySelector(".pz-target-div");
 const url = "http://suchthings.local/wp-json/pz/v1/person";
 let response = await fetch(url);
 let json = await response.text();
 let rows = JSON.parse(json);
 console.log(rows);
-
-// const rows = [
-// 	{ id: 1, col1: "Hello", col2: "World" },
-// 	{ id: 2, col1: "DataGridPro", col2: "is Awesome" },
-// 	{ id: 3, col1: "MUI", col2: "is Amazing" },
-// ];
-
 const columns = [{
   field: "id",
   headerName: "ID",

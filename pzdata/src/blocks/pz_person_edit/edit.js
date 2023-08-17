@@ -39,6 +39,9 @@ import "./editor.scss";
  */
 export default function Edit({ attributes, setAttributes }) {
 	const [option, setOption] = useState("fname");
+	const imageURL =
+		window.location.origin +
+		"/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
 	if (!attributes.field) {
 		setAttributes({ field: option });
 	}
@@ -69,7 +72,16 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<img src="../wp-content/plugins/pzdata/includes/person-basic.png" />
+			<table>
+				<tr>
+					<td>
+						<img src={imageURL}></img>
+					</td>
+					<td>
+						<h4>PZ Person Form</h4>
+					</td>
+				</tr>
+			</table>{" "}
 		</div>
 	);
 }

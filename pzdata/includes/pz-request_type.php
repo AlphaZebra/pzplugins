@@ -26,12 +26,18 @@ function pz_request_type($attributes) {
 
     $limit = 10;
     $offset = 0;
+	$catFilter = '';
 
+	if( $attributes['catFilter'] != '') {
+		$catFilter = "WHERE category = '" . $attributes['catFilter'] . "'" ;
+	}
+
+		
  
-		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_request_type ", ARRAY_A );
+		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_request_type " . $catFilter, ARRAY_A );
 		if( !isset($results[0])) {
 			$offset=0;
-			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_request_type LIMIT $limit OFFSET $offset ", ARRAY_A );
+			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_request_type LIMIT $limit OFFSET $offset " . $catFilter, ARRAY_A );
 		};
 	
 		if( !isset($results[0])) {
@@ -39,28 +45,32 @@ function pz_request_type($attributes) {
 		};
 
     ob_start();
+
     ?>
     
     <table class="pz-table-style" >
 		
 		<thead>
-			<th>Enqueue</th>
-			<th>ID</th>
-			<th>Category</th>
+			<th style="margin: 10px; min-width: 40px; max-width: 70px;" >Enqueue</th">
+			<?php
+			
+			if($attributes['viewCategory'] == true) {
+				echo '<th>Category</th>';
+			}
+			?>
+			
 			<th>Request</th>
 			<th>Description</th>
 			<th>Level</th>
-			<?php if( current_user_can('administrator')) { ?>
-				<th>Actions</th>
-			<?php } ?>
-			
+			<?php  echo '<th>Actions</th>'; ?>
+				
 		</thead>
 
 	<?php
 
 	foreach($results as $result) {
 		echo "<tr><td>";
-		echo "<form action=" . $result['post_url'] . " method='POST' class='form-style-1'>";
+		echo "<form action=" . esc_url(admin_url('admin-post.php')) . " method='POST' class='form-style-1' style='height: 40; min-width: 70px; max-width: 70px;'>";
 		?>
 	
 			
@@ -71,11 +81,17 @@ function pz_request_type($attributes) {
 			<input type="hidden" name="display_name" value="<?php echo $result['display_name'] ?>" required>
 			<input type="hidden" name="request_description" value="<?php echo $result['request_description'] ?>" required>
 			<input type="hidden" name="request_level" value="<?php echo $result['request_level'] ?>" required>
-			<input type="hidden" name="redirectURL" value="/" required>
-			<input type='submit' value="Queue"></form></td><td>
+			<input type="hidden" name="redirectURL" value=<?php echo $attributes['redirectURL'] ?> required>
+			<button type="submit" style="border: 0; background-color: white; ">
+			<img src='<?php echo plugin_dir_url(__FILE__)  ?>assets/add2q.png' width='30px'>
+			</button>
+			</form></td><td>
 		<?php
-		echo $result['slug'] . '</td><td>';
-		echo $result['category'] . '</td><td>';
+		
+		if($attributes['viewCategory']) {
+			echo $result['category'] . '</td><td>';
+		}
+		
 		echo $result['display_name'] . '</td><td>';
 		echo $result['request_description'] . '</td><td>';
 		echo $result['request_level'] . '</td><td>';
@@ -85,11 +101,11 @@ function pz_request_type($attributes) {
 			<input type="hidden" name="action" value="do-request-type-delete" required>
 			<input type="hidden" name="slug" value="<?php echo $result['slug'] ?>" required>
 			<input type="hidden" name="redirectURL" value="/" required>
-			<button type="submit">
+			<button type="submit" >
 			<img src=' <?php echo plugin_dir_url(__FILE__)  ?>trash.png' width='15px'>
 			</button>
 			</form>
-			<a href="<?php echo $attributes['editURL']  ?>"><img src=' <?php echo plugin_dir_url(__FILE__)  ?>pencil.png' width='15px'></a>
+			<a href="<?php echo $attributes['editURL']  ?>"><img src=' <?php echo plugin_dir_url(__FILE__)  ?>pencil.png' width='20px'></a>
 			
 		<?php
 		} 
@@ -282,6 +298,8 @@ function do_queue_add () {
 	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_request_type WHERE slug = '{$_POST['slug']}' ", ARRAY_A );
 	$result = $results[0];
 
+	
+
 	// tie to current user
 	$current_user = wp_get_current_user();
 	$username = esc_html( $current_user->user_login );
@@ -296,7 +314,7 @@ function do_queue_add () {
     $item['display_name'] = isset($result['display_name']) ? $result['display_name'] : 'none';
     $item['req_priority'] = "1";
     $item['request_description'] = isset($result['request_description']) ? $result['request_description'] : 'none';
-    $item['request_detail'] = $_POST['request_detail'];
+    $item['request_detail'] = isset($_POST['request_detail']) ? $_POST['request_detail'] : 'none';
     $item['username'] = isset($result['username']) ? $result['username'] : $username;
     $item['created']= $created;
 
@@ -314,6 +332,7 @@ function do_queue_add () {
     
         $pz_id = $wpdb->insert_id;  // this is the id number of the record we just inserted
     }
+
 	
 	// redirectURL is set as a block attribute, but is written into the form as a hidden variable,
 	// which is how we have it here. 

@@ -11,8 +11,8 @@ import { __ } from "@wordpress/i18n";
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from "@wordpress/block-editor";
-import { TextControl } from "@wordpress/components";
+import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
+import { TextControl, PanelBody } from "@wordpress/components";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -31,13 +31,43 @@ import { TextControl } from "@wordpress/components";
  */
 export default function Edit(props) {
   const { attributes, setAttributes } = props;
+  const imageURL =
+    window.location.origin +
+    "/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
+
   return (
     <div {...useBlockProps()}>
-      <TextControl
-        label="Enter some data"
-        value={attributes.myheader}
-        onChange={(newValue) => setAttributes({ myheader: newValue })}
-      />
+      <InspectorControls>
+        <PanelBody title="When Adding/Editing">
+          <TextControl
+            label="URL for Person Add form"
+            value={attributes.addURL}
+            onChange={(value) => setAttributes({ addURL: value })}
+          />
+          <TextControl
+            label="URL for Person Edit form"
+            value={attributes.editURL}
+            onChange={(value) => setAttributes({ editURL: value })}
+          />
+        </PanelBody>
+        <PanelBody title="Set type of person">
+          <TextControl
+            label="set tag such as staff or customer"
+            value={attributes.tag}
+            onChange={(value) => setAttributes({ tag: value })}
+          />
+        </PanelBody>
+      </InspectorControls>
+      <table>
+        <tr>
+          <td>
+            <img src={imageURL}></img>
+          </td>
+          <td>
+            <h4>PZ Person Grid</h4>
+          </td>
+        </tr>
+      </table>
     </div>
   );
 }

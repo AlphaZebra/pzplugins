@@ -1,14 +1,6 @@
 import { TextControl, DatePicker } from "@wordpress/components";
 import Button from "@mui/material/Button";
-import {
-  DataGrid,
-  GridRowsProp,
-  GridColDef,
-  GridToolbar,
-} from "@mui/x-data-grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 const xdiv = document.querySelector(".pz-target-div");
 
@@ -17,12 +9,6 @@ let response = await fetch(url);
 let json = await response.text();
 let rows = JSON.parse(json);
 console.log(rows);
-
-// const rows = [
-// 	{ id: 1, col1: "Hello", col2: "World" },
-// 	{ id: 2, col1: "DataGridPro", col2: "is Awesome" },
-// 	{ id: 3, col1: "MUI", col2: "is Amazing" },
-// ];
 
 const columns = [
   { field: "id", headerName: "ID", width: 20 },

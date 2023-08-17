@@ -38,9 +38,22 @@ import { useState } from "@wordpress/element";
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
+  const imageURL =
+    window.location.origin +
+    "/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
+
   return (
     <div {...useBlockProps()}>
-      <img src="../wp-content/plugins/pzdata/includes/assets/add-person-button.png" />
+      <table>
+        <tr>
+          <td>
+            <img src={imageURL}></img>
+          </td>
+          <td>
+            <h4>PZ Interaction List</h4>
+          </td>
+        </tr>
+      </table>
     </div>
   );
 }

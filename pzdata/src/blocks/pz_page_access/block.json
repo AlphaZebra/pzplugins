@@ -22,8 +22,13 @@
 			"type": "boolean",
 			"default": false
 		},
-		"prompt": {
-			"type": "string"
+		"isLogged": {
+			"type": "boolean",
+			"default": false
+		},
+		"redirectURL": {
+			"type": "string",
+			"default": "/"
 		}
 	}
 }

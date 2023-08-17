@@ -38,9 +38,22 @@ import "./editor.scss";
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
+	const imageURL =
+		window.location.origin +
+		"/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
+
 	return (
 		<div>
-			<p>Interaction!</p>
+			<table>
+				<tr>
+					<td>
+						<img src={imageURL}></img>
+					</td>
+					<td>
+						<h4>PZ Interaction Form</h4>
+					</td>
+				</tr>
+			</table>
 		</div>
 	);
 }

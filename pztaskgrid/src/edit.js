@@ -57,35 +57,18 @@ export default function Edit(props) {
   return (
     <div {...useBlockProps()}>
       <InspectorControls>
-        <PanelBody title="Spacing">
-          <BoxControl
-            label="Margin"
-            values={values}
-            onChange={(nextValues) => setValues(nextValues)}
-          />
-          <CheckboxControl
-            label="Edit Current Person?"
-            checked={attributes.isEdit}
-            onChange={(value) => setAttributes({ isEdit: value })}
-          />
-        </PanelBody>
-
         <PanelBody title="When Adding/Editing">
           <TextControl
-            label="URL for Project Add form"
+            label="URL for Task Add form"
             value={attributes.addURL}
             onChange={(value) => setAttributes({ addURL: value })}
           />
           <TextControl
-            label="URL for Project Edit form"
+            label="URL for Task Edit form"
             value={attributes.editURL}
             onChange={(value) => setAttributes({ editURL: value })}
           />
-          <TextControl
-            label="URL for Task Lists"
-            value={attributes.taskListURL}
-            onChange={(value) => setAttributes({ taskListURL: value })}
-          />
+
           <TextControl
             label="Advanced internal app name"
             value={attributes.appName}
@@ -93,7 +76,16 @@ export default function Edit(props) {
           />
         </PanelBody>
       </InspectorControls>
-      <img src={imageURL}></img>
+      <table>
+        <tr>
+          <td>
+            <img src={imageURL}></img>
+          </td>
+          <td>
+            <h4>PZ Task Grid</h4>
+          </td>
+        </tr>
+      </table>
     </div>
   );
 }

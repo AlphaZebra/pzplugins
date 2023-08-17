@@ -14,11 +14,27 @@
  * @package           pzcore
  *
  */
+if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
  require_once( 'includes/core-config.php');
  require_once( 'includes/task-rest.php');
  
- if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+ /**
+  * global variables 
+  */
+  $pzv1_id = 1;
+  $pzv1_fname = "Blake";
+  $pzv1_lname = "Frisbee";
+  $pzv1_company = "Whammo";
+  $pzv1_email = "blake@whammo.com";
+  $pzv1_prjid = 1;
+  $pzv1_prjname = "Explore Star Gate";
+  $pzv1_qid = 1;
+  $pzv1_reqtypeslug = "deathstar";
+
+/**
+ * Build database at plugin activation... 
+ */
 
  register_activation_hook(
 	__FILE__,
@@ -420,7 +436,7 @@ function createPZTables() {
       $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE id = {$_GET['per']} ", ARRAY_A );
       return $results;
     }
-    $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE firstname = 'Mary' ", ARRAY_A );
+    $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person ", ARRAY_A );
     if( !isset($results[0])) {
       $offset=0;
       //$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person LIMIT $limit OFFSET $offset ", ARRAY_A );

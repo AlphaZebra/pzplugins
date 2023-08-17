@@ -5,13 +5,7 @@
  */
 import { __ } from "@wordpress/i18n";
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useState } from "@wordpress/element";
+import { useState } from "@wordpress/element"; // WordPress React wrapper
 import {
   useBlockProps,
   InspectorControls,
@@ -24,13 +18,6 @@ import {
   CheckboxControl,
   ColorPalette,
 } from "@wordpress/components";
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -52,12 +39,12 @@ export default function Edit(props) {
 
   const imageURL =
     window.location.origin +
-    "/wp-content/plugins/pzprojectgrid/includes/assets/project-list.png";
+    "/wp-content/plugins/pzprojectgrid/includes/assets/edit-side-image.png";
 
   return (
     <div {...useBlockProps()}>
       <InspectorControls>
-        <PanelBody title="Spacing">
+        {/* <PanelBody title="Spacing">
           <BoxControl
             label="Margin"
             values={values}
@@ -74,7 +61,7 @@ export default function Edit(props) {
             colors={useSetting("color.palette")}
             onChange={(value) => setAttributes({ backgroundColor: value })}
           />
-        </PanelBody>
+        </PanelBody> */}
 
         <PanelBody title="When Adding/Editing">
           <TextControl
@@ -94,7 +81,16 @@ export default function Edit(props) {
           />
         </PanelBody>
       </InspectorControls>
-      <img src={imageURL}></img>
+      <table>
+        <tr>
+          <td>
+            <img src={imageURL}></img>
+          </td>
+          <td>
+            <h4>PZ Project List Grid</h4>
+          </td>
+        </tr>
+      </table>
     </div>
   );
 }

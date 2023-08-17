@@ -38,14 +38,23 @@ import { useState } from "@wordpress/element";
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
+  const imageURL =
+    window.location.origin +
+    "/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
+
   return (
     <div {...useBlockProps()}>
       <InspectorControls>
-        <PanelBody title="Edit Existing?">
+        <PanelBody title="Visible?">
           <CheckboxControl
-            label="Edit Current Person?"
-            checked={attributes.isEdit}
-            onChange={(value) => setAttributes({ isEdit: value })}
+            label="Category"
+            checked={attributes.viewCategory}
+            onChange={(value) => setAttributes({ viewCategory: value })}
+          />
+          <TextControl
+            label="Show only this category:"
+            value={attributes.catFilter}
+            onChange={(value) => setAttributes({ catFilter: value })}
           />
         </PanelBody>
         <PanelBody title="Redirect">
@@ -54,9 +63,23 @@ export default function Edit({ attributes, setAttributes }) {
             value={attributes.editURL}
             onChange={(value) => setAttributes({ editURL: value })}
           />
+          <TextControl
+            label="URL for redirect if add to queue selected"
+            value={attributes.redirectURL}
+            onChange={(value) => setAttributes({ redirectURL: value })}
+          />
         </PanelBody>
       </InspectorControls>
-      <img src="../wp-content/plugins/pzdata/includes/person-basic.png" />
+      <table>
+        <tr>
+          <td>
+            <img src={imageURL}></img>
+          </td>
+          <td>
+            <h4>PZ Request Type List Grid</h4>
+          </td>
+        </tr>
+      </table>
     </div>
   );
 }

@@ -41,7 +41,12 @@ export default function Edit({ attributes, setAttributes }) {
 	return (
 		<div {...useBlockProps()}>
 			<InspectorControls>
-				<PanelBody title="Admin Access">
+				<PanelBody title="Access">
+					<CheckboxControl
+						label="Restrict to logged-in users?"
+						checked={attributes.isLogged}
+						onChange={(value) => setAttributes({ isLogged: value })}
+					/>
 					<CheckboxControl
 						label="Restrict to admin access?"
 						checked={attributes.isAdmin}
@@ -50,13 +55,15 @@ export default function Edit({ attributes, setAttributes }) {
 				</PanelBody>
 				<PanelBody title="Redirect">
 					<TextControl
-						label="URL for redirect if edit selected"
+						label="URL for redirect if access denied"
 						value={attributes.editURL}
 						onChange={(value) => setAttributes({ editURL: value })}
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<img src="../wp-content/plugins/pzdata/includes/assets/request-queue.png" />
+			<div class="pz-page-access">
+				<h3>This page will be available only to selected user roles. </h3>
+			</div>
 		</div>
 	);
 }
