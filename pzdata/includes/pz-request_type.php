@@ -161,8 +161,6 @@ function pz_request_type_form($attributes) {
 		<input type="hidden" name="action" value="do-request-type-form" required>
 		<input type="hidden" name="redirectURL" value="<?php echo $attributes['redirectURL']   ?>" required >
 		
-			<h3>Request definition</h3>
-			
 			<label>Shortname</label>
 			<input type="text" name="slug" class="field-divided" value="<?php echo $item['slug'] ?>" placeholder="Abbrev." />
 			<label>Category</label>
@@ -212,8 +210,6 @@ function pz_request_type_form($attributes) {
 		<input type="hidden" name="action" value="do-queue-add" required>
 		<input type="hidden" name="redirectURL" value="<?php echo $item['redirectURL'] ?>" >
 		
-			<h3>Request details</h3>
-			
 			<label>Shortname</label>
 			<input type="text" name="slug" class="field-divided" value="<?php echo $item['slug'] ?>" placeholder="Abbrev." />
 			<label>Category</label>

@@ -33,6 +33,7 @@
  include( PZ_PLUGIN_DIR . 'includes/pz-task.php');
  include( PZ_PLUGIN_DIR . 'includes/pz-request_type.php');
  include( PZ_PLUGIN_DIR . 'includes/pz-queue.php');
+ include( PZ_PLUGIN_DIR . 'includes/pz-logic.php');
 
 
  // Hooks

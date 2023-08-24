@@ -23,6 +23,9 @@
     "editURL": {
       "type": "string"
     },
+    "siteURL": {
+      "type": "string"
+    },
     "taskListURL": {
       "type": "string"
     },

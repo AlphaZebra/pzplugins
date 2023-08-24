@@ -1,0 +1,49 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "pz/pz-logic",
+  "version": "0.1.0",
+  "title": "PZ Logic Block",
+  "category": "widgets",
+  "icon": "admin-network",
+  "description": "Adds conditional and programmatic control of applications.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "pzdata",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "field": {
+      "type": "string"
+    },
+    "setField": {
+      "type": "string"
+    },
+    "comparison": {
+      "type": "string"
+    },
+    "targetValue": {
+      "type": "string"
+    },
+    "displayText": {
+      "type": "string"
+    },
+    "setValue": {
+      "type": "string"
+    },
+    "isAdmin": {
+      "type": "boolean",
+      "default": false
+    },
+    "isLogged": {
+      "type": "boolean",
+      "default": false
+    },
+    "redirectURL": {
+      "type": "string",
+      "default": "/"
+    }
+  }
+}

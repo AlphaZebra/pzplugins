@@ -30,13 +30,13 @@ import {
   GridToolbarDensitySelector,
 } from "@mui/x-data-grid-pro";
 
-const url = "http://suchthings.local/wp-json/pz/v1/project";
+const xdiv = document.querySelector(".pz-projectgrid-div");
+const attributes = JSON.parse(xdiv.innerText);
+const url = attributes.siteURL + "/wp-json/pz/v1/project";
+
 let response = await fetch(url);
 let json = await response.text();
 let initialRows = JSON.parse(json);
-
-const xdiv = document.querySelector(".pz-projectgrid-div");
-const attributes = JSON.parse(xdiv.innerText);
 
 function handleDeleteClick() {
   window.location.href = "./edit-project/";

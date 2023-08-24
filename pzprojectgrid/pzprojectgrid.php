@@ -40,6 +40,7 @@ function pz_project_grid_block($attributes) {
 
 	wp_enqueue_script('pzgridfront', plugin_dir_url(__FILE__) . 'build/projectgrid.js', array('wp-element', 'wp-components'), null, true);
 	// $user_info = wp_get_current_user();
+	$attributes['siteURL'] = get_site_url();
 
 	ob_start();
 	?>

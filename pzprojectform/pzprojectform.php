@@ -38,9 +38,6 @@ add_action('admin_post_nopriv_do-project-edit-block', 'do_project_edit_block');
 function pz_project_form_block($attributes) {
   global $wpdb;
   
-	// wp_enqueue_script('pzprojform', plugin_dir_url(__FILE__) . 'build/pzprojectform.js', array('wp-element', 'wp-components'), null, true);
-	// $user_info = wp_get_current_user();
-
   // we'll get a url parameter telling us which project id to edit. If 0, we're creating a new project.
   $row = array();
   if( isset($_GET['prj'])) {
@@ -110,8 +107,7 @@ function pz_project_form_block($attributes) {
 <?php
 
 
-  // return( '<div class="pzdiv">Jello Dar</div>' );
-  return( ob_get_clean());
+return( ob_get_clean());
 	 
 }
 
@@ -122,12 +118,12 @@ function do_project_edit_block () {
   $item = [];
 
   $item['id'] = null;
-  $item['project_name'] = sanitize_text_field($_POST['project_name']);
+  $item['project_name'] = stripslashes(sanitize_text_field($_POST['project_name']));
   $item['project_status'] = sanitize_text_field($_POST['project_status']);
   $item['project_lead'] = sanitize_text_field($_POST['project_lead']);
   $item['project_lead_name'] = sanitize_text_field($_POST['project_lead_name']);
   $item['team_members'] = '';
-  $item['project_description'] = sanitize_text_field($_POST['project_description']);
+  $item['project_description'] = stripslashes(sanitize_text_field($_POST['project_description']));
   $item['tasks'] = sanitize_text_field($_POST['tasks']);
   $item['kickoff_date'] = sanitize_text_field($_POST['kickoff_date']);
   $item['due_date'] = sanitize_text_field($_POST['due_date']);
@@ -156,11 +152,7 @@ function do_project_edit_block () {
       $pz_id = $wpdb->insert_id;  // this is the id number of the record we just inserted
   }
 
- 
-  // var_dump($pz_id);
-  // exit;
- 
-  // setcookie('pz_num', $pz_id, time()+31556926);
+
   
   wp_redirect('/?pznum=' . $pz_id);
   exit;
