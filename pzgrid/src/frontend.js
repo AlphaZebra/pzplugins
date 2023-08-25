@@ -4,7 +4,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 const xdiv = document.querySelector(".pz-target-div");
 
-const url = "http://suchthings.local/wp-json/pz/v1/person";
+const url = "https://peakzebra.com/wp-json/pz/v1/person";
 let response = await fetch(url);
 let json = await response.text();
 let rows = JSON.parse(json);

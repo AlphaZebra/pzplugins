@@ -16,6 +16,11 @@
  */
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+// define to turn off changes to the db, for demo apps exposed to public
+// normally this will be commented out
+defined('DEMO') || define('DEMO', true);
+
+
  require_once( 'includes/core-config.php');
  require_once( 'includes/task-rest.php');
  
@@ -498,8 +503,9 @@ function createPZTables() {
     var_dump($item);
     exit;
 
-    
+    if (!defined('DEMO')) {
       $wpdb->update( "{$wpdb->prefix}pz_project", $item, array('id' => $data['id']) );
+    }
 
     return $data['project_name'];
  
@@ -578,6 +584,7 @@ function createPZTables() {
     echo( "<?php\n")
     ?> 
     
+  // this is written into the file -- it's not "active" in the source file that generates intl_is_failure...   
   function pz_person_form( $attributes ) {
   ob_start();
 	?>

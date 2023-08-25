@@ -1,5 +1,3 @@
-// import * as React from "react";
-// import React, { useState } from "react";
 import { useState } from "@wordpress/element";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -165,13 +163,6 @@ function RenderDelete({ value }) {
 function EditToolbar() {
   const handleClick = () => {
     const url = attributes.addURL + "?prj=0";
-
-    //   const id = randomId();
-    //   setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
-    //   setRowModesModel((oldModel) => ({
-    //     ...oldModel,
-    //     [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-    //   }));
     window.location.href = url;
   };
 

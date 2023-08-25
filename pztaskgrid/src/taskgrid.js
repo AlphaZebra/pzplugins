@@ -51,12 +51,12 @@ const attributes = JSON.parse(xdiv.innerText);
 let taskurl = "";
 if (attributes.prj == "") {
   taskurl =
-    "http://suchthings.local/wp-json/pz/v1/task/?prj=99999" + attributes.prj;
+    "https://peakzebra.com/wp-json/pz/v1/task/?prj=99999" + attributes.prj;
 } else if (attributes.prj) {
-  taskurl = "http://suchthings.local/wp-json/pz/v1/task/?prj=" + attributes.prj;
+  taskurl = "https://peakzebra.com/wp-json/pz/v1/task/?prj=" + attributes.prj;
 } else if (attributes.appName) {
   taskurl =
-    "http://suchthings.local/wp-json/pz/v1/task/?app=" + attributes.appName;
+    "https://peakzebra.com/wp-json/pz/v1/task/?app=" + attributes.appName;
 }
 
 let response = await fetch(taskurl);
@@ -65,7 +65,7 @@ let initialRows = JSON.parse(json);
 
 //update project table's count of tasks for this project
 let counturl =
-  "http://suchthings.local/wp-json/pz/v1/count/?prj=" +
+  "https://peakzebra.com/wp-json/pz/v1/count/?prj=" +
   attributes.prj +
   "&count=" +
   initialRows.length;
