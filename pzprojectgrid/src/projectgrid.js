@@ -126,7 +126,7 @@ function RenderLeadName(props) {
 }
 
 function RenderEdit({ value }) {
-  const url = "./edit-project/?prj=" + value;
+  const url = attributes.editURL + "?prj=" + value;
   return (
     <a href={url}>
       <EditIcon />

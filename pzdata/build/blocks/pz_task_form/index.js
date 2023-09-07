@@ -247,7 +247,7 @@ module.exports = window["wp"]["i18n"];
   \********************************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"pz/pz-task-form","version":"0.1.0","title":"PZ Task Form","category":"widgets","icon":"smiley","description":"Display and edit of single task within a project.","supports":{"html":false},"textdomain":"pzdata","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"field":{"type":"string"},"isEdit":{"type":"boolean","default":false},"prompt":{"type":"string"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"pz/pz-task-form","version":"0.1.0","title":"PZ Task Form","category":"widgets","icon":"smiley","description":"Display and edit of single task within a project.","supports":{"html":false},"textdomain":"pzdata","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"field":{"type":"string"},"listURL":{"type":"string","default":"/tasks/"},"prompt":{"type":"string"}}}');
 
 /***/ })
 

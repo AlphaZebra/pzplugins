@@ -49,9 +49,10 @@ function pz_person_block($attributes) {
 
 	// wp_enqueue_script('aaa04', plugin_dir_url(__FILE__) . 'build/blocks/pz_person_edit/frontend.js', array('wp-element', 'wp-components'), null, true);
 	
+	if( isset($_GET['per'])) {
+		$person = $_GET['per'];
+	} else $person = 0; // we're setting up a new person record
 
-
-	// if flag is set, we should read in and prefill the current person record
 	$item = array(
 		'id' => null,
 		'firstname' => '',
@@ -61,19 +62,23 @@ function pz_person_block($attributes) {
 		'email' => ''
 	);
 	
-	// The isEdit attribute is true if an existing record should be read in for editing in the form. 
-	// If true, the record with the id stored in the global $pz_cur_person is read in, even though
-	// it's theoretically loaded in the $pz_cur_person array -- just a safety precaution in case the 
-	// record has been changed elsewhere since the last time we read it in. 
-	$update = '';
-	if( $attributes['isEdit'] ) {
-		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE id = {$pz_cur_person['id']}", ARRAY_A );
+	$update = false;
+	if( $person > 0 ) {  // existing person record
+		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE id = $person", ARRAY_A );
+		if ( $wpdb->last_error || $results == null ) {
+			echo 'wpdb error: ' . $wpdb->last_error;
+			echo 'person = ' . $person;
+			exit;
+		  }
 		$item = $results[0];
-		$update = "update";
+		if( !isset($item['id'])) {
+			var_dump($item);
+			exit;
+		}
 	} else if (isset($_GET['per'])) {
 		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE id = {$_GET['per']}", ARRAY_A );
 		$item = $results[0];
-		$update = "update";
+		$update = true;
 	}
 
 	// mustBeNew causes check to ensure person with same email isn't already enrolled. If email is a duplicate, 
@@ -91,7 +96,7 @@ function pz_person_block($attributes) {
 		<?php if( $update == "update" ) { ?>
 		<input type="hidden" name="id" value="<?php echo $_GET['per'];  ?>" required>
 		<?php } ?>
-			<h3>Your basic information</h3>
+		
 			<!-- <label>ID</label>
 			<input type="text" name="id" class="field-divided" value="<?php /*echo $item['id']*/ ?>" placeholder="9" />
 			-->

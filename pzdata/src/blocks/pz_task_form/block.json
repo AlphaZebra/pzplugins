@@ -18,9 +18,9 @@
     "field": {
       "type": "string"
     },
-    "isEdit": {
-      "type": "boolean",
-      "default": false
+    "listURL": {
+      "type": "string",
+      "default": "/tasks/"
     },
     "prompt": {
       "type": "string"

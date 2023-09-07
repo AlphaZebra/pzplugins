@@ -25,7 +25,6 @@
         $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_task WHERE app_name = '{$_GET['app']}' ", ARRAY_A );
      } else  $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_task WHERE project_id = {$_GET['prj']} ", ARRAY_A );
      
-   
      return $results;
    }
   

@@ -1,23 +1,46 @@
 <?php
 
+add_action('admin_post_do-interaction-form', 'do_interaction_form');
+add_action('admin_post_nopriv_do-interaction-form', 'do_interaction_form');
+
 function pz_interaction_block($attributes) {
 	global $wpdb;
 	global $pz_cur_person;
-    $pz_cur_interaction = 1;
 
-	// wp_enqueue_script('aaa04', plugin_dir_url(__FILE__) . 'build/blocks/pz_person_edit/frontend.js', array('wp-element', 'wp-components'), null, true);
+	$item = array(
+		'id' => null,
+		'per_id' => 0,
+		'summary' =>  '',
+		'details' => '',
+		'created' => '',
+	);
 	
-    ob_start();
+	if(isset($_GET['int'])) {
+		if( $_GET['int'] > 0 ) {
+			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_interaction WHERE id = {$_GET['int']}", ARRAY_A );
+			$item = $results[0];
+		}
+	} else {
+		$item['id'] = null;  // new record
+	}
+
+	ob_start();
     ?>
-    <form class="form-style-1">
+
+<form action="<?php echo esc_url(admin_url('admin-post.php')) ?>" method="POST" class="form-style-1">
+		<input type="hidden" name="action" value="do-interaction-form" required>
+		<input type="hidden" name="per_id" value="<?php echo $_GET['per'] ?>" required>
+		<input type="hidden" name="listURL" value="<?php echo $attributes['listURL'] ?>" required>
+			
         <label>Summary</label>
         <input
+			name="summary"
             type="text"
             class="field-long"
             placeholder="Basic description of interaction..."
         />
         <label>Details</label>
-        <textarea cols="85" rows="8"></textarea>
+        <textarea name="details" cols="85" rows="8"></textarea>
         <input type="submit" value="Save" />
     </form>
     <?php
@@ -35,6 +58,9 @@ function pz_inter_list ($attributes) {
     $page = 0;
     $limit = /* $attributes['numRows']; */ 12;
 	$offset = $limit * $page;
+
+	// wp_enqueue_script('pzinteractiongrid', plugin_dir_url(__FILE__) . 'build/interactiongrid.js', array('wp-element', 'wp-components'), null, true);
+
 
 
 	
@@ -88,5 +114,43 @@ function pz_inter_list ($attributes) {
 	return ob_get_clean();
 }
 
+
+function do_interaction_form () {
+	global $wpdb;
+	$created = date("m/j/Y");
+  
+	$item = [];
+  
+	$item['id'] = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : null;
+	$item['per_id'] = isset($_POST['per_id']) ? sanitize_text_field($_POST['per_id']) : 1;
+	$item['summary'] = isset($_POST['summary']) ? sanitize_text_field($_POST['summary']) : 'none';
+	$item['details'] = isset($_POST['details']) ? sanitize_text_field($_POST['details']) : 'none';
+	$item['created']= $created;
+  
+  
+	$tablnam = $wpdb->prefix . "pz_interaction";
+	// if we're updating, we'll use a different SQL command
+	if(  $item['id'] > 0  )  {
+		$item['id'] = $_POST['id'];
+		
+		if ($wpdb->update( $tablnam, $item, array('id' => $item['id']) ) < 0) {
+		  var_dump($wpdb);
+		  exit;
+		}
+		$pz_int_id = $item['id'];
+		  
+	} else {
+		$item['id'] = null;
+		if( $wpdb->insert( $tablnam, $item ) <= 0 ) {  
+			var_dump( $wpdb );
+			exit;
+		}
+  
+		$pz_int_id = $wpdb->insert_id;  // this is the id number of the record we just inserted
+	}
+   
+	wp_redirect( $_POST['listURL'] . '?per=' . $item['per_id']);
+	exit;
+  }
 
 

@@ -18,6 +18,9 @@
     "myheader": {
       "type": "string"
     },
+    "siteURL": {
+      "type": "string"
+    },
     "addURL": {
       "type": "string"
     },

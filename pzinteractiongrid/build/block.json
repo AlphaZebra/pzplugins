@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "pz/pzinteractiongrid",
+  "icon": "smiley",
+  "version": "0.1.0",
+  "title": "PZ Interaction Grid",
+  "category": "widgets",
+  "description": "Show a list of all interactions, by default associated with a project.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "pzinteractiongrid",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "myheader": {
+      "type": "string"
+    },
+    "siteURL": {
+      "type": "string"
+    },
+    "addURL": {
+      "type": "string"
+    },
+    "editURL": {
+      "type": "string"
+    },
+    "interactionGridURL": {
+      "type": "string"
+    },
+    "prj": {
+      "type": "string",
+      "default": "1"
+    },
+    "appName": {
+      "type": "string"
+    },
+    "backgroundColor": {
+      "type": "string"
+    }
+  }
+}

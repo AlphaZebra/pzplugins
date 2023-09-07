@@ -17,6 +17,7 @@ function pz_task_form($attributes) {
 		'tenant_ID' =>  '',
 		'project_id' => '',
 		'task_name' => '',
+		'task_status' => '',
 		'kickoff_date' => '',
 		'due_date' => '',
 		'task_assignee' => '',
@@ -35,6 +36,14 @@ function pz_task_form($attributes) {
 		$item['project_id'] = $_GET['prj'];
 	}
 
+	$pend_status = '';
+	if( $item['task_status'] == 'pending') {
+		$pend_status = 'selected';
+	} 
+	if( $item['task_status'] == 'inprocess') $proc_status = 'selected'; else $proc_status = '';
+	if( $item['task_status'] == 'review') $review_status = 'selected'; else $review_status = '';
+	if( $item['task_status'] == 'done') $done_status = 'selected'; else $done_status = '';
+
 	ob_start();
 	?>
 	
@@ -43,13 +52,21 @@ function pz_task_form($attributes) {
 		<input type="hidden" name="id" value="<?php echo $item['id'] ?>" required>
 		<input type="hidden" name="project_id" value="<?php echo $item['project_id'] ?>" required>
 		<input type="hidden" name="tenant_ID" value="<?php echo $item['tenant_ID'] ?>" required>
+		<input type="hidden" name="listURL" value="<?php echo $attributes['listURL'] ?>" required>
 			
 		
 			<label>Task name</label>
 			<input type="text" name="task_name" class="field-long" value="<?php echo $item['task_name'] ?>" />
+			<label for="status">Task status</label>
+			<select name="status" id="status">
+			<option value="pending" <?php echo $pend_status;  ?> >Pending</option>
+			<option value="inprocess" <?php echo $proc_status;  ?> >In Process</option>
+			<option value="review" <?php echo $review_status;  ?> >Review</option>
+			<option value="done" <?php echo $done_status;  ?> >Done</option>
+			</select>
 			<label>Kickoff date</label>
 			<input type="date" name="kickoff_date" class="field-divided" value="<?php echo $item['kickoff_date'] ?>"  />
-			<label>Assignee</label>
+			<label>Due date</label>
 			<input type="date" name="due_date" class="field-divided" value="<?php echo $item['due_date'] ?>"  />
 			<label>Assignee</label>
 			<input type="text" name="task_assignee" class="field-long" value="<?php echo $item['task_assignee'] ?>" placeholder="Team member..." />
@@ -167,6 +184,6 @@ function do_task_form () {
    
 	// setcookie('pz_num', $pz_id, time()+31556926);
 	
-	wp_redirect('/task-list/?prj=' . $item['project_id']);
+	wp_redirect( $_POST['listURL'] . '?prj=' . $item['project_id']);
 	exit;
   }

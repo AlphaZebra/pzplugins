@@ -31,6 +31,8 @@ function pz_the_block($attributes) {
 
 	wp_enqueue_script('aaa04', plugin_dir_url(__FILE__) . 'build/frontend.js', array('wp-element', 'wp-components'), null, true);
 	$user_info = wp_get_current_user();
+	$attributes['siteURL'] = get_site_url();
+	
 	ob_start();
 	?>
 	<div class="pz-target-div"><pre><?php echo wp_json_encode($attributes); ?></pre></div>

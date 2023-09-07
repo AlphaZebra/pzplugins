@@ -43,7 +43,16 @@ export default function Edit({ attributes, setAttributes }) {
 		"/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
 
 	return (
-		<div>
+		<div {...useBlockProps()}>
+			<InspectorControls>
+				<PanelBody title="Redirect">
+					<TextControl
+						label="URL for redirect after add"
+						value={attributes.listURL}
+						onChange={(value) => setAttributes({ listURL: value })}
+					/>
+				</PanelBody>
+			</InspectorControls>
 			<table>
 				<tr>
 					<td>

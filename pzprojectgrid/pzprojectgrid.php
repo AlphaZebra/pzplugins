@@ -14,7 +14,7 @@
  */
 
 //normally this line will be commented out
-defined('DEMO') || define('DEMO', true);
+// defined('DEMO') || define('DEMO', true);
 
 
 function create_block_pzprojectgrid_block_init() {
@@ -38,7 +38,7 @@ function pz_project_grid_block($attributes) {
 
 	ob_start();
 	?>
-	<div class="pz-projectgrid-div" ><pre><?php echo wp_json_encode($attributes); ?></pre></div>
+	<div class="pz-projectgrid-div" ><pre style="color: white"><?php echo wp_json_encode($attributes); ?></pre></div>
 	
 	<?php
 	return ob_get_clean();
@@ -47,9 +47,7 @@ function pz_project_grid_block($attributes) {
 function do_project_delete() {
 	global $wpdb;
 
-	if( ! defined('DEMO')) {
 		$wpdb->delete( $wpdb->prefix . 'pz_project', array( 'id' => $_POST['id'] ) );
-	}
 	
 	wp_redirect( $_POST['postDeleteURL']);
 	exit;

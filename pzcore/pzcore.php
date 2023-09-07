@@ -18,11 +18,13 @@ if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // define to turn off changes to the db, for demo apps exposed to public
 // normally this will be commented out
-defined('DEMO') || define('DEMO', true);
+// defined('DEMO') || define('DEMO', true);
 
 
  require_once( 'includes/core-config.php');
  require_once( 'includes/task-rest.php');
+ require_once( 'includes/interaction-rest.php');
+ require_once( 'includes/link-rest.php');
  
  /**
   * global variables 
@@ -131,12 +133,12 @@ $item = array();
 $item['id'] = null;
 $item['table_name'] = 'pz_interaction';
 $item['field_string'] = "CREATE TABLE $table_name (
-  int_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  id bigint(20) NOT NULL DEFAULT 1,
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  per_id bigint(20) NOT NULL DEFAULT 1,
   summary varchar(255) NOT NULL DEFAULT '',
   details varchar(800) NOT NULL DEFAULT '',
   created varchar(12) NOT NULL DEFAULT '',
-  PRIMARY KEY  (int_id)
+  PRIMARY KEY  (id)
 ) $charset;";
 
 handle_def_record($item);
@@ -321,11 +323,36 @@ $item['field_string'] = "CREATE TABLE $table_name (
   id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   tenant_id varchar(20) NOT NULL DEFAULT '',
   app_id varchar(20) NOT NULL DEFAULT '',
+  task_status varchar(20) NOT NULL DEFAULT '',
   project_id bigint(20) unsigned NOT NULL DEFAULT 1,
   task_name varchar(200) NOT NULL DEFAULT '',
   kickoff_date varchar(12) NOT NULL DEFAULT '',
   due_date varchar(12) NOT NULL DEFAULT '',
   task_assignee varchar(180) NOT NULL DEFAULT 'unassigned',
+  created varchar(12) NOT NULL DEFAULT '',
+  PRIMARY KEY  (id)
+) $charset;";
+
+handle_def_record($item);
+dbDelta($item['field_string']);
+
+// link
+$table_name = $wpdb->prefix . "pz_link";
+
+$item = array();
+$item['id'] = null;
+$item['table_name'] = 'pz_link';
+$item['field_string'] = "CREATE TABLE $table_name (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  tenant_id varchar(20) NOT NULL DEFAULT '',
+  app_id varchar(20) NOT NULL DEFAULT '',
+  link_name varchar(200) NOT NULL DEFAULT '',
+  link_url varchar(255) NOT NULL DEFAULT '',
+  link_image_url varchar(255) NOT NULL DEFAULT '',
+  link_description varchar(800) NOT NULL DEFAULT '',
+  live_date varchar(12) NOT NULL DEFAULT '',
+  end_date varchar(12) NOT NULL DEFAULT '',
+  link_owner varchar(180) NOT NULL DEFAULT 'unassigned',
   created varchar(12) NOT NULL DEFAULT '',
   PRIMARY KEY  (id)
 ) $charset;";

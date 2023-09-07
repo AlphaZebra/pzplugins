@@ -28,6 +28,7 @@ import {
 //     // jQuery is loaded
 //     alert("Yeah!");
 //   } else {
+
 //     // jQuery is not loaded
 //     alert("Doesn't Work");
 //   }
@@ -48,20 +49,22 @@ const attributes = JSON.parse(xdiv.innerText);
 // console.log(attributes);
 
 // Get the tasks linked to that project
-let taskurl = "";
+let taskurl = "https://" + window.location.hostname;
+console.log(taskurl);
+
 if (attributes.prj == "") {
-  taskurl =
-    "https://peakzebra.com/wp-json/pz/v1/task/?prj=99999" + attributes.prj;
+  taskurl += "/wp-json/pz/v1/task/?prj=99999";
 } else if (attributes.prj) {
-  taskurl = "https://peakzebra.com/wp-json/pz/v1/task/?prj=" + attributes.prj;
+  taskurl += "/wp-json/pz/v1/task/?prj=" + attributes.prj;
 } else if (attributes.appName) {
-  taskurl =
-    "https://peakzebra.com/wp-json/pz/v1/task/?app=" + attributes.appName;
+  taskurl += "/wp-json/pz/v1/task/?app=" + attributes.appName;
 }
 
 let response = await fetch(taskurl);
 let json = await response.text();
 let initialRows = JSON.parse(json);
+
+console.log(initialRows);
 
 //update project table's count of tasks for this project
 let counturl =

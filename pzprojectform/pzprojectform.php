@@ -24,7 +24,7 @@
  // PZ_SECTION 1
 
 // normally commented out... 
-defined('DEMO') || define( 'DEMO', true );
+// defined('DEMO') || define( 'DEMO', true );
 
 function create_block_pzprojectform_block_init() {
 	register_block_type( __DIR__ . '/build' , array(
@@ -118,10 +118,10 @@ function do_project_edit_block () {
   global $wpdb;
   $created = date("m/j/Y");
 
-  if( defined( 'DEMO' )) {
-    wp_redirect('/?pznum=0' );
-    exit;
-  }
+  // if( defined( 'DEMO' )) {
+  //   wp_redirect('/?pznum=0' );
+  //   exit;
+  // }
   
 
   $item = [];

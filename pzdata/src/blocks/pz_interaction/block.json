@@ -6,7 +6,7 @@
 	"title": "PZ Interaction Edit",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "Example block scaffolded with Create Block tool.",
+	"description": "Editing form for individual interactions.",
 	"supports": {
 		"html": false
 	},
@@ -21,6 +21,10 @@
 		"isEdit": {
 			"type": "boolean",
 			"default": false
+		},
+		"listURL": {
+			"type": "string",
+			"default": "/interactions/"
 		},
 		"prompt": {
 			"type": "string"
