@@ -91,9 +91,11 @@ function pz_onActivate() {
     phone2_type varchar(20) NOT NULL DEFAULT '',
     username varchar(20) NOT NULL DEFAULT '',
     has_notes int(4) NOT NULL DEFAULT 0,
-    last_contact varchar(12) NOT NULL DEFAULT '',
+    last_contact date NOT NULL DEFAULT '2023-01-01',
     pz_level varchar(12) NOT NULL DEFAULT '',
     pz_status varchar(10) NOT NULL DEFAULT '', 
+    pz_tags varchar(120) NOT NULL DEFAULT '',
+    expires date NOT NULL DEFAULT '2023-01-01',
     created varchar(12) NOT NULL DEFAULT '',
       PRIMARY KEY  (id)
   ) $charset;";
@@ -457,8 +459,16 @@ function createPZTables() {
       'methods' => WP_REST_SERVER::READABLE,
       'callback' => 'do_person'
     ));
+    register_rest_route('pz/v1', 'putperson', array(
+      'methods' => 'POST',
+      'callback' => 'do_putperson'
+    ));
   }
   
+  function do_putperson () {
+    
+  }
+
   function do_person($stuff) {
     global $wpdb;
     $limit = 120;
@@ -466,6 +476,10 @@ function createPZTables() {
   
     if( isset($_GET['per'])) {
       $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE id = {$_GET['per']} ", ARRAY_A );
+      return $results;
+    }
+    if( isset($_GET['tail'])) {
+      $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person {$_GET['tail']} ", ARRAY_A );
       return $results;
     }
     $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person ", ARRAY_A );

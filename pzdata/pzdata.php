@@ -59,7 +59,8 @@ function pz_person_block($attributes) {
 		'lastname' => '',
 		'title' => '',
 		'company' => '',
-		'email' => ''
+		'email' => '',
+		'level' => ''
 	);
 	
 	$update = false;
@@ -109,6 +110,16 @@ function pz_person_block($attributes) {
 			<input type="text" name="company" class="field-long" value="<?php echo $item['company'] ?>" placeholder="Your Company Name" />
 			<label>Email</label>
 			<input type="text" name="email" class="field-long" value="<?php echo $item['email'] ?>" placeholder="you@yourcompany.com" />
+			
+			<?php if( $attributes['isLevel'] == true )  { ?>
+				<label for="pz_level">Choose a level:</label>
+				<select name="pz_level" id="pz_level">
+					<option value="30">Monthly</option>
+					<option value="90">Quarterly</option>
+					<option value="180">Semi-annually</option>
+					<option value="365">Annually</option>
+				</select>
+			<?php }  ?>
 			<input type="submit" value="Save" />
 		</form>
 	<div class="pz-target-div"><pre><?php /* echo wp_json_encode($attributes);*/ ?></pre></div>

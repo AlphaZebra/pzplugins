@@ -27,6 +27,14 @@
     "editURL": {
       "type": "string"
     },
+    "onlyExpired": {
+      "type": "boolean",
+      "default": "false"
+    },
+    "queryTail": {
+      "type": "string",
+      "default": "WHERE id = 15"
+    },
     "tag": {
       "type": "string"
     }

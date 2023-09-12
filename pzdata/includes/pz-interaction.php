@@ -94,7 +94,7 @@ function pz_inter_list ($attributes) {
 
 	foreach($results as $result) {
 		echo '<tr><td><a href="\"><image src=' . plugin_dir_url(__FILE__) . './pencil.png width="40%"></a></td><td>';
-		echo $result['int_id'] . '</td><td>';
+		echo $result['id'] . '</td><td>';
 		echo $result['summary'] . '</td><td>';
 		echo $result['details'] . '</td></tr>';
 		

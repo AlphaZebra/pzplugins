@@ -55,6 +55,11 @@ export default function Edit({ attributes, setAttributes }) {
 						checked={attributes.isEdit}
 						onChange={(value) => setAttributes({ isEdit: value })}
 					/>
+					<CheckboxControl
+						label="Show level selection?"
+						checked={attributes.isLevel}
+						onChange={(value) => setAttributes({ isLevel: value })}
+					/>
 				</PanelBody>
 				<PanelBody title="If person pre-exists?">
 					<CheckboxControl

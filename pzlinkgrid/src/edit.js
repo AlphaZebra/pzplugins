@@ -87,7 +87,7 @@ export default function Edit(props) {
             <img src={imageURL}></img>
           </td>
           <td>
-            <h4>PZ Project List Grid</h4>
+            <h4>PZ Link Grid</h4>
           </td>
         </tr>
       </table>

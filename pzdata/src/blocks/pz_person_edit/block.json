@@ -22,13 +22,17 @@
 			"type": "boolean",
 			"default": false
 		},
+		"isLevel": {
+			"type": "boolean",
+			"default": false
+		},
 		"mustBeNew": {
 			"type": "boolean",
 			"default": false
 		},
 		"redirectURL": {
 			"type": "string",
-			"default": "/"
+			"default": "/person-list"
 		}
 	}
 }

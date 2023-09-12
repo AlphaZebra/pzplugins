@@ -19,9 +19,9 @@ function do_person_edit_block( ) {
     $item['title'] = sanitize_text_field($_POST['title']);
     $item['email'] = sanitize_text_field($_POST['email']);
     $item['company'] = sanitize_text_field($_POST['company']);
-    $item['tenant_ID'] = '';
-    $item['addr_line1'] = '';
-    $item['addr_line2'] = '';
+    $item['tenant_ID'] = isset($_POST['tenant_ID']) ? sanitize_text_field($_POST['tenant_ID']) : 'HOME';
+    $item['addr_line1'] = isset($_POST['addr_line1']) ? sanitize_text_field($_POST['addr_line1']) : '';
+    $item['addr_line2'] = isset($_POST['addr_line2']) ? sanitize_text_field($_POST['addr_line2']) : '';
     $item['addr_city'] = '';
     $item['addr_state'] = '';
     $item['addr_zip'] = '';
@@ -31,13 +31,18 @@ function do_person_edit_block( ) {
     $item['phone2_type'] = '';
     $item['username'] = '';
     $item['has_notes'] = 0;
-    $item['last_contact'] = '';
-    $item['pz_level'] = '';
-    $item['pz_status'] = '';
+    $item['last_contact'] = isset($_POST['last_contact']) ? $_POST['last_contact'] : '2023-01-01';
+    $item['pz_level'] = isset($_POST['pz_level']) ? $_POST['pz_level'] : '3';
+    $item['pz_status'] = isset($_POST['pz_status']) ? sanitize_text_field($_POST['pz_status']) : '6';
+    $item['expires'] = '';
     $item['created']= $created;
 
-    // var_dump($item);
-    // exit;
+    if( $item['pz_status'] == '6' ) {
+        $tempdate = new DateTime($item['last_contact']); 
+        $tempdate->modify("+6 month");
+        $item['expires'] = $tempdate->format("Y-m-d");
+    }
+
 
     $tablnam = $wpdb->prefix . "pz_person";
     // if we're updating, we'll use a different SQL command

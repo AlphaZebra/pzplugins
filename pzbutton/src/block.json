@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "pz/pzbutton",
+  "version": "0.1.0",
+  "title": "PZ MUI Button",
+  "category": "widgets",
+  "description": "Show a button that submits data.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "pzblocks",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "myheader": {
+      "type": "string"
+    },
+    "addURL": {
+      "type": "string",
+      "default": "/edit-project/"
+    },
+    "editURL": {
+      "type": "string",
+      "default": "/edit-project/"
+    },
+    "siteURL": {
+      "type": "string"
+    },
+    "taskListURL": {
+      "type": "string",
+      "default": "/tasks/"
+    },
+    "backgroundColor": {
+      "type": "string"
+    }
+  }
+}

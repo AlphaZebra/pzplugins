@@ -12,7 +12,7 @@ import { __ } from "@wordpress/i18n";
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
-import { TextControl, PanelBody } from "@wordpress/components";
+import { TextControl, PanelBody, CheckboxControl } from "@wordpress/components";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -55,6 +55,19 @@ export default function Edit(props) {
             label="set tag such as staff or customer"
             value={attributes.tag}
             onChange={(value) => setAttributes({ tag: value })}
+          />
+        </PanelBody>
+        <PanelBody title="Optional SQL suffic string">
+          <CheckboxControl
+            label="Show only expired?"
+            help="Should grid only display those past re-contact date?"
+            checked={attributes.onlyExpired}
+            onChange={(value) => setAttributes({ onlyExpired: value })}
+          />
+          <TextControl
+            label="use to select specific groups of persons"
+            value={attributes.queryTail}
+            onChange={(value) => setAttributes({ queryTail: value })}
           />
         </PanelBody>
       </InspectorControls>
