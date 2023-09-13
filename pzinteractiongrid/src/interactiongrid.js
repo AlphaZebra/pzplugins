@@ -99,8 +99,24 @@ function EditToolbar() {
   );
 }
 
+function IntRenderEdit({ value }) {
+  const url = attributes.editURL + "?int=" + value;
+  return (
+    <a href={url}>
+      <EditIcon fontSize="small" />
+    </a>
+  );
+}
+
 const columns = [
   { field: "id", headerName: "Int#" },
+  {
+    field: "taskaction",
+    headerName: "  ",
+    valueGetter: ({ id }) => id,
+    renderCell: IntRenderEdit,
+    width: 30,
+  },
   { field: "per_id", headerName: "Person" },
   { field: "summary", headerName: "Interaction", width: 350 },
   {

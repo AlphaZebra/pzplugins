@@ -76,11 +76,7 @@ function pz_person_block($attributes) {
 			var_dump($item);
 			exit;
 		}
-	} else if (isset($_GET['per'])) {
-		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_person WHERE id = {$_GET['per']}", ARRAY_A );
-		$item = $results[0];
-		$update = true;
-	}
+	} 
 
 	// mustBeNew causes check to ensure person with same email isn't already enrolled. If email is a duplicate, 
 	// an error is shown and user must re-edit form. 

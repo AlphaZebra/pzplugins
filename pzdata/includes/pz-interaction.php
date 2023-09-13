@@ -117,7 +117,7 @@ function pz_inter_list ($attributes) {
 
 function do_interaction_form () {
 	global $wpdb;
-	$created = date("m/j/Y");
+	$created = date("Y-m-j");
   
 	$item = [];
   
@@ -147,6 +147,13 @@ function do_interaction_form () {
 		}
   
 		$pz_int_id = $wpdb->insert_id;  // this is the id number of the record we just inserted
+	}
+
+	// we also update the 'last_contact' field of the person record associated with the interaction 
+	$tablnam = $wpdb->prefix . "pz_person";
+	if(  $wpdb->update( $tablnam, array( 'last_contact' => $created, 'has_notes' => 1 ), array( 'id' => $_POST['per_id'] )) === false ) {
+		var_dump( $wpdb );
+		exit;
 	}
    
 	wp_redirect( $_POST['listURL'] . '?per=' . $item['per_id']);

@@ -64219,9 +64219,27 @@ function EditToolbar() {
     onClick: handleClick
   }, "Add interaction"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_7__.GridToolbarColumnsButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_8__.GridToolbarFilterButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_9__.GridToolbarDensitySelector, null));
 }
+function IntRenderEdit({
+  value
+}) {
+  const url = attributes.editURL + "?int=" + value;
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: url
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    fontSize: "small"
+  }));
+}
 const columns = [{
   field: "id",
   headerName: "Int#"
+}, {
+  field: "taskaction",
+  headerName: "  ",
+  valueGetter: ({
+    id
+  }) => id,
+  renderCell: IntRenderEdit,
+  width: 30
 }, {
   field: "per_id",
   headerName: "Person"

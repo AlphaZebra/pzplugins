@@ -5946,6 +5946,30 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/Edit.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@mui/icons-material/Edit.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+"use client";
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+}), 'Edit');
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/utils/createSvgIcon.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/@mui/icons-material/utils/createSvgIcon.js ***!
@@ -64075,11 +64099,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/Button.js");
 /* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
+/* harmony import */ var _mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/icons-material/Edit */ "./node_modules/@mui/icons-material/Edit.js");
 /* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/containers/GridToolbarContainer.js");
 /* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarColumnsButton.js");
 /* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarFilterButton.js");
 /* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarDensitySelector.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid-pro/DataGridPro/DataGridPro.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid-pro/DataGridPro/DataGridPro.js");
 /* harmony import */ var _mui_x_license_pro__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/x-license-pro */ "./node_modules/@mui/x-license-pro/utils/licenseInfo.js");
 
 
@@ -64097,14 +64122,12 @@ if (attributes.onlyExpired == true) {
   attributes.queryTail = "WHERE expires <= CAST( now() as date)";
 }
 const url = attributes.siteURL + "/wp-json/pz/v1/person/?tail=" + attributes.queryTail;
-console.log(url);
 let response = await fetch(url);
 let json = await response.text();
 let rows = JSON.parse(json);
-console.log(rows);
 function IntEditToolbar() {
   const handleClick = () => {
-    const url = attributes.addURL + "?prj=" + attributes.prj;
+    const url = attributes.addURL + "?per=0";
 
     //   const id = randomId();
     //   setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
@@ -64118,12 +64141,30 @@ function IntEditToolbar() {
     color: "primary",
     startIcon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_5__["default"], null),
     onClick: handleClick
-  }, "Add interaction"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_6__.GridToolbarColumnsButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_7__.GridToolbarFilterButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_8__.GridToolbarDensitySelector, null));
+  }, "Add Person"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_6__.GridToolbarColumnsButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_7__.GridToolbarFilterButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_8__.GridToolbarDensitySelector, null));
+}
+function RenderEdit({
+  value
+}) {
+  const url = attributes.editURL + "?per=" + value;
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: url
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    fontSize: "small"
+  }));
 }
 const columns = [{
   field: "id",
   headerName: "ID",
   width: 20
+}, {
+  field: "taskaction",
+  headerName: "  ",
+  valueGetter: ({
+    id
+  }) => id,
+  renderCell: RenderEdit,
+  width: 30
 }, {
   field: "firstname",
   headerName: "First ",
@@ -64144,6 +64185,10 @@ const columns = [{
   field: "email",
   headerName: "Email",
   width: 150
+}, {
+  field: "pz_level",
+  headerName: "Level",
+  width: 150
 }];
 ReactDOM.render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(MyComponent, null), xdiv);
 function MyComponent() {
@@ -64160,7 +64205,7 @@ function MyComponent() {
       height: 800,
       width: "100%"
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_9__.DataGridPro, {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_10__.DataGridPro, {
     rows: rows,
     columns: columns,
     rowHeight: 33,

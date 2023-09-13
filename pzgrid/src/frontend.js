@@ -11,6 +11,7 @@ import {
   GridToolbarFilterButton,
   GridToolbarExport,
   GridToolbarDensitySelector,
+  GridActionsCellItem,
 } from "@mui/x-data-grid-pro";
 import { LicenseInfo } from "@mui/x-license-pro";
 LicenseInfo.setLicenseKey(
@@ -24,16 +25,14 @@ if (attributes.onlyExpired == true) {
 }
 const url =
   attributes.siteURL + "/wp-json/pz/v1/person/?tail=" + attributes.queryTail;
-console.log(url);
 
 let response = await fetch(url);
 let json = await response.text();
 let rows = JSON.parse(json);
-console.log(rows);
 
 function IntEditToolbar() {
   const handleClick = () => {
-    const url = attributes.addURL + "?prj=" + attributes.prj;
+    const url = attributes.addURL + "?per=0";
 
     //   const id = randomId();
     //   setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
@@ -47,7 +46,7 @@ function IntEditToolbar() {
   return (
     <GridToolbarContainer>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add interaction
+        Add Person
       </Button>
       <GridToolbarColumnsButton />
       <GridToolbarFilterButton />
@@ -56,13 +55,30 @@ function IntEditToolbar() {
   );
 }
 
+function RenderEdit({ value }) {
+  const url = attributes.editURL + "?per=" + value;
+  return (
+    <a href={url}>
+      <EditIcon fontSize="small" />
+    </a>
+  );
+}
+
 const columns = [
   { field: "id", headerName: "ID", width: 20 },
+  {
+    field: "taskaction",
+    headerName: "  ",
+    valueGetter: ({ id }) => id,
+    renderCell: RenderEdit,
+    width: 30,
+  },
   { field: "firstname", headerName: "First ", width: 150 },
   { field: "lastname", headerName: "Last", width: 150 },
   { field: "title", headerName: "Title", width: 150 },
   { field: "company", headerName: "Company", width: 150 },
   { field: "email", headerName: "Email", width: 150 },
+  { field: "pz_level", headerName: "Level", width: 150 },
 ];
 
 ReactDOM.render(<MyComponent />, xdiv);
