@@ -52,7 +52,7 @@ export default function Edit(props) {
 
   const imageURL =
     window.location.origin +
-    "/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
+    "/wp-content/plugins/pzinteractiongrid/includes/assets/edit-side-image.png";
 
   return (
     <div {...useBlockProps()}>

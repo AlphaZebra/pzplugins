@@ -56,7 +56,7 @@ function pz_interaction_grid_block($attributes) {
 	ob_start();
 	?>
 
-	<div class="pz-interactiongrid-div"><pre><?php echo wp_json_encode($attributes); ?></pre></div>
+	<div class="pz-interactiongrid-div"><pre style="color: white"><?php echo wp_json_encode($attributes); ?></pre></div>
 	
 	<?php
 	return ob_get_clean();

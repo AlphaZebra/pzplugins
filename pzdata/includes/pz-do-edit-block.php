@@ -4,11 +4,14 @@ add_action('admin_post_do-person-edit-block', 'do_person_edit_block');
 add_action('admin_post_nopriv_do-person-edit-block', 'do_person_edit_block');
 add_action('admin_post_nopriv_do-person-search', 'do_person_search');
 add_action('admin_post_do-person-search', 'do_person_search');
+add_action('admin_post_nopriv_do-person-delete', 'do_person_delete_form');
+add_action('admin_post_do-person-delete', 'do_person_delete_form');
 
 
 function do_person_edit_block( ) {
     global $wpdb;
-    $created = date("m/j/Y");
+    $created = date("Y-m-j");
+
 
 
     $item = [];
@@ -31,7 +34,7 @@ function do_person_edit_block( ) {
     $item['phone2_type'] = '';
     $item['username'] = '';
     $item['has_notes'] = 0;
-    $item['last_contact'] = isset($_POST['last_contact']) ? $_POST['last_contact'] : '2023-01-01';
+    $item['last_contact'] = isset($_POST['last_contact']) ? $_POST['last_contact'] : $created;
     $item['pz_level'] = isset($_POST['pz_level']) ? $_POST['pz_level'] : '3';
     $item['pz_status'] = isset($_POST['pz_status']) ? sanitize_text_field($_POST['pz_status']) : '6';
     $item['expires'] = '';
@@ -46,6 +49,7 @@ function do_person_edit_block( ) {
 
     $tablnam = $wpdb->prefix . "pz_person";
     // if we're updating, we'll use a different SQL command
+   
     if( isset($_POST['id'])) {
         $item['id'] = $_POST['id'];
         $wpdb->update( $tablnam, $item, array('id' => $item['id']) );
@@ -77,4 +81,16 @@ function do_person_edit_block( ) {
 function do_person_search() {
     wp_redirect('/come-persons/?per=' . $_POST['search']);
     exit;
+}
+
+function do_person_delete_form() {
+    global $wpdb;
+
+    $result = $wpdb->delete( $wpdb->prefix . 'pz_person',  array( 'id' => $_POST['id'] ));
+    $result = $wpdb->delete( $wpdb->prefix . 'pz_interaction',  array( 'per_id' => $_POST['id'] ));
+    wp_redirect('/come-persons');
+    exit;
+
+    return $result;
+
 }

@@ -22,10 +22,12 @@
       "type": "string"
     },
     "addURL": {
-      "type": "string"
+      "type": "string",
+      "default": "/edit-person"
     },
     "editURL": {
-      "type": "string"
+      "type": "string",
+      "default": "/edit-person"
     },
     "onlyExpired": {
       "type": "boolean",

@@ -40,7 +40,7 @@ import "./editor.scss";
 export default function Edit({ attributes, setAttributes }) {
 	const imageURL =
 		window.location.origin +
-		"/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
+		"/wp-content/plugins/pzcore/includes/assets/edit-side-image.png";
 
 	return (
 		<div {...useBlockProps()}>

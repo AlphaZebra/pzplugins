@@ -59,7 +59,7 @@ function pz_onActivate() {
   dbDelta("CREATE TABLE $table_str (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
     table_name varchar(255) NOT NULL DEFAULT '',
-    field_string varchar(1200) NOT NULL DEFAULT '',
+    field_string varchar(2000) NOT NULL DEFAULT '',
     created varchar(12) NOT NULL DEFAULT '',
     PRIMARY KEY  (id)
   ) $charset;");
@@ -92,6 +92,7 @@ function pz_onActivate() {
     username varchar(20) NOT NULL DEFAULT '',
     has_notes int(4) NOT NULL DEFAULT 0,
     last_contact date NOT NULL DEFAULT '2023-01-01',
+    tags varchar(255) NOT NULL DEFAULT '',
     pz_level varchar(12) NOT NULL DEFAULT '',
     pz_status varchar(10) NOT NULL DEFAULT '', 
     pz_tags varchar(120) NOT NULL DEFAULT '',
@@ -365,7 +366,7 @@ dbDelta($item['field_string']);
 
 
 
-fillPersonTable();
+// fillPersonTable();
 
   }
 
@@ -459,6 +460,10 @@ function createPZTables() {
       'methods' => WP_REST_SERVER::READABLE,
       'callback' => 'do_person'
     ));
+    register_rest_route('pz/v1', 'delete-person', array(
+      'methods' => WP_REST_SERVER::READABLE,
+      'callback' => 'do_delete_person'
+    ));
     register_rest_route('pz/v1', 'putperson', array(
       'methods' => 'POST',
       'callback' => 'do_putperson'
@@ -467,6 +472,15 @@ function createPZTables() {
   
   function do_putperson () {
     
+  }
+
+  function do_delete_person ($params) {
+    global $wpdb;
+
+    if( isset($_GET['per'])) {
+      $results = $wpdb->delete( $wpdb->prefix . 'pz_person',  array( 'id' => $_GET['per'] ));
+      return $results;
+    }
   }
 
   function do_person($stuff) {

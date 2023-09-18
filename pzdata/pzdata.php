@@ -60,7 +60,8 @@ function pz_person_block($attributes) {
 		'title' => '',
 		'company' => '',
 		'email' => '',
-		'level' => ''
+		'level' => '',
+		'tags' => ''
 	);
 	
 	$update = false;
@@ -76,6 +77,7 @@ function pz_person_block($attributes) {
 			var_dump($item);
 			exit;
 		}
+		$update = true;
 	} 
 
 	// mustBeNew causes check to ensure person with same email isn't already enrolled. If email is a duplicate, 
@@ -90,7 +92,7 @@ function pz_person_block($attributes) {
 	<form action="<?php echo esc_url(admin_url('admin-post.php')) ?>" method="POST" class="form-style-1">
 		<input type="hidden" name="action" value="do-person-edit-block" required>
 		<input type="hidden" name="url" value="<?php echo $attributes['redirectURL'];  ?>" required>
-		<?php if( $update == "update" ) { ?>
+		<?php if( $update == true ) { ?>
 		<input type="hidden" name="id" value="<?php echo $_GET['per'];  ?>" required>
 		<?php } ?>
 		
@@ -115,10 +117,31 @@ function pz_person_block($attributes) {
 					<option value="180">Semi-annually</option>
 					<option value="365">Annually</option>
 				</select>
+				<fieldset style="margin-top: 10px">
+					<legend>Tags for this person:</legend>
+
+					<div>
+						<label for="wordpress">WordPress</label>
+						<input type="checkbox" id="wordpress" name="wordpress" checked />
+					</div>
+
+					<div>
+						<label for="javascript">Javascript</label>
+						<input type="checkbox" id="javascript" name="javascript" />
+					</div>
+				</fieldset>
+
 			<?php }  ?>
 			<input type="submit" value="Save" />
 		</form>
-	<div class="pz-target-div"><pre><?php /* echo wp_json_encode($attributes);*/ ?></pre></div>
+
+		<form action="<?php echo esc_url(admin_url('admin-post.php')) ?>" method="POST" class="form-style-1">
+		<input type="hidden" name="action" value="do-person-delete" required>
+		<input type="hidden" name="id" value="<?php echo $_GET['per'];  ?>" required>
+		<input type="submit" value="Delete" />
+
+		</form>
+
 	
 	<?php
 	return ob_get_clean();
@@ -234,6 +257,7 @@ function pz_add_person() {
 	<?php
 	return ob_get_clean();
 }
+
 
 
 // add_action('rest_api_init', 'set_up_person_rest_route');

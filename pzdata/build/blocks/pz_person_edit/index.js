@@ -60,7 +60,7 @@ function Edit({
   setAttributes
 }) {
   const [option, setOption] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)("fname");
-  const imageURL = window.location.origin + "/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
+  const imageURL = window.location.origin + "/wp-content/plugins/pzdata/includes/assets/edit-side-image.png";
   if (!attributes.field) {
     setAttributes({
       field: option

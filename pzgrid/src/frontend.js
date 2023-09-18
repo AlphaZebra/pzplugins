@@ -56,7 +56,8 @@ function IntEditToolbar() {
 }
 
 function RenderEdit({ value }) {
-  const url = attributes.editURL + "?per=" + value;
+  const url = "" + attributes.editURL + "?per=" + value;
+  console.log(url);
   return (
     <a href={url}>
       <EditIcon fontSize="small" />
@@ -79,6 +80,7 @@ const columns = [
   { field: "company", headerName: "Company", width: 150 },
   { field: "email", headerName: "Email", width: 150 },
   { field: "pz_level", headerName: "Level", width: 150 },
+  { field: "tags", headerName: "Tags", width: 150 },
 ];
 
 ReactDOM.render(<MyComponent />, xdiv);

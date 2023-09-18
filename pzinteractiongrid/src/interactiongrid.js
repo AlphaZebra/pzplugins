@@ -24,7 +24,12 @@ const xdiv = document.querySelector(".pz-interactiongrid-div");
 const attributes = JSON.parse(xdiv.innerText);
 
 // Get the interactions linked to that person
-let interactionURL = "http://" + window.location.hostname;
+// -- need to add non https version for local dev
+// if (window.location.hostname.includes("local")) {
+//   let interactionURL = "http://" + window.location.hostname;
+// } else {
+let interactionURL = "https://" + window.location.hostname;
+// }
 
 if (attributes.per == "") {
   interactionURL += "/wp-json/pz/v1/interaction/?per=1";
@@ -100,12 +105,17 @@ function EditToolbar() {
 }
 
 function IntRenderEdit({ value }) {
-  const url = attributes.editURL + "?int=" + value;
+  const url = attributes.editURL.replace(/\%2F/g, "/") + "?int=" + value;
   return (
     <a href={url}>
       <EditIcon fontSize="small" />
     </a>
   );
+}
+
+function DeSlash({ value }) {
+  x = value.replace(/\//g, "");
+  return x;
 }
 
 const columns = [
@@ -118,7 +128,11 @@ const columns = [
     width: 30,
   },
   { field: "per_id", headerName: "Person" },
-  { field: "summary", headerName: "Interaction", width: 350 },
+  {
+    field: "summary",
+    headerName: "Interaction",
+    width: 350,
+  },
   {
     field: "details",
     headerName: "Details",

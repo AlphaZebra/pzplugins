@@ -33,7 +33,7 @@ export default function Edit(props) {
   const { attributes, setAttributes } = props;
   const imageURL =
     window.location.origin +
-    "/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
+    "/wp-content/plugins/pzgrid/includes/assets/edit-side-image.png";
 
   return (
     <div {...useBlockProps()}>
@@ -57,11 +57,11 @@ export default function Edit(props) {
             onChange={(value) => setAttributes({ tag: value })}
           />
         </PanelBody>
-        <PanelBody title="Optional SQL suffic string">
+        <PanelBody>
           <CheckboxControl
             label="Show only expired?"
             help="Should grid only display those past re-contact date?"
-            checked={attributes.onlyExpired}
+            value={attributes.onlyExpired}
             onChange={(value) => setAttributes({ onlyExpired: value })}
           />
           <TextControl

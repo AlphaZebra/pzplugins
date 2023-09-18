@@ -14,6 +14,7 @@ function pz_interaction_block($attributes) {
 		'details' => '',
 		'created' => '',
 	);
+
 	
 	if(isset($_GET['int'])) {
 		if( $_GET['int'] > 0 ) {
@@ -23,13 +24,19 @@ function pz_interaction_block($attributes) {
 	} else {
 		$item['id'] = null;  // new record
 	}
+	if(isset($_GET['per'])) {
+		$item['per_id'] = $_GET['per'];
+	}
+
+
 
 	ob_start();
     ?>
 
 <form action="<?php echo esc_url(admin_url('admin-post.php')) ?>" method="POST" class="form-style-1">
 		<input type="hidden" name="action" value="do-interaction-form" required>
-		<input type="hidden" name="per_id" value="<?php echo $_GET['per'] ?>" required>
+		<input type="hidden" name="per_id" value="<?php echo $item['per_id'] ?>" required>
+		<input type="hidden" name="id" value="<?php echo $item['id'] ?>" required>
 		<input type="hidden" name="listURL" value="<?php echo $attributes['listURL'] ?>" required>
 			
         <label>Summary</label>
@@ -37,10 +44,11 @@ function pz_interaction_block($attributes) {
 			name="summary"
             type="text"
             class="field-long"
+			value="<?php echo stripslashes($item['summary']) ?>"
             placeholder="Basic description of interaction..."
         />
         <label>Details</label>
-        <textarea name="details" cols="85" rows="8"></textarea>
+        <textarea name="details" cols="85" rows="8"><?php  echo stripslashes($item['details']) ?></textarea>
         <input type="submit" value="Save" />
     </form>
     <?php
@@ -123,8 +131,8 @@ function do_interaction_form () {
   
 	$item['id'] = isset($_POST['id']) ? sanitize_text_field($_POST['id']) : null;
 	$item['per_id'] = isset($_POST['per_id']) ? sanitize_text_field($_POST['per_id']) : 1;
-	$item['summary'] = isset($_POST['summary']) ? sanitize_text_field($_POST['summary']) : 'none';
-	$item['details'] = isset($_POST['details']) ? sanitize_text_field($_POST['details']) : 'none';
+	$item['summary'] = isset($_POST['summary']) ? stripslashes(sanitize_text_field($_POST['summary'])) : 'none';
+	$item['details'] = isset($_POST['details']) ? stripslashes(sanitize_text_field($_POST['details'])) : 'none';
 	$item['created']= $created;
   
   
@@ -155,8 +163,8 @@ function do_interaction_form () {
 		var_dump( $wpdb );
 		exit;
 	}
-   
-	wp_redirect( $_POST['listURL'] . '?per=' . $item['per_id']);
+   $redirect_url = trailingslashit( $_POST['listURL']);
+	wp_redirect( $redirect_url . '?per=' . $item['per_id']);
 	exit;
   }
 

@@ -68,7 +68,7 @@ function Edit(props) {
     right: "10%",
     bottom: "50px"
   });
-  const imageURL = window.location.origin + "/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
+  const imageURL = window.location.origin + "/wp-content/plugins/pzinteractiongrid/includes/assets/edit-side-image.png";
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
@@ -268,7 +268,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"pz/pzinteractiongrid","icon":"smiley","version":"0.1.0","title":"PZ Interaction Grid","category":"widgets","description":"Show a list of all interactions, by default associated with a project.","supports":{"html":false},"textdomain":"pzinteractiongrid","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"myheader":{"type":"string"},"siteURL":{"type":"string"},"addURL":{"type":"string"},"editURL":{"type":"string"},"interactionGridURL":{"type":"string"},"prj":{"type":"string","default":"1"},"appName":{"type":"string"},"backgroundColor":{"type":"string"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"pz/pzinteractiongrid","icon":"smiley","version":"0.1.0","title":"PZ Interaction Grid","category":"widgets","description":"Show a list of all interactions, by default associated with a project.","supports":{"html":false},"textdomain":"pzinteractiongrid","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"myheader":{"type":"string"},"siteURL":{"type":"string"},"addURL":{"type":"string","default":"/edit-interaction"},"editURL":{"type":"string","default":"/edit-interaction"},"interactionGridURL":{"type":"string"},"prj":{"type":"string","default":"1"},"appName":{"type":"string"},"backgroundColor":{"type":"string"}}}');
 
 /***/ })
 

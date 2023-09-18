@@ -41,7 +41,7 @@ export default function Edit({ attributes, setAttributes }) {
 	const [option, setOption] = useState("fname");
 	const imageURL =
 		window.location.origin +
-		"/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
+		"/wp-content/plugins/pzdata/includes/assets/edit-side-image.png";
 	if (!attributes.field) {
 		setAttributes({ field: option });
 	}

@@ -59,7 +59,7 @@ function Edit({
   attributes,
   setAttributes
 }) {
-  const imageURL = window.location.origin + "/wp-content/plugins/pzprojectform/includes/assets/edit-side-image.png";
+  const imageURL = window.location.origin + "/wp-content/plugins/pzcore/includes/assets/edit-side-image.png";
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {

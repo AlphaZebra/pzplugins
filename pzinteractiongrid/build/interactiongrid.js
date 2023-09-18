@@ -64143,7 +64143,13 @@ const xdiv = document.querySelector(".pz-interactiongrid-div");
 const attributes = JSON.parse(xdiv.innerText);
 
 // Get the interactions linked to that person
-let interactionURL = "http://" + window.location.hostname;
+// -- need to add non https version for local dev
+// if (window.location.hostname.includes("local")) {
+//   let interactionURL = "http://" + window.location.hostname;
+// } else {
+let interactionURL = "https://" + window.location.hostname;
+// }
+
 if (attributes.per == "") {
   interactionURL += "/wp-json/pz/v1/interaction/?per=1";
 } else if (attributes.per) {
@@ -64222,12 +64228,18 @@ function EditToolbar() {
 function IntRenderEdit({
   value
 }) {
-  const url = attributes.editURL + "?int=" + value;
+  const url = attributes.editURL.replace(/\%2F/g, "/") + "?int=" + value;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: url
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_2__["default"], {
     fontSize: "small"
   }));
+}
+function DeSlash({
+  value
+}) {
+  x = value.replace(/\//g, "");
+  return x;
 }
 const columns = [{
   field: "id",

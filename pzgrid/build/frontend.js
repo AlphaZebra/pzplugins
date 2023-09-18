@@ -64146,7 +64146,8 @@ function IntEditToolbar() {
 function RenderEdit({
   value
 }) {
-  const url = attributes.editURL + "?per=" + value;
+  const url = "" + attributes.editURL + "?per=" + value;
+  console.log(url);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: url
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_9__["default"], {
@@ -64188,6 +64189,10 @@ const columns = [{
 }, {
   field: "pz_level",
   headerName: "Level",
+  width: 150
+}, {
+  field: "tags",
+  headerName: "Tags",
   width: 150
 }];
 ReactDOM.render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(MyComponent, null), xdiv);
