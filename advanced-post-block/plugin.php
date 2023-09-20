@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Advanced Post Block
  * Description: Advanced Post Block - Display posts in a beautiful way!
- * Version: 1.11.1
+ * Version: 1.11.2
  * Author: bPlugins LLC
  * Author URI: http://bplugins.com
  * License: GPLv3
@@ -14,7 +14,7 @@
 if ( !defined( 'ABSPATH' ) ) { exit; }
 
 // Constant
-define( 'APB_VERSION', isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.11.1' );
+define( 'APB_VERSION', isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.11.2' );
 define( 'APB_PATH', plugin_dir_path( __FILE__ ) );
 define( 'APB_DIR', plugin_dir_url( __FILE__ ) );
 
@@ -72,10 +72,10 @@ class APBAdvancedPostBlock{
 	}
 
 	function blockCategories( $categories ){
-		return array_merge( [[
+		return array_merge( [ [
 			'slug'	=> 'APBlock',
 			'title'	=> 'Advanced Post Block'
-		]], $categories );
+		] ], $categories );
 	}
 
 	function query( $attributes ){
@@ -169,6 +169,7 @@ class APBAdvancedPostBlock{
 		<div
 			class='<?php echo esc_attr( $blockClassName ); ?>'
 			id='apbAdvancedPosts-<?php echo esc_attr( $cId ); ?>'
+			data-posts='<?php echo esc_attr( wp_json_encode( $posts ) ); ?>'
 			data-attributes='<?php echo esc_attr( wp_json_encode( $attributes ) ); ?>'
 			data-extra='<?php echo esc_attr( wp_json_encode( [ 'totalPosts' => count( $allPosts ) ] ) ); ?>'
 		>

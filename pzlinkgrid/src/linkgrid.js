@@ -28,9 +28,13 @@ import {
   GridToolbarDensitySelector,
 } from "@mui/x-data-grid-pro";
 
+let cattribute = "";
 const xdiv = document.querySelector(".pz-linkgrid-div");
 const attributes = JSON.parse(xdiv.innerText);
-const url = attributes.siteURL + "/wp-json/pz/v1/link";
+if (attributes.category != "") {
+  cattribute = "/?cat=" + attributes.category; // otherwise, already set to "
+}
+const url = attributes.siteURL + "/wp-json/pz/v1/link" + cattribute;
 console.log(url);
 
 let response = await fetch(url);
@@ -70,60 +74,6 @@ function RenderProjectName({ row, value }) {
         <Typography sx={{ p: 2 }}>{row.project_description}</Typography>
       </Popover>
     </div>
-  );
-}
-
-function RenderStatus(props) {
-  const { value } = props;
-  let displayStatus = "";
-  switch (value) {
-    case "pending":
-      displayStatus = "Pending";
-      return <Chip label={displayStatus} color="primary" />;
-      break;
-    case "inprocess":
-      displayStatus = "In Process";
-      return <Chip label={displayStatus} color="secondary" />;
-      break;
-    case "inreview":
-      displayStatus = "In Review";
-      return <Chip label={displayStatus} color="info" />;
-      break;
-    case "done":
-      displayStatus = "Done";
-      return <Chip label={displayStatus} color="success" />;
-      break;
-    default:
-      displayStatus = "None";
-      return <Chip label={displayStatus} color="warning" />;
-  }
-}
-
-function getLeadName({ row }) {
-  return row.project_lead_name;
-}
-
-function RenderLeadName(props) {
-  const { value } = props;
-  const names = value.split(" ");
-  const fname = String(names[0]);
-  const lname = String(names[1]);
-  //const initial = lname.substring(0, 1);
-  let initial = "?";
-  if (names.length > 1) {
-    initial = lname.charAt(0);
-  } else if (names.length == 1) {
-    fname.charAt(0);
-  } else initial = "?"; // else if no name, the default "?" will serve as the initial
-  // const initial = names[1] ? names[1].charAt(0) : names[0].charAt(0); // get last initial, or else first initial
-  // const initial = "X";
-  return (
-    <Chip
-      color="primary"
-      variant="outlined"
-      avatar={<Avatar>{initial}</Avatar>}
-      label={value}
-    />
   );
 }
 
@@ -171,7 +121,7 @@ function EditToolbar() {
   return (
     <GridToolbarContainer>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add project
+        Add link
       </Button>
       <GridToolbarColumnsButton />
       <GridToolbarFilterButton />
@@ -180,16 +130,24 @@ function EditToolbar() {
   );
 }
 
+function getLink(params) {
+  console.log(params);
+  return <a href={params.row.link_url}>{params.value} </a>;
+}
+
 const columns = [
-  {
-    field: "id",
-    headerName: "ID",
-    width: 100,
-  },
   {
     field: "link_name",
     headerName: "Link Name",
     headerAlign: "left",
+    renderCell: getLink,
+    width: 300,
+  },
+  {
+    field: "link_description",
+    headerName: "About this Resource",
+    headerAlign: "left",
+    width: 400,
   },
 ];
 

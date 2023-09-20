@@ -353,6 +353,7 @@ $item['field_string'] = "CREATE TABLE $table_name (
   link_url varchar(255) NOT NULL DEFAULT '',
   link_image_url varchar(255) NOT NULL DEFAULT '',
   link_description varchar(800) NOT NULL DEFAULT '',
+  link_tag varchar(120) NOT NULL DEFAULT '',
   live_date varchar(12) NOT NULL DEFAULT '',
   end_date varchar(12) NOT NULL DEFAULT '',
   link_owner varchar(180) NOT NULL DEFAULT 'unassigned',

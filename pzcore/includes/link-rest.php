@@ -18,8 +18,12 @@
      $limit = 120;
      $offset = 0;
 
-    
-     $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pz_link ", ARRAY_A );
+     if (isset($_GET['cat'])) {
+      $qstr = "SELECT * FROM {$wpdb->prefix}pz_link WHERE link_tag = '{$_GET['cat']}'";
+     } else {
+      $qstr = "SELECT * FROM {$wpdb->prefix}pz_link ";
+     }
+     $results = $wpdb->get_results( $qstr , ARRAY_A );
     
      return $results;
    }

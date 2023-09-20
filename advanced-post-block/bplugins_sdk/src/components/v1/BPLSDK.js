@@ -15,6 +15,7 @@ const BPLSDK = ({ setAttributes }) => {
 
   useEffect(() => {
     if (!prefix) {
+      // eslint-disable-next-line no-console
       console.error("prefix not found");
     } else if (data) {
       let key = null;

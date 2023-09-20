@@ -17,7 +17,7 @@ class Single{
 			<figure class='apbThumb'>
 				<?php echo wp_kses_post( $imgEl ); ?>
 
-				<?php echo ( $isMeta && $isMetaCategory && 'image' === $metaCategoryIn ) ? "<div class='apbThumbCats'>$spaceCats</div>" : ''; ?>
+				<?php echo ( $isMeta && $isMetaCategory && 'image' === $metaCategoryIn && $spaceCats ) ? wp_kses_post( "<div class='apbThumbCats'>$spaceCats</div>" ) : ''; ?>
 			</figure>
 		<?php return ob_get_clean();
 		}else{
@@ -78,11 +78,10 @@ class Single{
 		extract( $post );
 
 		$isMetaAuthorLink = $isMetaAuthorLink ?? true;
+		$aUrl = $author['link'];
+		$aName = $author['name'];
 
-		if ( $isMetaAuthor ) {
-			$aUrl = $author['link'];
-			$aName = $author['name'];
-
+		if ( $isMetaAuthor && $aName ) {
 			$iconEl = $metaAuthorIcon ? "<img src='$metaAuthorIcon' alt='Author' />" : "<span class='dashicon dashicons dashicons-admin-users'></span>";
 			$authorEl = !$isMetaAuthorLink ? "<span>$aName</span>" : "<a href='$aUrl' rel='author' aria-label='$aName'>$aName</a>";
 
@@ -100,10 +99,9 @@ class Single{
 		extract( $attributes );
 
 		$metaDateFormat = $metaDateFormat ?? 'M j, Y';
+		$date = get_the_date( $metaDateFormat, $post['id'] );
 
-		if ( $isMetaDate ) {
-			$date = get_the_date( $metaDateFormat, $post['id'] );
-
+		if ( $isMetaDate && $date ) {
 			$iconEl = $metaDateIcon ? "<img src='$metaDateIcon' alt='Date' />" : "<span class='dashicon dashicons dashicons-calendar'></span>";
 
 			$metaDateEl = "<span>$iconEl <span>$date</span></span>";
@@ -120,9 +118,9 @@ class Single{
 		extract( $attributes );
 		extract( $post );
 
-		if ( $isMetaCategory && 'content' === $metaCategoryIn ) {
-			$comaCats = $categories['coma'];
+		$comaCats = $categories['coma'];
 
+		if ( $isMetaCategory && 'content' === $metaCategoryIn && $comaCats ) {
 			$iconEl = $metaCategoryIcon ? "<img src='$metaCategoryIcon' alt='Category' />" : "<span class='dashicon dashicons dashicons-category'></span>";
 
 			$metaCategoryEl = "<span>$iconEl <span>$comaCats</span></span>";
@@ -159,7 +157,7 @@ class Single{
 		extract( $attributes );
 		extract( $post );
 
-		if ( $isMetaComment ) {
+		if ( $isMetaComment && 'open' === $commentStatus ) {
 			$commentUrl = esc_url( $link ) . '/#comments';
 			
 			$iconEl = $metaCommentIcon ? "<img src='$metaCommentIcon' alt='Comment' />" : "<span class='dashicon dashicons dashicons-admin-comments'></span>";
@@ -182,7 +180,7 @@ class Single{
 		$finalExcerpt = ( !$isExcerptFromContent && $excerpt ) ? $excerpt : $content;
 		$ellipsis = ( $isEllipsisOnExcerpt && ( Functions::strLength( $finalExcerpt ) > $excerptLength ) ) ? '...' : '';
 
-		if ( $isExcerpt ) {
+		if ( $isExcerpt && $finalExcerpt ) {
 			ob_start(); ?>
 			<div class='apbExcerpt apbInnerContent'>
 				<?php echo wp_kses( Functions::truncate( $finalExcerpt, $excerptLength ) . $ellipsis, [] ); ?>

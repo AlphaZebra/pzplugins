@@ -28,9 +28,9 @@
     "siteURL": {
       "type": "string"
     },
-    "taskListURL": {
+    "category": {
       "type": "string",
-      "default": "/tasks/"
+      "default": "none"
     },
     "backgroundColor": {
       "type": "string"

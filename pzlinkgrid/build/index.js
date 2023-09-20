@@ -60,22 +60,22 @@ function Edit(props) {
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: "When Adding/Editing"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
-    label: "URL for Project Add form",
+    label: "URL for Link Add form",
     value: attributes.addURL,
     onChange: value => setAttributes({
       addURL: value
     })
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
-    label: "URL for Project Edit form",
+    label: "URL for Link Edit form",
     value: attributes.editURL,
     onChange: value => setAttributes({
       editURL: value
     })
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
-    label: "URL for Task Lists",
-    value: attributes.taskListURL,
+    label: "Category (optional)",
+    value: attributes.category,
     onChange: value => setAttributes({
-      taskListURL: value
+      category: value
     })
   }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: imageURL
@@ -262,7 +262,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"pz/pzlinkgrid","version":"0.1.0","title":"PZ Link Grid","category":"widgets","description":"Show a list of all link resources.","supports":{"html":false},"textdomain":"pzprojectgrid","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"myheader":{"type":"string"},"addURL":{"type":"string","default":"/edit-project/"},"editURL":{"type":"string","default":"/edit-project/"},"siteURL":{"type":"string"},"taskListURL":{"type":"string","default":"/tasks/"},"backgroundColor":{"type":"string"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"pz/pzlinkgrid","version":"0.1.0","title":"PZ Link Grid","category":"widgets","description":"Show a list of all link resources.","supports":{"html":false},"textdomain":"pzprojectgrid","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"myheader":{"type":"string"},"addURL":{"type":"string","default":"/edit-project/"},"editURL":{"type":"string","default":"/edit-project/"},"siteURL":{"type":"string"},"category":{"type":"string","default":"none"},"backgroundColor":{"type":"string"}}}');
 
 /***/ })
 

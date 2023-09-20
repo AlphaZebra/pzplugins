@@ -51,7 +51,6 @@ class Style{
 		] );
 
 		$apbStyles->addStyle("$postSl", [
-			'margin-bottom' => 'masonry' === $layout ? $rowGap.'px' : '0px',
 			GetCSS::getBorderCSS( $border ) => ''
 		] );
 		$apbStyles->addStyle("$mainSl .apbDefault, $mainSl .apbSideImage", [
@@ -110,9 +109,6 @@ class Style{
 		$apbStyles->addStyle("$mainSl .apbGridPosts, $mainSl .apbGrid1Posts", [
 			'grid-gap' => $rowGap .'px '. $columnGap .'px',
 			'align-items' => false === $isContentEqualHight ? 'start' : 'initial'
-		] );
-		$apbStyles->addStyle("$mainSl .apbMasonryPosts", [
-			'gap' => $columnGap .'px'
 		] );
 		$apbStyles->addStyle("$sliderPostsSl, $sliderPostsSl .swiper-slide", [
 			'min-height' => $sliderHeight

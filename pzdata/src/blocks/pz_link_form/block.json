@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "pz/pz-link-form",
+  "version": "0.1.0",
+  "title": "PZ Link Form",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Display and edit of single resource within a link library.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "pzdata",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "redirectURL": {
+      "type": "string",
+      "default": "/links"
+    },
+    "category": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}

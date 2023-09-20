@@ -17,7 +17,8 @@ function pzdata_register() {
         [ 'name' => 'pz_request_detail_form' ],
         [ 'name' => 'pz_queue' ],
         [ 'name' => 'pz_add_person' ],
-        [ 'name' => 'pz_logic' ]
+        [ 'name' => 'pz_logic' ],
+        [ 'name' => 'pz_link_form' ]
         // [ 'name' => 'pz_shortblock' ]
     ];
 
@@ -63,6 +64,9 @@ function pzdata_register() {
         }
         else if( $block['name'] == 'pz_logic') {
             $render_prop = array( 'render_callback' => 'pz_logic');
+        }
+        else if( $block['name'] == 'pz_link_form') {
+            $render_prop = array( 'render_callback' => 'pz_link_form');
         }
         else {
             $render_prop = array([]);

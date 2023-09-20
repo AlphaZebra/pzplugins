@@ -3,9 +3,9 @@ Contributors: abuhayat, charlescormier
 Donate link: https://www.buymeacoffee.com/abuhayat
 Tags: block, show posts, blog posts, display blog posts, embed custom posts, Gutenberg posts
 Requires at least: 5.9+
-Tested up to: 6.3
+Tested up to: 6.3.1
 Requires PHP: 7.1
-Stable tag: 1.11.1
+Stable tag: 1.11.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -95,7 +95,7 @@ Overall, Advanced Post Block is a powerful and essential block plugin for anyone
 
 
 = Feedback =
-- Liked that plugin? Hate it? Want a new feature? [Send me some feedback](mailto:support@bplugins.com 'Send feedback')
+- Liked this plugin? Hate it? Want a new feature? [Send me some feedback](mailto:support@bplugins.com 'Send feedback')
 
 
 = ⭐ Check out the Parent Plugin of this plugin- =
@@ -212,6 +212,9 @@ You can post your questions on the [support forum here](https://wordpress.org/su
 
 
 == Changelog ==
+
+= 1.11.2 =
+* Fix masonry layout
 
 = 1.11.1 =
 * Fix translation for the date.
@@ -377,6 +380,9 @@ You can post your questions on the [support forum here](https://wordpress.org/su
 
 
 == Upgrade Notice ==
+
+= 1.11.2 =
+* Fix masonry layout
 
 = 1.11.1 =
 * Fix translation for the date.

@@ -7163,297 +7163,6 @@ const autocompleteClasses = (0,_mui_utils__WEBPACK_IMPORTED_MODULE_1__["default"
 
 /***/ }),
 
-/***/ "./node_modules/@mui/material/Avatar/Avatar.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/@mui/material/Avatar/Avatar.js ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
-/* harmony import */ var _mui_base__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/base */ "./node_modules/@mui/utils/esm/composeClasses/composeClasses.js");
-/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/styles/styled.js");
-/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/styles/useThemeProps.js");
-/* harmony import */ var _internal_svg_icons_Person__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../internal/svg-icons/Person */ "./node_modules/@mui/material/internal/svg-icons/Person.js");
-/* harmony import */ var _avatarClasses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./avatarClasses */ "./node_modules/@mui/material/Avatar/avatarClasses.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-const _excluded = ["alt", "children", "className", "component", "imgProps", "sizes", "src", "srcSet", "variant"];
-
-
-
-
-
-
-
-
-
-const useUtilityClasses = ownerState => {
-  const {
-    classes,
-    variant,
-    colorDefault
-  } = ownerState;
-  const slots = {
-    root: ['root', variant, colorDefault && 'colorDefault'],
-    img: ['img'],
-    fallback: ['fallback']
-  };
-  return (0,_mui_base__WEBPACK_IMPORTED_MODULE_5__["default"])(slots, _avatarClasses__WEBPACK_IMPORTED_MODULE_6__.getAvatarUtilityClass, classes);
-};
-const AvatarRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])('div', {
-  name: 'MuiAvatar',
-  slot: 'Root',
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.root, styles[ownerState.variant], ownerState.colorDefault && styles.colorDefault];
-  }
-})(({
-  theme,
-  ownerState
-}) => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
-  position: 'relative',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexShrink: 0,
-  width: 40,
-  height: 40,
-  fontFamily: theme.typography.fontFamily,
-  fontSize: theme.typography.pxToRem(20),
-  lineHeight: 1,
-  borderRadius: '50%',
-  overflow: 'hidden',
-  userSelect: 'none'
-}, ownerState.variant === 'rounded' && {
-  borderRadius: (theme.vars || theme).shape.borderRadius
-}, ownerState.variant === 'square' && {
-  borderRadius: 0
-}, ownerState.colorDefault && (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
-  color: (theme.vars || theme).palette.background.default
-}, theme.vars ? {
-  backgroundColor: theme.vars.palette.Avatar.defaultBg
-} : {
-  backgroundColor: theme.palette.mode === 'light' ? theme.palette.grey[400] : theme.palette.grey[600]
-})));
-const AvatarImg = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])('img', {
-  name: 'MuiAvatar',
-  slot: 'Img',
-  overridesResolver: (props, styles) => styles.img
-})({
-  width: '100%',
-  height: '100%',
-  textAlign: 'center',
-  // Handle non-square image. The property isn't supported by IE11.
-  objectFit: 'cover',
-  // Hide alt text.
-  color: 'transparent',
-  // Hide the image broken icon, only works on Chrome.
-  textIndent: 10000
-});
-const AvatarFallback = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__["default"])(_internal_svg_icons_Person__WEBPACK_IMPORTED_MODULE_8__["default"], {
-  name: 'MuiAvatar',
-  slot: 'Fallback',
-  overridesResolver: (props, styles) => styles.fallback
-})({
-  width: '75%',
-  height: '75%'
-});
-function useLoaded({
-  crossOrigin,
-  referrerPolicy,
-  src,
-  srcSet
-}) {
-  const [loaded, setLoaded] = react__WEBPACK_IMPORTED_MODULE_2__.useState(false);
-  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
-    if (!src && !srcSet) {
-      return undefined;
-    }
-    setLoaded(false);
-    let active = true;
-    const image = new Image();
-    image.onload = () => {
-      if (!active) {
-        return;
-      }
-      setLoaded('loaded');
-    };
-    image.onerror = () => {
-      if (!active) {
-        return;
-      }
-      setLoaded('error');
-    };
-    image.crossOrigin = crossOrigin;
-    image.referrerPolicy = referrerPolicy;
-    image.src = src;
-    if (srcSet) {
-      image.srcset = srcSet;
-    }
-    return () => {
-      active = false;
-    };
-  }, [crossOrigin, referrerPolicy, src, srcSet]);
-  return loaded;
-}
-const Avatar = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function Avatar(inProps, ref) {
-  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_9__["default"])({
-    props: inProps,
-    name: 'MuiAvatar'
-  });
-  const {
-      alt,
-      children: childrenProp,
-      className,
-      component = 'div',
-      imgProps,
-      sizes,
-      src,
-      srcSet,
-      variant = 'circular'
-    } = props,
-    other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(props, _excluded);
-  let children = null;
-
-  // Use a hook instead of onError on the img element to support server-side rendering.
-  const loaded = useLoaded((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, imgProps, {
-    src,
-    srcSet
-  }));
-  const hasImg = src || srcSet;
-  const hasImgNotFailing = hasImg && loaded !== 'error';
-  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, {
-    colorDefault: !hasImgNotFailing,
-    component,
-    variant
-  });
-  const classes = useUtilityClasses(ownerState);
-  if (hasImgNotFailing) {
-    children = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(AvatarImg, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
-      alt: alt,
-      src: src,
-      srcSet: srcSet,
-      sizes: sizes,
-      ownerState: ownerState,
-      className: classes.img
-    }, imgProps));
-  } else if (childrenProp != null) {
-    children = childrenProp;
-  } else if (hasImg && alt) {
-    children = alt[0];
-  } else {
-    children = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(AvatarFallback, {
-      ownerState: ownerState,
-      className: classes.fallback
-    });
-  }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(AvatarRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
-    as: component,
-    ownerState: ownerState,
-    className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(classes.root, className),
-    ref: ref
-  }, other, {
-    children: children
-  }));
-});
- true ? Avatar.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * Used in combination with `src` or `srcSet` to
-   * provide an alt attribute for the rendered `img` element.
-   */
-  alt: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string),
-  /**
-   * Used to render icon or text elements inside the Avatar if `src` is not set.
-   * This can be an element, or just a string.
-   */
-  children: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().node),
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object),
-  /**
-   * @ignore
-   */
-  className: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string),
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().elementType),
-  /**
-   * [Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes) applied to the `img` element if the component is used to display an image.
-   * It can be used to listen for the loading error event.
-   */
-  imgProps: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object),
-  /**
-   * The `sizes` attribute for the `img` element.
-   */
-  sizes: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string),
-  /**
-   * The `src` attribute for the `img` element.
-   */
-  src: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string),
-  /**
-   * The `srcSet` attribute for the `img` element.
-   * Use this attribute for responsive image display.
-   */
-  srcSet: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string),
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_10___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().bool)])), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().object)]),
-  /**
-   * The shape of the avatar.
-   * @default 'circular'
-   */
-  variant: prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_10___default().oneOf(['circular', 'rounded', 'square']), (prop_types__WEBPACK_IMPORTED_MODULE_10___default().string)])
-} : 0;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Avatar);
-
-/***/ }),
-
-/***/ "./node_modules/@mui/material/Avatar/avatarClasses.js":
-/*!************************************************************!*\
-  !*** ./node_modules/@mui/material/Avatar/avatarClasses.js ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   getAvatarUtilityClass: () => (/* binding */ getAvatarUtilityClass)
-/* harmony export */ });
-/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/generateUtilityClasses/generateUtilityClasses.js");
-/* harmony import */ var _generateUtilityClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../generateUtilityClass */ "./node_modules/@mui/utils/esm/generateUtilityClass/generateUtilityClass.js");
-
-
-function getAvatarUtilityClass(slot) {
-  return (0,_generateUtilityClass__WEBPACK_IMPORTED_MODULE_0__["default"])('MuiAvatar', slot);
-}
-const avatarClasses = (0,_mui_utils__WEBPACK_IMPORTED_MODULE_1__["default"])('MuiAvatar', ['root', 'colorDefault', 'circular', 'rounded', 'square', 'img', 'fallback']);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (avatarClasses);
-
-/***/ }),
-
 /***/ "./node_modules/@mui/material/Backdrop/Backdrop.js":
 /*!*********************************************************!*\
   !*** ./node_modules/@mui/material/Backdrop/Backdrop.js ***!
@@ -24428,34 +24137,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_utils_createSvgIcon__WEBPACK_IMPORTED_MODULE_2__["default"])( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
   d: "M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"
 }), 'LastPage'));
-
-/***/ }),
-
-/***/ "./node_modules/@mui/material/internal/svg-icons/Person.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@mui/material/internal/svg-icons/Person.js ***!
-  \*****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils_createSvgIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/createSvgIcon */ "./node_modules/@mui/material/utils/createSvgIcon.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-/**
- * @ignore - internal component.
- */
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_utils_createSvgIcon__WEBPACK_IMPORTED_MODULE_2__["default"])( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
-  d: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-}), 'Person'));
 
 /***/ }),
 
@@ -64457,23 +64138,21 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/Box/Box.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/Button.js");
-/* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
-/* harmony import */ var _mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/Edit */ "./node_modules/@mui/icons-material/Edit.js");
-/* harmony import */ var _mui_icons_material_DeleteOutlined__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/icons-material/DeleteOutlined */ "./node_modules/@mui/icons-material/DeleteOutlined.js");
-/* harmony import */ var _mui_icons_material_FormatListBulleted__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/icons-material/FormatListBulleted */ "./node_modules/@mui/icons-material/FormatListBulleted.js");
-/* harmony import */ var _mui_material_Badge__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material/Badge */ "./node_modules/@mui/material/Badge/Badge.js");
-/* harmony import */ var _mui_material_Chip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/Chip */ "./node_modules/@mui/material/Chip/Chip.js");
-/* harmony import */ var _mui_material_Avatar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/Avatar */ "./node_modules/@mui/material/Avatar/Avatar.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/Box/Box.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
+/* harmony import */ var _mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/Edit */ "./node_modules/@mui/icons-material/Edit.js");
+/* harmony import */ var _mui_icons_material_DeleteOutlined__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/icons-material/DeleteOutlined */ "./node_modules/@mui/icons-material/DeleteOutlined.js");
+/* harmony import */ var _mui_icons_material_FormatListBulleted__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/FormatListBulleted */ "./node_modules/@mui/icons-material/FormatListBulleted.js");
+/* harmony import */ var _mui_material_Badge__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/Badge */ "./node_modules/@mui/material/Badge/Badge.js");
 /* harmony import */ var _mui_x_license_pro__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/x-license-pro */ "./node_modules/@mui/x-license-pro/utils/licenseInfo.js");
 /* harmony import */ var _mui_material_Popover__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material/Popover */ "./node_modules/@mui/material/Popover/Popover.js");
 /* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/Typography/Typography.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/containers/GridToolbarContainer.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarColumnsButton.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarFilterButton.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarDensitySelector.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid-pro/DataGridPro/DataGridPro.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/containers/GridToolbarContainer.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarColumnsButton.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarFilterButton.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarDensitySelector.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid-pro/DataGridPro/DataGridPro.js");
 
 
 
@@ -64492,9 +64171,14 @@ _mui_x_license_pro__WEBPACK_IMPORTED_MODULE_1__.LicenseInfo.setLicenseKey("94af6
 
 
 
+let cattribute = "";
 const xdiv = document.querySelector(".pz-linkgrid-div");
 const attributes = JSON.parse(xdiv.innerText);
-const url = attributes.siteURL + "/wp-json/pz/v1/link";
+if (attributes.category != "") {
+  cattribute = "/?cat=" + attributes.category; // otherwise, already set to "
+}
+
+const url = attributes.siteURL + "/wp-json/pz/v1/link" + cattribute;
 console.log(url);
 let response = await fetch(url);
 let json = await response.text();
@@ -64533,83 +64217,13 @@ function RenderProjectName({
     }
   }, row.project_description)));
 }
-function RenderStatus(props) {
-  const {
-    value
-  } = props;
-  let displayStatus = "";
-  switch (value) {
-    case "pending":
-      displayStatus = "Pending";
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Chip__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        label: displayStatus,
-        color: "primary"
-      });
-      break;
-    case "inprocess":
-      displayStatus = "In Process";
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Chip__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        label: displayStatus,
-        color: "secondary"
-      });
-      break;
-    case "inreview":
-      displayStatus = "In Review";
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Chip__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        label: displayStatus,
-        color: "info"
-      });
-      break;
-    case "done":
-      displayStatus = "Done";
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Chip__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        label: displayStatus,
-        color: "success"
-      });
-      break;
-    default:
-      displayStatus = "None";
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Chip__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        label: displayStatus,
-        color: "warning"
-      });
-  }
-}
-function getLeadName({
-  row
-}) {
-  return row.project_lead_name;
-}
-function RenderLeadName(props) {
-  const {
-    value
-  } = props;
-  const names = value.split(" ");
-  const fname = String(names[0]);
-  const lname = String(names[1]);
-  //const initial = lname.substring(0, 1);
-  let initial = "?";
-  if (names.length > 1) {
-    initial = lname.charAt(0);
-  } else if (names.length == 1) {
-    fname.charAt(0);
-  } else initial = "?"; // else if no name, the default "?" will serve as the initial
-  // const initial = names[1] ? names[1].charAt(0) : names[0].charAt(0); // get last initial, or else first initial
-  // const initial = "X";
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Chip__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    color: "primary",
-    variant: "outlined",
-    avatar: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Avatar__WEBPACK_IMPORTED_MODULE_5__["default"], null, initial),
-    label: value
-  });
-}
 function RenderEdit({
   value
 }) {
   const url = attributes.editURL + "?prj=" + value;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: url
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_6__["default"], null));
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_4__["default"], null));
 }
 function RenderTaskList({
   value,
@@ -64619,9 +64233,9 @@ function RenderTaskList({
   const taskcount = row.tasks ? row.tasks : 0;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: url
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Badge__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Badge__WEBPACK_IMPORTED_MODULE_5__["default"], {
     badgeContent: taskcount
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_FormatListBulleted__WEBPACK_IMPORTED_MODULE_8__["default"], null)));
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_FormatListBulleted__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
 }
 function RenderDelete({
   value
@@ -64649,27 +64263,36 @@ function RenderDelete({
     type: "submit",
     name: "submit",
     class: "clearbutton"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_DeleteOutlined__WEBPACK_IMPORTED_MODULE_9__["default"], null))));
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_DeleteOutlined__WEBPACK_IMPORTED_MODULE_7__["default"], null))));
 }
 function EditToolbar() {
   const handleClick = () => {
     const url = attributes.addURL + "?prj=0";
     window.location.href = url;
   };
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_10__.GridToolbarContainer, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_8__.GridToolbarContainer, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
     color: "primary",
-    startIcon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_12__["default"], null),
+    startIcon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_10__["default"], null),
     onClick: handleClick
-  }, "Add project"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_13__.GridToolbarColumnsButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_14__.GridToolbarFilterButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_15__.GridToolbarDensitySelector, null));
+  }, "Add link"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_11__.GridToolbarColumnsButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_12__.GridToolbarFilterButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_13__.GridToolbarDensitySelector, null));
+}
+function getLink(params) {
+  console.log(params);
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: params.row.link_url
+  }, params.value, " ");
 }
 const columns = [{
-  field: "id",
-  headerName: "ID",
-  width: 100
-}, {
   field: "link_name",
   headerName: "Link Name",
-  headerAlign: "left"
+  headerAlign: "left",
+  renderCell: getLink,
+  width: 300
+}, {
+  field: "link_description",
+  headerName: "About this Resource",
+  headerAlign: "left",
+  width: 400
 }];
 ReactDOM.render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ProjectGrid, null), xdiv);
 
@@ -64682,7 +64305,7 @@ function ProjectGrid() {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     height: "400",
     width: "100%"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_16__["default"], {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
     sx: {
       height: 300,
       width: "100%",
@@ -64693,7 +64316,7 @@ function ProjectGrid() {
         color: "text.primary"
       }
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_17__.DataGridPro, {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_15__.DataGridPro, {
     rows: initialRows,
     columns: columns,
     slots: {

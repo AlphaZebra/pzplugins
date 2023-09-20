@@ -286,10 +286,21 @@ class LicenseHandler {
       "Developer / Unlimited sites": 1000,
       "Developer/Agency license for Unlimited Sites": 1000,
       "Developer/Agency License - Unlimited Site": 1000,
+      "(Developer/Agency License - Unlimited Site)": 1000,
       "(Developer)": 1000,
       Agency: 1000,
     };
-    let quantity = variants[response?.purchase?.variants] || 1;
+
+    let quantity = 1;
+
+    for (let item of ["Developer", "Agency", "Unlimited"]) {
+      if (response?.purchase?.variants?.toLowerCase()?.includes(item.toLowerCase())) {
+        quantity = 1000;
+        break;
+      } else {
+        quantity = variants[response?.purchase?.variants] || 1;
+      }
+    }
 
     return quantity;
   }

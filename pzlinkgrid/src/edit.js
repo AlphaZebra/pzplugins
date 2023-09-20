@@ -65,19 +65,19 @@ export default function Edit(props) {
 
         <PanelBody title="When Adding/Editing">
           <TextControl
-            label="URL for Project Add form"
+            label="URL for Link Add form"
             value={attributes.addURL}
             onChange={(value) => setAttributes({ addURL: value })}
           />
           <TextControl
-            label="URL for Project Edit form"
+            label="URL for Link Edit form"
             value={attributes.editURL}
             onChange={(value) => setAttributes({ editURL: value })}
           />
           <TextControl
-            label="URL for Task Lists"
-            value={attributes.taskListURL}
-            onChange={(value) => setAttributes({ taskListURL: value })}
+            label="Category (optional)"
+            value={attributes.category}
+            onChange={(value) => setAttributes({ category: value })}
           />
         </PanelBody>
       </InspectorControls>

@@ -28,9 +28,9 @@ class Layout{
 			<?php break;
 
 			case 'masonry': ?>
-				<div class='<?php echo esc_attr( $masonryClass ); ?>'>
-					<?php Layout::mapPosts( $attributes, $posts ); ?>
-				</div>
+				<div class='<?php echo esc_attr( $gridClass ); ?>'>
+					<?php echo Layout::mapPosts( $attributes, $posts ); ?>
+				</div> <!-- For placeholder/loader -->
 			<?php break;
 
 			case 'slider': ?>

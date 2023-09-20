@@ -47,8 +47,9 @@ class Kadence_Blocks_Captcha_Block extends Kadence_Blocks_Advanced_Form_Input_Bl
 	 * @param string $unique_style_id the blocks alternate ID for queries.
 	 */
 	public function build_css( $attributes, $css, $unique_id, $unique_style_id ) {
-		$css->set_style_id( 'kb-' . $this->block_name . $unique_style_id );
-		$css->set_selector( '.wp-block-kadence-advanced-form .kb-field' . $unique_style_id );
+		$class_id = $this->class_id( $attributes );
+		$css->set_style_id( 'kb-' . $this->block_name . $class_id );
+		$css->set_selector( '.wp-block-kadence-advanced-form .kb-field' . $class_id );
 
 		$css->render_responsive_range( $attributes, 'maxWidth', 'max-width', 'maxWidthUnit' );
 		$css->render_responsive_range( $attributes, 'minWidth', 'min-width', 'minWidthUnit' );
@@ -75,8 +76,8 @@ class Kadence_Blocks_Captcha_Block extends Kadence_Blocks_Advanced_Form_Input_Bl
 		if ( ! $captcha_settings->is_valid ) {
 			return '';
 		}
-
-		$outer_classes = array( 'kb-adv-form-field', 'kb-field' . $unique_id );
+		$class_id = $this->class_id( $attributes );
+		$outer_classes = array( 'kb-adv-form-field', 'kb-field' . $class_id );
 		if ( ! empty( $attributes['className'] ) ) {
 			$outer_classes[] = $attributes['className'];
 		}
@@ -159,8 +160,8 @@ class Kadence_Blocks_Captcha_Block extends Kadence_Blocks_Advanced_Form_Input_Bl
 			return;
 		}
 
-		wp_register_script( 'kadence-blocks-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', array(), KADENCE_BLOCKS_VERSION, true );
-		wp_register_script( 'kadence-blocks-hcaptcha', 'https://js.hcaptcha.com/1/api.js', array(), KADENCE_BLOCKS_VERSION, true );
+		wp_register_script( 'kadence-blocks-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', array(), null, true );
+		wp_register_script( 'kadence-blocks-hcaptcha', 'https://js.hcaptcha.com/1/api.js', array(), null, true );
 
 		$recaptcha_url     = 'https://www.google.com/recaptcha/api.js';
 		$recaptcha_net_url = 'https://www.recaptcha.net/recaptcha/api.js';
@@ -177,7 +178,7 @@ class Kadence_Blocks_Captcha_Block extends Kadence_Blocks_Advanced_Form_Input_Bl
 			$recaptcha_url = add_query_arg( array( 'render' => $captcha_settings->public_key ), $recaptcha_url );
 		}
 
-		wp_register_script( 'kadence-blocks-recaptcha', $recaptcha_url, array(), KADENCE_BLOCKS_VERSION, true );
+		wp_register_script( 'kadence-blocks-recaptcha', $recaptcha_url, array(), null, true );
 	}
 
 }
