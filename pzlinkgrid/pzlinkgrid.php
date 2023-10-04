@@ -24,15 +24,13 @@ function create_block_pzlinkgrid_block_init() {
 }
 add_action( 'init', 'create_block_pzlinkgrid_block_init' );
 
-add_action('admin_post_do-project-delete', 'do_project_delete');
-add_action('admin_post_nopriv_do-project-delete', 'do_project_delete');
 
 
 
 function pz_link_grid_block($attributes) {
 	global $wpdb;
 
-	wp_enqueue_script('pzlinkfront', plugin_dir_url(__FILE__) . 'build/linkgrid.js', array('wp-element', 'wp-components'), null, true);
+	wp_enqueue_script('pzlinkfront', plugin_dir_url(__FILE__) . 'build/linkgriddle.js', array('wp-element', 'wp-components'), null, true);
 	// $user_info = wp_get_current_user();
 	$attributes['siteURL'] = get_site_url();
 

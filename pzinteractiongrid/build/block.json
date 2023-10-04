@@ -30,7 +30,8 @@
       "default": "/edit-interaction"
     },
     "interactionGridURL": {
-      "type": "string"
+      "type": "string",
+      "default": "/interaction-list"
     },
     "prj": {
       "type": "string",

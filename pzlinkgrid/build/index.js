@@ -54,7 +54,7 @@ function Edit(props) {
     right: "10%",
     bottom: "50px"
   });
-  const imageURL = window.location.origin + "/wp-content/plugins/pzprojectgrid/includes/assets/edit-side-image.png";
+  const imageURL = window.location.origin + "/wp-content/plugins/pzlinkgrid/includes/assets/edit-side-image.png";
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
@@ -76,6 +76,18 @@ function Edit(props) {
     value: attributes.category,
     onChange: value => setAttributes({
       category: value
+    })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.CheckboxControl, {
+    label: "Show menu?",
+    checked: attributes.isMenu,
+    onChange: value => setAttributes({
+      isMenu: value
+    })
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.CheckboxControl, {
+    label: "Show column headers?",
+    checked: attributes.isColumnHeaders,
+    onChange: value => setAttributes({
+      isColumnHeaders: value
     })
   }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: imageURL
@@ -262,7 +274,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"pz/pzlinkgrid","version":"0.1.0","title":"PZ Link Grid","category":"widgets","description":"Show a list of all link resources.","supports":{"html":false},"textdomain":"pzprojectgrid","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"myheader":{"type":"string"},"addURL":{"type":"string","default":"/edit-project/"},"editURL":{"type":"string","default":"/edit-project/"},"siteURL":{"type":"string"},"category":{"type":"string","default":"none"},"backgroundColor":{"type":"string"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"pz/pzlinkgrid","version":"0.1.0","title":"PZ Link Grid","category":"widgets","description":"Show a list of all link resources.","supports":{"html":false},"textdomain":"pzprojectgrid","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"myheader":{"type":"string"},"addURL":{"type":"string","default":"/edit-link/"},"editURL":{"type":"string","default":"/edit-link/"},"siteURL":{"type":"string"},"category":{"type":"string","default":"none"},"isMenu":{"type":"boolean","default":true},"isColumnHeaders":{"type":"boolean","default":true},"backgroundColor":{"type":"string"}}}');
 
 /***/ })
 

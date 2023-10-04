@@ -40,6 +40,11 @@
 
 // }
 
+/** 
+ * Keys:
+ * $pz_person_tags  -- all "interest" tags being used for people in this specific pz instance
+ */
+
 function pz_set_config( $key, $value ) {
     global $wpdb;
 
@@ -52,6 +57,7 @@ function pz_set_config( $key, $value ) {
     $item['config_value'] = $value;
     $item['created'] = '';
 
+    
     if( !$wpdb->update( $tablnam, $item, array('config_key' => $item['config_key'] ))) {
         if( $wpdb->insert( $tablnam, $item ) <= 0 ) {  
 			if(strpos($wpdb->last_error, "Duplicate entry") !== false) {
@@ -71,6 +77,9 @@ function pz_get_config( $key ) {
     
 
     $results = $wpdb->get_results( "SELECT * FROM $tablnam WHERE config_key = '$key' ", ARRAY_A );
+    if( !isset($results[0])) {
+        return -1;
+    }
    
     return( $results[0]['config_value']);
 

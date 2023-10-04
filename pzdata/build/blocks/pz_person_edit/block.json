@@ -6,7 +6,7 @@
   "title": "PZ Person Edit",
   "category": "widgets",
   "icon": "smiley",
-  "description": "Example block scaffolded with Create Block tool.",
+  "description": "Form for editing or adding a person.",
   "supports": {
     "html": false
   },

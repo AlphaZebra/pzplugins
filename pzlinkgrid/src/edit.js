@@ -39,7 +39,7 @@ export default function Edit(props) {
 
   const imageURL =
     window.location.origin +
-    "/wp-content/plugins/pzprojectgrid/includes/assets/edit-side-image.png";
+    "/wp-content/plugins/pzlinkgrid/includes/assets/edit-side-image.png";
 
   return (
     <div {...useBlockProps()}>
@@ -78,6 +78,16 @@ export default function Edit(props) {
             label="Category (optional)"
             value={attributes.category}
             onChange={(value) => setAttributes({ category: value })}
+          />
+          <CheckboxControl
+            label="Show menu?"
+            checked={attributes.isMenu}
+            onChange={(value) => setAttributes({ isMenu: value })}
+          />
+          <CheckboxControl
+            label="Show column headers?"
+            checked={attributes.isColumnHeaders}
+            onChange={(value) => setAttributes({ isColumnHeaders: value })}
           />
         </PanelBody>
       </InspectorControls>

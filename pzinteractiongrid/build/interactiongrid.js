@@ -64147,7 +64147,7 @@ const attributes = JSON.parse(xdiv.innerText);
 // if (window.location.hostname.includes("local")) {
 //   let interactionURL = "http://" + window.location.hostname;
 // } else {
-let interactionURL = "https://" + window.location.hostname;
+let interactionURL = window.location.protocol + "//" + window.location.hostname;
 // }
 
 if (attributes.per == "") {
@@ -64179,7 +64179,7 @@ function RenderEdit({
     href: url
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_2__["default"], null));
 }
-function RenderDelete({
+function IntRenderDelete({
   value
 }) {
   const url = window.location.href;
@@ -64189,7 +64189,7 @@ function RenderDelete({
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
     type: "hidden",
     name: "action",
-    value: "do-project-delete",
+    value: "do-interaction-delete",
     required: true
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
     type: "hidden",
@@ -64251,6 +64251,14 @@ const columns = [{
     id
   }) => id,
   renderCell: IntRenderEdit,
+  width: 30
+}, {
+  field: "delaction",
+  headerName: "  ",
+  valueGetter: ({
+    id
+  }) => id,
+  renderCell: IntRenderDelete,
   width: 30
 }, {
   field: "per_id",

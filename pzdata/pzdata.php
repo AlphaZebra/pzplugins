@@ -35,6 +35,7 @@
  include( PZ_PLUGIN_DIR . 'includes/pz-queue.php');
  include( PZ_PLUGIN_DIR . 'includes/pz-logic.php');
  include( PZ_PLUGIN_DIR . 'includes/pz-link.php');
+ include( PZ_PLUGIN_DIR . 'includes/pz-tag-delete.php');
 
 
  // Hooks
@@ -61,8 +62,8 @@ function pz_person_block($attributes) {
 		'title' => '',
 		'company' => '',
 		'email' => '',
-		'level' => '',
-		'tags' => ''
+		'pz_level' => '',
+		'pz_tags' => ''
 	);
 	
 	$update = false;
@@ -87,9 +88,32 @@ function pz_person_block($attributes) {
 
 	}
 
+	$tag_set = pz_get_config('pz_person_tags');
+	$tag_array = explode(',', $tag_set);
+	// $tags_checked = "WordPress SaaS";
+
+	foreach( $tag_array as $tag ) {
+		if(str_contains($item['pz_tags'], $tag))
+			$tag_values[$tag] = true;
+		else $tag_values[$tag] = false;
+	}
+
+	
+
+
 	ob_start();
 	?>
-	
+	<script type="text/javascript">
+  		function myChangeFunction(tag) {
+			console.log(tag);
+			var checkbox = document.getElementById(tag);
+			if( checkbox.checked == true ) {
+			var pz_tags = document.getElementById('pz_tags')
+    		pz_tags.value += tag + ' ';
+			console.log(pz_tags.value);
+			}
+  		}
+	</script>
 	<form action="<?php echo esc_url(admin_url('admin-post.php')) ?>" method="POST" class="form-style-1">
 		<input type="hidden" name="action" value="do-person-edit-block" required>
 		<input type="hidden" name="url" value="<?php echo $attributes['redirectURL'];  ?>" required>
@@ -118,18 +142,22 @@ function pz_person_block($attributes) {
 					<option value="180">Semi-annually</option>
 					<option value="365">Annually</option>
 				</select>
+			<label>Interest tags</label>
+				
+			<input type="hidden" name="pz_tags" id="pz_tags" class="field-long" value="<?php echo $item['pz_tags'] ?>" placeholder="interest1" />
+
 				<fieldset style="margin-top: 10px">
 					<legend>Tags for this person:</legend>
-
+					<?php 
+					foreach( $tag_array as $tag ) {
+					?>
 					<div>
-						<label for="wordpress">WordPress</label>
-						<input type="checkbox" id="wordpress" name="wordpress" checked />
+						<label for="<?php echo $tag ?>"><?php echo $tag ?></label>
+						<input type="checkbox" id="<?php echo $tag ?>" name="<?php echo $tag ?>"  
+						<?php if( $tag_values[$tag] == true ) { ?> checked <?php } ?> onchange="myChangeFunction(id)"/>
 					</div>
-
-					<div>
-						<label for="javascript">Javascript</label>
-						<input type="checkbox" id="javascript" name="javascript" />
-					</div>
+					<?php } ?>
+					
 				</fieldset>
 
 			<?php }  ?>

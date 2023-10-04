@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "pz/pzsignup",
+  "version": "0.1.0",
+  "title": "PZ Signup Form",
+  "category": "widgets",
+  "description": "Captures name and email for newsletter registration.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "pzprojectgrid",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "redirectURL": {
+      "type": "string",
+      "default": "/"
+    }
+  }
+}

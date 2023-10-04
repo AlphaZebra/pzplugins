@@ -5922,29 +5922,6 @@ function useSlotProps(parameters) {
 
 /***/ }),
 
-/***/ "./node_modules/@mui/icons-material/Add.js":
-/*!*************************************************!*\
-  !*** ./node_modules/@mui/icons-material/Add.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = void 0;
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
-var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
-  d: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
-}), 'Add');
-exports["default"] = _default;
-
-/***/ }),
-
 /***/ "./node_modules/@mui/icons-material/DeleteOutlined.js":
 /*!************************************************************!*\
   !*** ./node_modules/@mui/icons-material/DeleteOutlined.js ***!
@@ -64127,10 +64104,10 @@ function withinMaxClamp(min, value, max) {
 
 /***/ }),
 
-/***/ "./src/linkgrid.js":
-/*!*************************!*\
-  !*** ./src/linkgrid.js ***!
-  \*************************/
+/***/ "./src/linkgriddle.js":
+/*!****************************!*\
+  !*** ./src/linkgriddle.js ***!
+  \****************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -64138,9 +64115,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/Box/Box.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/Button.js");
-/* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/Box/Box.js");
 /* harmony import */ var _mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/Edit */ "./node_modules/@mui/icons-material/Edit.js");
 /* harmony import */ var _mui_icons_material_DeleteOutlined__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/icons-material/DeleteOutlined */ "./node_modules/@mui/icons-material/DeleteOutlined.js");
 /* harmony import */ var _mui_icons_material_FormatListBulleted__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/FormatListBulleted */ "./node_modules/@mui/icons-material/FormatListBulleted.js");
@@ -64149,10 +64124,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material_Popover__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material/Popover */ "./node_modules/@mui/material/Popover/Popover.js");
 /* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/Typography/Typography.js");
 /* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/containers/GridToolbarContainer.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarColumnsButton.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarFilterButton.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarDensitySelector.js");
-/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid-pro/DataGridPro/DataGridPro.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarColumnsButton.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarFilterButton.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid/components/toolbar/GridToolbarDensitySelector.js");
+/* harmony import */ var _mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/x-data-grid-pro */ "./node_modules/@mui/x-data-grid-pro/DataGridPro/DataGridPro.js");
 
 
 
@@ -64265,16 +64240,9 @@ function RenderDelete({
     class: "clearbutton"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_DeleteOutlined__WEBPACK_IMPORTED_MODULE_7__["default"], null))));
 }
-function EditToolbar() {
-  const handleClick = () => {
-    const url = attributes.addURL + "?prj=0";
-    window.location.href = url;
-  };
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_8__.GridToolbarContainer, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    color: "primary",
-    startIcon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_10__["default"], null),
-    onClick: handleClick
-  }, "Add link"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_11__.GridToolbarColumnsButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_12__.GridToolbarFilterButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_13__.GridToolbarDensitySelector, null));
+function LinkEditToolbar() {
+  if (!attributes.isMenu) return ""; // if the display of top menu on grid is turned off
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_8__.GridToolbarContainer, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_9__.GridToolbarColumnsButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_10__.GridToolbarFilterButton, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_11__.GridToolbarDensitySelector, null));
 }
 function getLink(params) {
   console.log(params);
@@ -64294,18 +64262,33 @@ const columns = [{
   headerAlign: "left",
   width: 400
 }];
-ReactDOM.render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ProjectGrid, null), xdiv);
+
+// if (!attributes.isHeader)
+//   columns.map((thing) => {
+//     thing.headerName = "";
+//   });
+
+ReactDOM.render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(LinkGrid, null), xdiv);
 
 /**
  *
  * Here's the component donut
  */
 
-function ProjectGrid() {
+function LinkGrid() {
+  let myslots = {
+    toolbar: LinkEditToolbar
+  };
+  if (!attributes.isColumnHeaders) {
+    myslots = {
+      toolbar: LinkEditToolbar,
+      columnHeaders: () => null
+    };
+  }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     height: "400",
     width: "100%"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_12__["default"], {
     sx: {
       height: 300,
       width: "100%",
@@ -64316,12 +64299,10 @@ function ProjectGrid() {
         color: "text.primary"
       }
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_15__.DataGridPro, {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_x_data_grid_pro__WEBPACK_IMPORTED_MODULE_13__.DataGridPro, {
     rows: initialRows,
     columns: columns,
-    slots: {
-      toolbar: EditToolbar
-    }
+    slots: myslots
   })));
 }
 __webpack_async_result__();
@@ -70217,8 +70198,8 @@ function combine (array, callback) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module used 'module' so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/linkgrid.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/linkgriddle.js");
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=linkgrid.js.map
+//# sourceMappingURL=linkgriddle.js.map

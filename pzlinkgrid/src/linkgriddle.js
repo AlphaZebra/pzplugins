@@ -112,17 +112,10 @@ function RenderDelete({ value }) {
   );
 }
 
-function EditToolbar() {
-  const handleClick = () => {
-    const url = attributes.addURL + "?prj=0";
-    window.location.href = url;
-  };
-
+function LinkEditToolbar() {
+  if (!attributes.isMenu) return ""; // if the display of top menu on grid is turned off
   return (
     <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add link
-      </Button>
       <GridToolbarColumnsButton />
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
@@ -151,14 +144,30 @@ const columns = [
   },
 ];
 
-ReactDOM.render(<ProjectGrid />, xdiv);
+// if (!attributes.isHeader)
+//   columns.map((thing) => {
+//     thing.headerName = "";
+//   });
+
+ReactDOM.render(<LinkGrid />, xdiv);
 
 /**
  *
  * Here's the component donut
  */
 
-function ProjectGrid() {
+function LinkGrid() {
+  let myslots = {
+    toolbar: LinkEditToolbar,
+  };
+  if (!attributes.isColumnHeaders) {
+    myslots = {
+      toolbar: LinkEditToolbar,
+
+      columnHeaders: () => null,
+    };
+  }
+
   return (
     <div height="400" width="100%">
       <Box
@@ -173,13 +182,7 @@ function ProjectGrid() {
           },
         }}
       >
-        <DataGridPro
-          rows={initialRows}
-          columns={columns}
-          slots={{
-            toolbar: EditToolbar,
-          }}
-        />
+        <DataGridPro rows={initialRows} columns={columns} slots={myslots} />
       </Box>
     </div>
   );

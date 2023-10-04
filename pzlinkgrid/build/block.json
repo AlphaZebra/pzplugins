@@ -19,11 +19,11 @@
     },
     "addURL": {
       "type": "string",
-      "default": "/edit-project/"
+      "default": "/edit-link/"
     },
     "editURL": {
       "type": "string",
-      "default": "/edit-project/"
+      "default": "/edit-link/"
     },
     "siteURL": {
       "type": "string"
@@ -31,6 +31,14 @@
     "category": {
       "type": "string",
       "default": "none"
+    },
+    "isMenu": {
+      "type": "boolean",
+      "default": true
+    },
+    "isColumnHeaders": {
+      "type": "boolean",
+      "default": true
     },
     "backgroundColor": {
       "type": "string"

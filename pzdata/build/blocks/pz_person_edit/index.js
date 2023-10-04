@@ -351,7 +351,7 @@ module.exports = window["wp"]["i18n"];
   \**********************************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"pz/pz-person-edit","version":"0.1.0","title":"PZ Person Edit","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","supports":{"html":false},"textdomain":"pzdata","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"field":{"type":"string"},"isEdit":{"type":"boolean","default":false},"isLevel":{"type":"boolean","default":false},"mustBeNew":{"type":"boolean","default":false},"redirectURL":{"type":"string","default":"/person-list"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"pz/pz-person-edit","version":"0.1.0","title":"PZ Person Edit","category":"widgets","icon":"smiley","description":"Form for editing or adding a person.","supports":{"html":false},"textdomain":"pzdata","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"field":{"type":"string"},"isEdit":{"type":"boolean","default":false},"isLevel":{"type":"boolean","default":false},"mustBeNew":{"type":"boolean","default":false},"redirectURL":{"type":"string","default":"/person-list"}}}');
 
 /***/ })
 

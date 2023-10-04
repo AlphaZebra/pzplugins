@@ -268,7 +268,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"pz/pzinteractiongrid","icon":"smiley","version":"0.1.0","title":"PZ Interaction Grid","category":"widgets","description":"Show a list of all interactions, by default associated with a project.","supports":{"html":false},"textdomain":"pzinteractiongrid","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"myheader":{"type":"string"},"siteURL":{"type":"string"},"addURL":{"type":"string","default":"/edit-interaction"},"editURL":{"type":"string","default":"/edit-interaction"},"interactionGridURL":{"type":"string"},"prj":{"type":"string","default":"1"},"appName":{"type":"string"},"backgroundColor":{"type":"string"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"pz/pzinteractiongrid","icon":"smiley","version":"0.1.0","title":"PZ Interaction Grid","category":"widgets","description":"Show a list of all interactions, by default associated with a project.","supports":{"html":false},"textdomain":"pzinteractiongrid","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","attributes":{"myheader":{"type":"string"},"siteURL":{"type":"string"},"addURL":{"type":"string","default":"/edit-interaction"},"editURL":{"type":"string","default":"/edit-interaction"},"interactionGridURL":{"type":"string","default":"/interaction-list"},"prj":{"type":"string","default":"1"},"appName":{"type":"string"},"backgroundColor":{"type":"string"}}}');
 
 /***/ })
 

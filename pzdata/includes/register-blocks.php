@@ -6,11 +6,11 @@ function pzdata_register() {
         // [ 'name' => 'pz_person_subscribe' ],
         // [ 'name' => 'pz_person_grid'],
         [ 'name' => 'pz_person_edit' ],
-        [ 'name' => 'pz_person_list' ],
+        // [ 'name' => 'pz_person_list' ],
         [ 'name' => 'pz_interaction' ],
-        [ 'name' => 'pz_inter_list' ],
+        // [ 'name' => 'pz_inter_list' ],
         [ 'name' => 'pz_page_access' ],
-        [ 'name' => 'pz_task_list' ],
+        // [ 'name' => 'pz_task_list' ],
         [ 'name' => 'pz_task_form' ],
         [ 'name' => 'pz_request_type' ],
         [ 'name' => 'pz_request_type_form' ],
@@ -18,15 +18,16 @@ function pzdata_register() {
         [ 'name' => 'pz_queue' ],
         [ 'name' => 'pz_add_person' ],
         [ 'name' => 'pz_logic' ],
+        [ 'name' => 'pz_tag_delete' ],
         [ 'name' => 'pz_link_form' ]
         // [ 'name' => 'pz_shortblock' ]
     ];
 
     foreach($blocks as $block) {
-        if( $block['name'] == 'shortblock') {
-            $render_prop = array( 'render_callback' => 'theBlockContent');
-        }
-        else if( $block['name'] == 'pz_person_edit') {
+        // if( $block['name'] == 'shortblock') {
+        //     $render_prop = array( 'render_callback' => 'theBlockContent');
+        // }
+        if( $block['name'] == 'pz_person_edit') {
             $render_prop = array( 'render_callback' => 'pz_person_block');
         }
         else if( $block['name'] == 'pz_person_list') {
@@ -65,6 +66,9 @@ function pzdata_register() {
         else if( $block['name'] == 'pz_logic') {
             $render_prop = array( 'render_callback' => 'pz_logic');
         }
+        else if( $block['name'] == 'pz_tag_delete') {
+            $render_prop = array( 'render_callback' => 'pz_tag_delete');
+        }
         else if( $block['name'] == 'pz_link_form') {
             $render_prop = array( 'render_callback' => 'pz_link_form');
         }
@@ -79,18 +83,18 @@ function pzdata_register() {
 }
 
 
-function theBlockContent($attributes) {
-    global $pz_personID;
-    if( isset($pz_personID)) {
-        $my_content = '<p>' . $attributes['content'] . '</p>';
-        // $my_content = $attributes['content'];
-        $my_content = do_shortcode( $my_content );
-        return $my_content;
-    }
-    else {
-        $my_content = '<p>' . $attributes['altContent'] . '</p>';
-        return $my_content;
-    }
+// function theBlockContent($attributes) {
+//     global $pz_personID;
+//     if( isset($pz_personID)) {
+//         $my_content = '<p>' . $attributes['content'] . '</p>';
+//         // $my_content = $attributes['content'];
+//         $my_content = do_shortcode( $my_content );
+//         return $my_content;
+//     }
+//     else {
+//         $my_content = '<p>' . $attributes['altContent'] . '</p>';
+//         return $my_content;
+//     }
     
-}
+// }
 

@@ -37,6 +37,7 @@ function do_person_edit_block( ) {
     $item['last_contact'] = isset($_POST['last_contact']) ? $_POST['last_contact'] : $created;
     $item['pz_level'] = isset($_POST['pz_level']) ? $_POST['pz_level'] : '3';
     $item['pz_status'] = isset($_POST['pz_status']) ? sanitize_text_field($_POST['pz_status']) : '6';
+    $item['pz_tags'] = isset($_POST['pz_tags']) ? sanitize_text_field($_POST['pz_tags']) : '6';
     $item['expires'] = '';
     $item['created']= $created;
 

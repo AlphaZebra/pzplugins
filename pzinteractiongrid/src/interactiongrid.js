@@ -28,7 +28,7 @@ const attributes = JSON.parse(xdiv.innerText);
 // if (window.location.hostname.includes("local")) {
 //   let interactionURL = "http://" + window.location.hostname;
 // } else {
-let interactionURL = "https://" + window.location.hostname;
+let interactionURL = window.location.protocol + "//" + window.location.hostname;
 // }
 
 if (attributes.per == "") {
@@ -63,12 +63,17 @@ function RenderEdit({ value }) {
   );
 }
 
-function RenderDelete({ value }) {
+function IntRenderDelete({ value }) {
   const url = window.location.href;
   return (
     <div>
       <form action="/wp-admin/admin-post.php" method="POST">
-        <input type="hidden" name="action" value="do-project-delete" required />
+        <input
+          type="hidden"
+          name="action"
+          value="do-interaction-delete"
+          required
+        />
         <input type="hidden" name="id" value={value} required />
         <input type="hidden" name="postDeleteURL" value={url} required />
         <button type="submit" name="submit" class="clearbutton">
@@ -125,6 +130,13 @@ const columns = [
     headerName: "  ",
     valueGetter: ({ id }) => id,
     renderCell: IntRenderEdit,
+    width: 30,
+  },
+  {
+    field: "delaction",
+    headerName: "  ",
+    valueGetter: ({ id }) => id,
+    renderCell: IntRenderDelete,
     width: 30,
   },
   { field: "per_id", headerName: "Person" },

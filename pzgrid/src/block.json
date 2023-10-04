@@ -35,7 +35,7 @@
     },
     "queryTail": {
       "type": "string",
-      "default": "WHERE id = 15"
+      "default": ""
     },
     "tag": {
       "type": "string"

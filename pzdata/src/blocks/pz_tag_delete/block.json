@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "pz/pz-tag-delete",
+  "version": "0.1.0",
+  "title": "PZ Tag Delete",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Display tag checkboxes and delete any checked items on submit.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "pzdata",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "field": {
+      "type": "string"
+    },
+    "listURL": {
+      "type": "string",
+      "default": "/tasks/"
+    },
+    "prompt": {
+      "type": "string"
+    }
+  }
+}
